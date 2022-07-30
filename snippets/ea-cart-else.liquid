@@ -1,0 +1,94 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-cart-else.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-cart-else.liquid file to code and save your changes. {% endcomment %}
+{% comment %} ATTENTION!!! This is compiled version of ea-cart-else.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-cart-else.liquid file to code and save your changes. {% endcomment %}
+
+{% assign upsell_block1 = false %}
+{% assign upsell_block2 = false %}
+
+{% if all_products[settings.cart_product1].available and settings.cart_product1 != blank %}
+  {% assign upsell_block1 = true %}
+{% endif %}
+
+{% if all_products[settings.cart_product2].available and settings.cart_product2 != blank %}
+  {% assign upsell_block1 = true %}
+{% endif %}
+
+{% if all_products[settings.cart_product3].available and settings.cart_product3 != blank %}
+  {% assign upsell_block2 = true %}
+{% endif %}
+
+{% if all_products[settings.cart_product4].available and settings.cart_product4 != blank %}
+  {% assign upsell_block2 = true %}
+{% endif %}
+
+
+{% if upsell_block1 == true or upsell_block2 == true %}
+
+  <div class="minicart_left">
+
+    <div class="cart-else_title">{{ settings.cart_other }}</div>
+
+
+    <div class="row hide__mobile upsell_recommend" data-upsell-wrapper data-product-recommendations data-arrows="false" data-slides-to-show="1" data-dots="false">
+    </div>
+
+    <div class="row hide__mobile upsell_static" data-hor-slider data-arrows="false" data-slides-to-show="1" data-dots="false">
+      {% if upsell_block1 == true %}
+        <div class="col-md-12">
+          {% if settings.cart_product1 != blank %}
+            {% render 'cart-else-item', cart_product: settings.cart_product1 %}
+          {% endif %}
+          {% if settings.cart_product2 != blank %}
+            {% render 'cart-else-item', cart_product: settings.cart_product2 %}
+          {% endif %}
+          {% if settings.cart_product3 != blank %}
+            {% render 'cart-else-item', cart_product: settings.cart_product3 %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if upsell_block2 == true %}
+        <div class="col-md-12">
+          {% if settings.cart_product4 != blank %}
+            {% render 'cart-else-item', cart_product: settings.cart_product4 %}
+          {% endif %}
+          {% if settings.cart_product5 != blank %}
+            {% render 'cart-else-item', cart_product: settings.cart_product5 %}
+          {% endif %}
+          {% if settings.cart_product6 != blank %}
+            {% render 'cart-else-item', cart_product: settings.cart_product6 %}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="hide--desktop">
+      <div class="row upsell_recommend" data-upsell-wrapper data-product-recommendations data-arrows="true" data-slides-to-show="2" data-dots="true">
+      </div>
+      <div class="row upsell_static" data-hor-slider data-arrows="true" data-slides-to-show="2" data-dots="false">
+        {% if settings.cart_product1 != blank %}
+          {% render 'cart-else-item', cart_product: settings.cart_product1 %}
+        {% endif %}
+        {% if settings.cart_product2 != blank %}
+          {% render 'cart-else-item', cart_product: settings.cart_product2 %}
+        {% endif %}
+        {% if settings.cart_product3 != blank %}
+          {% render 'cart-else-item', cart_product: settings.cart_product3 %}
+        {% endif %}
+        {% if settings.cart_product4 != blank %}
+          {% render 'cart-else-item', cart_product: settings.cart_product4 %}
+        {% endif %}
+        {% if settings.cart_product5 != blank %}
+          {% render 'cart-else-item', cart_product: settings.cart_product5 %}
+        {% endif %}
+        {% if settings.cart_product6 != blank %}
+          {% render 'cart-else-item', cart_product: settings.cart_product6 %}
+        {% endif %}
+      </div>
+    </div>
+
+  
+
+  </div>
+
+{% endif %}
+

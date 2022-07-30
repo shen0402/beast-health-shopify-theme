@@ -1,0 +1,71 @@
+{% comment %} ATTENTION!!! This is compiled version of theme.liquid and it is overriding automatically. You should use theme development tool and sources\layout\theme.liquid file to code and save your changes. {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% include 'elevar-head' %}
+    {{ content_for_header }}
+    {% include 'ea-head' %}
+    {{ shop.metafields.okendo.ReviewsWidgetStyleTag }}
+    {{ shop.metafields.okendo.StyleCustomizations }}
+    <!-- Start VWO Async SmartCode -->
+    <script type='text/javascript'>
+      window._vwo_code = window._vwo_code || (function(){
+      var account_id=557102,
+      settings_tolerance=2000,
+      library_tolerance=2500,
+      use_existing_jquery=false,
+      is_spa=1,
+      hide_element='body',
+      /* DO NOT EDIT BELOW THIS LINE */
+      f=false,d=document,code={use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){
+      window.settings_timer=setTimeout(function () {_vwo_code.finish() },settings_tolerance);var a=d.createElement('style'),b=hide_element?hide_element+'{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}':'',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);this.load('https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&f='+(+is_spa)+'&r='+Math.random());return settings_timer; }};window._vwo_settings_timer = code.init(); return code; }());
+      </script>
+      <!-- End VWO Async SmartCode -->
+  </head>
+
+  <body class="template-{{ template.name }} template-{{ template.name }}-{{ template.suffix }} animations-on  {% if template == 'product' %}product-page--{{ product.handle }}{% endif %}">
+    {% include 'elevar-body-end' %}
+    {% include 'elevar-checkout-end' %}
+
+    {% comment %} Code in elevar app already
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TFWWBGP"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    {% endcomment %}
+    
+    {% render 'ea-header' %}
+    {% section 'ea-megamenu--complex' %}
+    {% section 'ea-megamenu--complex1' %}
+    {% section 'ea-megamenu--complex2' %}
+    {% section 'ea-megamenu--complex3' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js+plugins/rias/ls.rias.min.js+plugins/optimumx/ls.optimumx.min.js)" async=""></script>
+    {%comment%}<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/gsap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/ScrollTrigger.js'></script>{%endcomment%}
+    <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=QRzHVj"></script>
+      
+    {{ content_for_layout }}
+
+    <div class="site-footer-container" data-site-footer>
+      {% section 'ea-footer' %}
+    </div>
+
+    <div class="menu-overlay"></div>
+
+    {% render 'product-quick-view-popup' %}
+
+    {% include 'subscription-theme-footer' %}
+    {% include 'ea-end' %}
+    {% render 'klaviyo-bis' %}
+    {% render 'afterpay' %}
+    {% render 'afterpay-popup' %}
+   
+    {% if template contains 'product' %}
+    {% render 'sticky-product' %}
+  {% endif %}
+  </body>
+</html>

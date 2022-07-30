@@ -1,0 +1,205 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-homeproduct.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-homeproduct.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="section-homeproduct">
+  <div class="container">
+    {% if set.title != blank or set.index != blank %}
+    <div class="section-homeproduct_main">
+      {% if set.title != blank %}
+        <div class="section-homeproduct_title">{{ set.title }}</div>
+      {% endif %}
+      {% if set.index != blank %}
+        <div class="section-homeproduct_index">{{ set.index }}</div>
+      {% endif %}
+    </div>
+    {% endif %}
+      <div class="section-homeproduct_blocks" data-hor-slider data-small-divice-only="1" data-arrows="true">
+        {% for block in section.blocks %}
+          {% assign product = all_products[block.settings.product] %}
+          <div class="section-homeproduct_block d-flex">
+            <div class="h-350">
+              <div class="section-homeproduct_image">
+                {% if product != blank %}
+                  <a href="{{ product.url }}">
+                {% endif %}
+                {% if block.settings.image == blank %}
+                  {% comment %}<img src="{{ product.featured_image  | img_url: 'master' }}" class="Rectangle-1600">{% endcomment %}
+                  {% render 'rimage', image: product.featured_image, size: '480x', wrapper_class: 'Rectangle-1600' %}
+                {% else %}
+                  {% comment %}<img src="{{ block.settings.image | img_url: 'master' }}" class="Rectangle-1600">{% endcomment %}
+                  {% render 'rimage', image: block.settings.image, size: '480x', wrapper_class: 'Rectangle-1600' %}
+                {% endif %}
+                {% if product != blank %}
+                  </a>
+                {% endif %}
+              </div>
+
+              <div class="section-homeproduct_productitle">
+                {% if product != blank %}
+                  <a href="{{ product.url }}">
+                {% endif %}
+                  {% if block.settings.title == blank %}
+                    {{ product.title }}
+                  {% else %}
+                    {{ block.settings.title }}
+                  {% endif %}
+                {% if product != blank %}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="section-homeproduct_info">
+              <div class="section-homeproduct_desc">
+                {% if block.settings.desc == blank %}
+                  {{ product.description }}
+                {% else %}
+                  {{ block.settings.desc }}
+                {% endif %}
+              </div>
+
+              <div class="section-homeproduct_price">
+                {% if block.settings.price == blank %}
+                  {% if product.compare_at_price != blank and product.compare_at_price > product.price %}
+                    <span class="compare-at-price">{{ product.compare_at_price | money }}</span>
+                  {% endif %}
+                  
+                  {{ product.price | money}}
+                {% else %}
+                  {{ block.settings.price | times: 100 | money}}
+                {% endif %}
+                
+                {% comment %}
+                <div class="section-homeproduct_pricecompare">
+                  {% assign price_change = product.compare_at_price | minus: product.price %}
+                  {% if price_change > 0 %}
+                  {% assign price_change1 = price_change | times: 100 %}
+                  {% assign price_change2 = price_change1 | divided_by: product.compare_at_price %}
+                  {% assign price_change3 = price_change2 | floor  %}
+                  <div class="section-homeproduct_pricechange">{{ price_change3 }}%</div>
+                  {% endif %}
+                </div>
+                {% endcomment %}
+              </div>
+            </div>
+            {%- comment -%}
+            <div class="hide--desktop cta-btn">
+              <a href="{{ product.url }}">Learn more</a>
+            </div>
+            {%- endcomment -%}
+          </div>
+        {% endfor %}
+    </div>
+    <div class="about-tech-slider_content hide--desktop">Swipe <br> left or right.</div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Section Homeproduct",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "index",
+      "label": "Index"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Price Block",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "price", 
+          "label": "Price"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desc", 
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product List",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

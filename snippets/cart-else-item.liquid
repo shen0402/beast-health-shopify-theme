@@ -1,0 +1,130 @@
+{% comment %} ATTENTION!!! This is compiled version of cart-else-item.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\cart-else-item.liquid file to code and save your changes. {% endcomment %}{% assign product_item = all_products[cart_product] %}
+{% assign current_variant = product_item.selected_or_first_available_variant %}
+{% if product_item.available and product_item.type != 'Gift Cards'%}
+<div class="cart-else-item" data-quick-atc-wrap data-variant-id="{{ current_variant.id }}">
+  <div class="product-cell-wrap">
+    <div {% if product_item.images.size > 1 %}class="hover_img"{% endif %}>
+      {%- comment -%} <img data-quick-atc-image src="{{ product_item.featured_image | img_url: 'master' }}">{%- endcomment -%}
+      <a href="{{ product_item.url }}" class="img_wrapper" data-test="{{ product_item.title }}"> 
+      <div class="img"> 
+          {% assign _image = product_item.featured_image %}
+          {% if product_item.variants.size > 1 %}
+            {% assign _image = current_variant.image  %}
+          {% endif %}
+          {% render 'rimage',
+            image: _image
+            alt: product_item.featured_image.alt,
+            wrapper_attributes: 'data-quick-atc-image',
+            image_attributes: 'data-quick-atc-image'
+          %}
+
+        </div>
+        {% if product_item.images.size > 1 %}
+        <div class="second_img">
+            {% if current_variant.metafields.global.variant_img != blank %}
+              <img src="{{ current_variant.metafields.global.variant_img }}" data-second-image alt="">
+            {% else %}
+              {% render 'rimage', image: product_item.images[1], paddingTop: '100', image_attributes: 'data-second-image' %}
+            {% endif %}
+        </div>
+      </a>
+      {% endif %}
+    </div>
+  <div class="cart-else_block_title">{{ product_item.title }}</div>
+  <div class="product-options__list">    
+    {% for optionName in product_item.options %}    
+      {% if optionName == 'Color' %}
+        {% assign is_color = true %}
+        {% assign color_option = product_item.options_by_name['Color'].values %}
+        
+        {% assign len = 0 %}
+        {% for option in product_item.options_by_name[optionName].values %}
+          {% for variant in product_item.variants %}
+            {% if variant.option1 == option %}
+              {% assign option_variant = variant %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          {% if option_variant.available %}
+            {% assign len = len | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+
+        {% for option in product_item.options_by_name[optionName].values %}
+          {% for variant in product_item.variants %}
+            {% if variant.option1 == option %}
+              {% assign option_variant = variant %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign h_img = option_variant.image | img_url: '800x' %}
+          {% assign meta_img_url = option_variant.metafields.variant.hover_img %}
+          {% assign meta_img = option_variant.metafields.global.variant_img %}
+          {% unless meta_img_url == blank %}
+            {% for image in product_item.images %}
+              {% assign _img_url = image.src | split: 'products/' %}
+              {% assign img_url = _img_url[1] %}
+              {% if meta_img_url == img_url %}
+                {% comment %}{% assign h_img = image | img_url: "800x" %}{% endcomment %}
+              {% endif %}
+            {% endfor %}
+          {% endunless %}
+          {% if meta_img != blank %}
+            {% assign h_img = meta_img %}
+          {% endif %}
+          {% if forloop.first %}
+            {% assign h_img = product_item.images[1] | img_url: '800x' %}
+          {% endif %}
+
+          <div class="product-option">
+            <label 
+              class="product-option__color {% if is_color %}color_option__label{% endif %} {% if current_variant.option1 == option %}checked{% endif %} {% unless option_variant.available %}is-disabled{% endunless %}" 
+              data-quick-atc-swatch
+              data-variant-id="{{ option_variant.id }}"
+              data-variant-image="{% if option_variant.image != blank %}{{ option_variant.image | img_url: '600x' }}{% endif %}"  
+              data-variant-hover-image="{{ h_img }}"
+              {% if is_color %}data-color-name="{{ option | replace: ' ', '-' | downcase }}"{% endif %}
+              data-variant-price="{{ option_variant.price }}"
+              data-variant-compare-price="{{ option_variant.compare_at_price }}"
+              >
+              {% comment %}{% render 'icon' with 'icon-circle-close' %}{% endcomment %}
+            </label>
+          </div>
+          {% comment %}
+          {% if option_variant.available %}
+            {% if len > 1 %}
+            <div class="product-option">
+              <label class="product-option__color {% if is_color %}color_option__label{% endif %} {% if current_variant.option1 == option %}checked{% endif %}" 
+                class="product-option__label" data-quick-atc-swatch data-variant-id="{{ option_variant.id }}" data-variant-image="{% if option_variant.image != blank %}{{ option_variant.image | img_url: '600x' }}{% endif %}"  {% if is_color %}data-color-name="{{ option | replace: ' ', '-' | downcase }}"{% endif %}>
+              </label>
+            </div>
+            {% endif %}
+          {% endif %}
+          {% endcomment %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <span class="hide--desktop cart-else-price">
+    <span class="price">{{ current_variant.price | money }}</span>
+  </span> 
+  <div class="cart-else_block_button">    
+    <div class="cart_btn">  
+
+        <div class="d-flex product-add-to-cart">
+          <button type="submit" name="add" class="add_cart" data-quick-atc-btn>
+            <span class="hide--mobile">
+              <span class="show-on-hover">{{ current_variant.price | money }}</span>
+              <span class="hide-on-hover" data-btn-label>add</span>
+            </span>          
+            <span class="hide--desktop" data-btn-label>add</span>
+          </button>
+        </div>
+      
+      
+    </div>
+  </div>
+</div>
+</div>
+{% endif %}

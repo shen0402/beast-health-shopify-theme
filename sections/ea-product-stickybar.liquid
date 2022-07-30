@@ -1,0 +1,105 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-stickybar.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-stickybar.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="sticky">
+  <ul class="anchors-items">
+    {% for block in section.blocks %}
+      {% assign i = forloop.index0 %}
+      <li class="anchors-item">
+        <a href="{{ block.settings.url }}" class="product-sticky-bar hide--mobile" data-sticky-bar{{i}}>{{ block.settings.title | upcase }}</a>
+        {% if block.settings.sp_title == blank %}
+          {% assign sp_title = block.settings.title %}
+        {% else %}
+          {% assign sp_title = block.settings.sp_title %}
+        {% endif %}
+        <a href="{{ block.settings.url }}" class="product-sticky-bar hide--desktop" data-sticky-bar{{i}}>{{ sp_title | upcase }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="action-btn-c hide--mobile">
+    <div class="add-cart {% if product.available %} available {% else %} none-available {% endif %}"><a class="sticky-add-to-cart {% if product.available %} available {% else %} none-available {% endif %}" href="{{ product.url }}" data-id="{{product.id}}">{% if product.available %}Add To Bag &nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="19.496" height="13.01" viewBox="0 0 19.496 13.01"> <path fill="#fff" d="M39.527 29.5a1.087 1.087 0 0 0-.3-.762l-5.42-5.42a1.084 1.084 0 1 0-1.541 1.524l3.574 3.574H21.115a1.084 1.084 0 0 0 0 2.168h14.72l-3.574 3.574a1.084 1.084 0 1 0 1.539 1.523l5.42-5.42a1.087 1.087 0 0 0 .3-.762z" transform="translate(-20.031 -22.987)"/> </svg>{% else %} Sold Out {% endif %}</a></div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Product Sticky Bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "sp_title",
+          "label": "Mobile Title"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

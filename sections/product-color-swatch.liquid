@@ -1,0 +1,44 @@
+{% comment %} ATTENTION!!! This is compiled version of product-color-swatch.liquid and it is overriding automatically. You should use theme development tool and sources\sections\product-color-swatch.liquid file to code and save your changes. {% endcomment %}<style>
+  {% for block in section.blocks %}
+      {% assign color_name = block.settings.title | replace: ' ', '-' | downcase %}
+      [data-color-name="{{ color_name }}"], [data-color-name="{{ color_name }}"] > div {
+          background-color: {{ block.settings.color }} !important;
+          {% if block.settings.image != blank %}
+          background-image: url({{ block.settings.image | img_url: '50x' }}) !important;
+          {% endif %}
+      }
+  {% endfor %}
+</style>
+
+
+{% schema %}
+{
+  "name": "Color Swatch",
+  "class": "color-swatch",
+  "settings": [],
+  "blocks": [
+      {
+          "type": "color-swatch",
+          "name": "Color Swatch",
+          "settings": [
+              {
+                  "type": "text",
+                  "id": "title",
+                  "label": "Color Name"
+              },
+              {
+                  "type": "image_picker",
+                  "id": "image",
+                  "label": "Color Image"
+              },
+              {
+                  "type": "color",
+                  "id": "color",
+                  "label": "Color",
+                  "default": "transparent"
+              }
+          ]
+      }
+  ]
+}
+{% endschema %}

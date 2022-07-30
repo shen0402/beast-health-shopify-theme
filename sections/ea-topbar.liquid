@@ -1,0 +1,80 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-topbar.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-topbar.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% capture topbar %}
+<div class="topbar" data-top-bar>
+  <div class="container">
+    {% if set.topbar_text1 != blank %}
+      <div class="topbar__text hide--mobile">
+        {{ set.topbar_text1 }}
+        {% if settings.header_afterpay %}
+          <a href="javascript:;" data-afterpay-open="afterpay-popup">{{ settings.afterpay_logo}}</a>
+        {% endif %}
+      </div>
+      <div class="topbar__text hide--desktop">
+        {{ set.topbar_text_mob }}
+        {% if settings.header_afterpay %}
+          <a href="javascript:;" data-afterpay-open="afterpay-popup">{{ settings.afterpay_logo}}</a>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if set.topbar_text2 != blank %}
+      <div class="topbar__text">{{ set.topbar_text2 }}</div>
+    {% endif %}
+    {% if set.topbar_menu != blank %}
+      <nav class="nav hide--mobile">
+        <ul class="nav__items">
+          {% for link in linklists[set.topbar_menu].links %}
+            <li class="nav__item">
+              <a href="{{ link.url }}" class="nav__link">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</div> <!-- /.topbar -->
+{% endcapture %}
+
+{% if set.hide_bar %}
+  {% unless template.suffix == 'tech' %}
+    {{ topbar }}
+  {% endunless %}
+{% else %}
+  {{ topbar }}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Top Bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "topbar_text1",
+      "label": "Top bar text"
+    },
+    {
+      "type": "richtext",
+      "id": "topbar_text_mob",
+      "label": "Top bar text (Mobile)"
+    },
+    {
+      "type": "link_list",
+      "id": "topbar_menu",
+      "label": "Top bar menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_afterpay",
+      "label": "Show Afterpay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_bar",
+      "label": "Hide on tech page",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

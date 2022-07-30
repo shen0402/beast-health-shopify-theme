@@ -1,0 +1,134 @@
+{% comment %} ATTENTION!!! This is compiled version of product-upsells-b.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-upsells-b.liquid file to code and save your changes. {% endcomment %}{% assign u_products = product.metafields.upsell.product %}
+
+{% if section.settings.enable_upsell and u_products != blank %}
+  <div class="product-upsell">
+    <div class="product-upsell-wrapper">
+      <div class="product-upsell-header">
+        {% if product.metafields.upsell.upsell_title != blank %}
+          <div class="product-upsell-title">{{ product.metafields.upsell.upsell_title }}</div>
+        {% endif %}
+        {% if product.metafields.upsell.upsell_description != blank %}
+          <div class="product-upsell-description">{{ product.metafields.upsell.upsell_description }}</div>
+        {% endif %}
+      </div>
+      <div class="product-upsell-items" {% if u_products.size > 1 %}data-hor-slider data-arrows="true" data-dots="false" data-autoplay="false"{% endif %}>
+        {% for u in u_products %}
+          {% assign idx = forloop.index0 %}
+          {% assign _product = all_products[u] %}
+
+          {% assign handle = '/' | append: _product.handle %}
+
+          <div class="product-upsell-item">
+            <div class="product-upsell-item-wrapper d-flex">
+              <div class="product-upsell-image">{% render 'rimage', image: _product.variants.first.image, size: '300x' %}</div>
+              <div class="product-upsell-meta d-flex">
+
+                {% assign opt_idx = null %}
+                {% for option in _product.options %}
+                  {% if option == 'Color' or option == 'Colour' %}
+                    {% if _product.options_by_name[option].values.size > 1 %}
+                      {% assign opt_idx = forloop.index %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                <div class="product-upsell-info">
+                  <div data-oke-reviews-product-listing-rating>{{ _product.metafields.okendo.ProductListingSnippet }}</div>
+                  <div class="product-upsell-item-title">{{ _product.title }}</div>
+                </div>
+
+                <div class="product-upsell-price d-flex">
+                  <div class="price-wrapper d-flex">
+                    <div class="prices">
+                      {% assign discount = product.metafields.upsell.discount[idx] | plus: 0 %}
+                      {% assign discount_type = product.metafields.upsell.discount_type[idx] | handle %}
+
+                      {% assign price = _product.price %}
+
+                      {% if discount != blank and discount_type != blank %}
+                        {% assign price = price %}
+                        {% if discount_type == 'percent' %}
+                          {% assign per = 100 | minus: discount %}
+                          {% assign price = price | times: per | divided_by: 100 | money %}
+                        {% else %}
+                          {% assign discount_price = discount | times: 100 %}
+                          {% assign price = price | minus: discount_price | money %}
+                        {% endif %}
+                        <span class="was-price">{{ _product.price | money }}</span>
+                      {% endif %}
+
+
+                      <span class="regular-price">
+                        {% if discount != blank and discount_type != blank %}
+                          {{ price }}
+                        {% else %}
+                          {{ _product.price | money }}
+                        {% endif %}
+                      </span>
+                    </div>
+
+                    {% if discount != blank and discount_type != blank %}
+                      <div class="save-badge">You Save {% if discount_type == 'percent' %}{{ discount }}%{% else %}{{ discount | times: 100 | money }}{% endif %}</div>
+                    {% endif %}
+
+                  </div>
+                  {% comment %}
+                  {% if opt_idx == null %}
+                    <div class="product-upsell-atc-form" data-id="{{ _product.selected_or_first_available_variant.id }}">
+                      <button class="btn m-green" data-ajax-atc-btn>
+                        <span class="label-add">add to bag</span>
+                        <span class="label-added">added</span>
+                      </button>
+                    </div>
+                  {% endif %}
+                  {% endcomment %}
+                </div>
+
+                <div class="product-upsell-item-desc">{{ product.metafields.upsell.desc[idx] | default: _product.description }}</div>
+
+                <div class="product_variants-wrapper" >
+                  <div class="product_variants product_variants_color" data-product-upsell-variants>
+                    {% if opt_idx != null %}
+                      {% if _product.options contains 'Color' or _product.options contains 'Colour' %}
+                      {% assign _index = opt_idx | minus: 1 %}
+                      <div class="upsell_option">
+                        <h6>{{ product.options[_index] }}:</h6>
+                        <div class="upsell_option_variants">
+                          {% assign list = '' %}
+                          {% assign index = idx %}
+                          {% for variant in _product.variants %} 
+                            {% assign handle = 'option' | append: opt_idx %}
+                            {% assign option = variant[handle] %}
+                            {% unless list contains option %}
+                              {% assign idx = idx | plus: 1 %}
+                              {% assign vImg = variant.image %}
+                              <div class="product_option" data-product-variant-option data-variant-img="{{ vImg | img_url: '800x' }}" data-in-stock="{% if variant.available  %}true{% else %}false{% endif %}" data-variant-url="{{ variant.url }}" data-variant-id="{{ variant.id }}">
+                                <input type="radio" id="product-option-color-{{ option | handle }}" name="product-option-color-{{ index }}" {% if list == '' %}checked{% endif %} data-option_value="{{ option }}">
+                                <label for="product-option-color-{{ option | handle }}" data-color-name="{{ option | handle }}"></label>
+                              </div>
+                              {% assign list = list | append: '&&' | append: option %}
+                            {% endunless %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                  <div class="product-upsell-atc-form" data-id="{{ _product.selected_or_first_available_variant.id }}">
+                    <button class="btn m-green" {% unless _product.available %}disable{% endunless %} data-ajax-atc-btn>
+                      <span class="label-add">{% if _product.available %}add{% else %}sold out{% endif %}</span>
+                      <span class="label-added">added</span>
+                    </button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% if u_products.size > 1 %}
+        <div class="slider-info">Scroll left to see more products.</div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

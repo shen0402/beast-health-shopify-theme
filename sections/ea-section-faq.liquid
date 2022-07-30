@@ -1,0 +1,153 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-faq.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-faq.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+<div class="container">
+  <div class="faq-main" data-accordions-container>
+    {% for block in section.blocks %}
+      {% if block.settings.parent_id == true %}
+        {% assign i = forloop.index0 %}
+        {% if i != 0 %} </div> {% endif %}
+        <div class="faq-item accordion" data-accordion>
+          <h3 class="faq-item__title accordion__title {% if i == 0 %} is-open {% endif %}" data-accordion-title>
+            <span>{{ block.settings.title }}</span>
+            <i class="icon-plus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30.375" height="30.375" viewBox="0 0 30.375 30.375">
+                <path fill="#1c1c1c" d="M40.188 25a1.214 1.214 0 0 0-1.215 1.215v12.758H26.215a1.215 1.215 0 0 0 0 2.43h12.758V54.16a1.215 1.215 0 0 0 2.43 0V41.4H54.16a1.215 1.215 0 0 0 0-2.43H41.4V26.215A1.214 1.214 0 0 0 40.188 25z" transform="translate(-25 -25)"/>
+              </svg>
+            </i>
+            <i class="icon-minus">
+              <svg xmlns="http://www.w3.org/2000/svg" width="42.957" height="42.957" viewBox="0 0 42.957 42.957">
+                <path fill="#1c1c1c" d="M40.188 25a1.214 1.214 0 0 0-1.215 1.215v12.758H26.215a1.215 1.215 0 0 0 0 2.43h12.758V54.16a1.215 1.215 0 0 0 2.43 0V41.4H54.16a1.215 1.215 0 0 0 0-2.43H41.4V26.215A1.214 1.214 0 0 0 40.188 25z" transform="rotate(45 53.416 8.249)"/>
+              </svg>
+            </i>
+          </h3>
+      {% else %}
+        <div class="faq-item accordion subfaq" data-subaccordion {% if i != 0 %} style="display: none;" {% endif %}>
+          <h3 class="faq-item__subtitle accordion__title" data-accordion-button>
+              <span>{{ block.settings.title }}</span>              
+          </h3>
+          <div class="faq-item__content accordion__content" data-accordion-content>
+            {% if block.settings.image != blank %}
+              <div class="image_wrapper {% if block.settings.img_half %}half_width{% endif %}">
+                {% render 'rimage', image: block.settings.image %}
+              </div>
+            {% endif %}
+            {{ block.settings.content }}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+    <div class="faq-item__sub">
+      <div class="faq-item__question">{{ set.title }}</div>
+      <a href="{{ set.url }}" class="faq-item__contact"><span  class="faq-item__button">{{ set.button }}</span></a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Section Faq",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Contact Url"
+    }
+  ],
+  "blocks": [
+    { 
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "img_half",
+          "label": "Image half width ?"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content", 
+          "label": "Content"
+        },
+        {
+          "type": "checkbox",
+          "id": "parent_id",
+          "label": "Parent Faq",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

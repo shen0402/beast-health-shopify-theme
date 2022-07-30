@@ -1,0 +1,170 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-header.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-header.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of ea-header.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-header.liquid file to code and save your changes. {% endcomment %}<header class="site-header-container {{ class }}" data-site-header>
+
+  {% section 'ea-topbar' %}
+
+  {% capture 'menu' %}
+    {% section 'ea-megamenu' %}
+  {% endcapture %}
+
+  <section class="site-header {{ class }}{% if template.name != 'index' and template.name != 'product' %} subpage {% endif %}" id="site-header">
+    <div class="container">
+      {% if template.name == 'index' or template.name == 'product' %}
+        <button class="btn site-header__toggle hide--desktop" data-open-menu><span></span><span></span><span></span></button>
+      {% else %}
+        <button class="btn site-header__toggle subpage hide--desktop" data-open-menu><span></span><span></span><span></span></button>
+      {% endif %}
+
+      <div class="site-header__logo">
+        <a href="/">
+          {% if settings.logosvg != blank %}
+            {% if template.suffix == 'tech' %}
+              <span class="logo_page_special"><svg xmlns="http://www.w3.org/2000/svg" width="453.55" height="114.64" viewBox="0 0 453.55 114.64">
+                <g id="logo" transform="translate(0 0.01)">
+                  <path id="Path_58405" data-name="Path 58405" d="M13.06,118.14a6.38,6.38,0,0,1-6.36-6.36V14a6.38,6.38,0,0,1,6.36-6.36H48.19c17.65,0,28.94,8.74,28.94,28.3C77.13,48,74,54.87,62.82,59.32,73.15,61.7,81.26,69.81,81.26,85.71c0,22.41-11.13,32.43-34.66,32.43Zm17-66.29H41.83c8.43,0,11.29-4.46,11.29-12.72S49.62,27.2,41.51,27.2H30.07Zm0,46.89h12.4c9.22,0,13.19-4.45,13.19-14.3,0-8.75-3-13.84-13.19-13.84H30.07Z" transform="translate(-6.7 -5.58)" fill="#fffdfc"/>
+                  <path id="Path_58406" data-name="Path 58406" d="M112.9,118.14a6.38,6.38,0,0,1-6.36-6.36V14a6.38,6.38,0,0,1,6.36-6.36h46.42A6.38,6.38,0,0,1,165.68,14v7.47a6.38,6.38,0,0,1-6.36,6.36H130.39V50.89h21.78a6.37,6.37,0,0,1,6.35,6.36v6.84a6.38,6.38,0,0,1-6.35,6.36H130.39V97.79H162a6.38,6.38,0,0,1,6.36,6.36v7.63a6.38,6.38,0,0,1-6.36,6.36Z" transform="translate(-6.7 -5.58)" fill="#fffdfc"/>
+                  <path id="Path_58407" data-name="Path 58407" d="M190.8,118.14a4.72,4.72,0,0,1-4.61-6l28-98.41a8.53,8.53,0,0,1,8.11-6h11.9a8.3,8.3,0,0,1,8,6.2l26.71,98.09a5,5,0,0,1-4.77,6.2H251.53a8,8,0,0,1-7.79-6.2L240.08,95.8H214.17l-4,16.22a8,8,0,0,1-7.79,6.2Zm32.43-59-4.61,18.6H236l-4.29-18.6a180,180,0,0,1-4-23h-.16a176.53,176.53,0,0,1-4.32,23.02Z" transform="translate(-6.7 -5.58)" fill="#fffdfc"/>
+                  <path id="Path_58408" data-name="Path 58408" d="M321.64,120.21c-11.61,0-22.42-2.86-30.05-6.84a6.77,6.77,0,0,1-3.18-8.74l3-6.84a5.85,5.85,0,0,1,8.11-2.86A41.51,41.51,0,0,0,319.41,100c11.13,0,15.9-4.93,15.9-13,0-8.74-4.61-11.13-14.78-14.31C302.24,67,290.64,60,290.64,38c0-22.41,14.31-32.43,35-32.43,10.34,0,17.65,1.59,24.33,4.61a6.49,6.49,0,0,1,3,8.43l-3,6.2A6.41,6.41,0,0,1,341.51,28a34.88,34.88,0,0,0-14-2.39c-8.27,0-12.72,3.66-12.72,10.5,0,7.47,2.55,10.17,12.56,13.35,17.81,5.41,32.91,11.29,32.91,35.61C360.27,106.06,350.41,120.21,321.64,120.21Z" transform="translate(-6.7 -5.58)" fill="#fffdfc"/>
+                  <path id="Path_58409" data-name="Path 58409" d="M408.28,118.14a6.38,6.38,0,0,1-6.36-6.36V28H384.44a6.38,6.38,0,0,1-6.36-6.36V14a6.38,6.38,0,0,1,6.36-6.36h58.5A6.38,6.38,0,0,1,449.3,14v7.63A6.38,6.38,0,0,1,442.94,28H425.45v83.78a6.38,6.38,0,0,1-6.36,6.36Z" transform="translate(-6.7 -5.58)" fill="#fffdfc"/>
+                  <path id="Path_58410" data-name="Path 58410" d="M457.15,116.7a10.32,10.32,0,0,1-17.57-7.41,9.86,9.86,0,0,1,3.23-7.53,10.13,10.13,0,0,1,7.1-2.81,10.36,10.36,0,0,1,7.24,17.75Zm-13.3-13.4a8.57,8.57,0,0,0,0,12.08,8.46,8.46,0,0,0,12,0,8.37,8.37,0,0,0,2.49-6.08,8.26,8.26,0,0,0-2.48-6,8.37,8.37,0,0,0-12.09,0Zm1.54,11.7V103.58h5.55a5.43,5.43,0,0,1,2.26.59,2.89,2.89,0,0,1,1.52,2.73,2.54,2.54,0,0,1-.8,2.09,3.79,3.79,0,0,1-2,.76,3.76,3.76,0,0,1,1.63.67,3.11,3.11,0,0,1,1,2.56v1.33a1.868,1.868,0,0,0,.08.34l.11.32h-2.86a8.349,8.349,0,0,1-.19-1.58,5.27,5.27,0,0,0-.19-1.4,1.4,1.4,0,0,0-.84-.84,3.18,3.18,0,0,0-1-.19h-1.29v4Zm5.46-9.19a4.94,4.94,0,0,0-1.73-.24h-.73v3.32h1.16a2.78,2.78,0,0,0,1.64-.42,1.56,1.56,0,0,0,.59-1.36,1.31,1.31,0,0,0-.93-1.27Z" transform="translate(-6.7 -5.58)" fill="#fffdfc"/>
+                </g>
+              </svg></span>
+            {% else %}
+              <span class="logo_default">{{ settings.logosvg }}</span>
+            {% endif %}
+          {% elsif settings.logo != blank %}
+            <img src="{{ settings.logo | img_url: '200x' }}" alt="{{ settings.logo.alt }}" class="hide--mobile">
+            {% if template.name == 'index' or template.name == 'product' %}
+              <img src="{{ settings.sp_home_logo | img_url: '200x' }}" alt="{{ settings.sp_logo.alt }}" class="hide--desktop">
+            {% else %}
+              <img src="{{ settings.sp_logo | img_url: '200x' }}" alt="{{ settings.sp_logo.alt }}" class="hide--desktop">
+            {% endif %}
+          {% else %}
+            {{ shop.name }}
+          {% endif %}
+        </a>
+      </div>
+    
+      {%- comment -%}
+      {% if settings.shop_button_link != blank and settings.enable_shop_button %}
+        <div class="site-header__nav site-header__shop index hide--mobile" {% if template.name != 'product' %}{% if template.name == 'collection' %}data--hidden {% endif %}{% endif %} data-nav-shop>
+          <a href="{{ settings.shop_button_link }}">{{ settings.shop_button }}</a>
+        </div>
+      {% endif %}
+{%- endcomment -%}
+      <div class="site-header__nav hide--mobile">
+        {{ menu }}
+      </div>
+
+      <div class="site-header__nav site-header__nav-empty">
+        <div class="p-r cart-wrapper" data-nav-cart>
+          <a href="/cart" data-minicart-toggle>
+            <div class="cart-count-wrap {% if cart.item_count == 0 %}empty_cart{% endif %}">
+              <span data-cart-count>{{ cart.item_count }}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22.299" height="28.199" viewBox="0 0 22.299 28.199">
+                <g id="Group_7376" data-name="Group 7376" transform="translate(-316 -13)">
+                  <g id="Group_7377" data-name="Group 7377">
+                    <path id="np_bag_3219622_000000" d="M36.11,10.164H30.4v-.31a4.791,4.791,0,1,0-9.582,0v.31H15.118a.655.655,0,0,0-.653.655V32.609a.653.653,0,0,0,.653.653H36.11a.653.653,0,0,0,.653-.653V10.819a.655.655,0,0,0-.653-.655Zm-13.981-.31a3.484,3.484,0,0,1,6.969,0v.31H22.129Zm13.326,22.1H15.772V11.472H35.456Z" transform="translate(301.536 7.937)" fill="#f50"/>
+                    <rect id="Rectangle_2101" data-name="Rectangle 2101" width="21" height="21" transform="translate(317 19)" fill="#f50"/>
+                  </g>
+                </g>
+              </svg>            
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+      
+      {% if settings.shop_button != blank %}
+        {% if template.name != 'product' and template.name != 'collection' %}
+          {% if settings.shop_button_link != blank and settings.enable_shop_button %}
+            <div class="site-header__shop hide--desktop" {% if cart.item_count > 0 %}data--hidden{% endif %} data-nav-shop-btn>
+              <a href="{{ settings.shop_button_link }}">{{ settings.shop_button }}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+
+    </div> <!-- /.container -->
+    {% if page.handle == 'about-us' or page.handle == 'faq' %}
+      <div class="section-sticky-bar_content hide--mobile">
+        <div class="container section-sticky-bar_main">
+          {% assign product = all_products['b10-health-blender'] %}
+          <div class="section-sticky-bar_left"><div class="section-sticky-bar_title" data-sticky-product-title>{{ product.title }}</div></div>
+          <div class="section-sticky-bar_right">
+            <div class="section-sticky-bar_product"><a href="{{ settings.product_url }}" data-sticky-product-url>{{ settings.product_back }}</a></div>
+              <form id="addToCartForm" action="/cart/add" method="post">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-sticky-variant-id>
+                <div class="section-sticky-bar_shop" data-sticky-atc>
+                  add <svg xmlns="http://www.w3.org/2000/svg" width="15.502" height="8.744" viewbox="0 0 15.502 8.744" style="margin-left: 5px;"> <path fill="#fffdfc" fill-rule="evenodd" d="M52.824 46.688l-2.279 2.277a.775.775 0 0 0 1.1 1.1l3.6-3.6a.775.775 0 0 0 0-1.1c-1.769-1.767-3.321-3.321-3.6-3.594a.775.775 0 0 0-1.1 1.1l2.269 2.269H40.74a.775.775 0 0 0 0 1.551z" transform="translate(-39.965 -41.545)"></path></svg>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <script>
+          var title = localStorage.getItem('pTitle');
+          var id = localStorage.getItem('vId');
+          var url = localStorage.getItem('productUrl');
+          if(title != null && id != null && url != null) {
+            $("[data-sticky-product-url]").attr('href', url);
+            $("[data-sticky-product-title]").text(title);
+            $("[data-sticky-variant-id]").val(id);
+          }
+        </script>
+    {% endif %}
+
+    {% section 'product-color-swatch' %}
+  </section> <!-- /.site-header -->
+</header> <!-- /.site-header-container -->
+
+<div class="sidenav hide--desktop">
+  
+  <div class="sidenav_header_bg"></div>
+  <button class="sidenav__close btn m-icon-only" aria-label="sidenav close" data-open-menu>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20.927" height="20.921" viewBox="0 0 20.927 20.921"> <g> <path d="M26.41 27.157a.747.747 0 0 1-.53-.217L6.456 7.517a.75.75 0 0 1 1.061-1.061L26.941 25.88a.747.747 0 0 1-.53 1.278z" transform="translate(-6.23 -6.236) translate(-.004)"/> <path d="M6.982 27.157a.747.747 0 0 1-.53-1.278L25.875 6.456a.75.75 0 0 1 1.061 1.061L7.513 26.941a.746.746 0 0 1-.53.217z" transform="translate(-6.23 -6.236)"/> </g> </svg>
+    <span class="close_menu">Close Menu</span>
+  </button>
+  <a class="site-header__logo sidenav__close m-icon-only_logo" href="/">
+    {% if settings.logosvg != blank %}
+      {{ settings.logosvg }}
+    {% elsif settings.sp_logo != blank %}
+      <img src="{{ settings.sp_logo | img_url: '200x' }}" alt="{{ settings.sp_logo.alt }}">
+    {% endif %} 
+  </a>
+  <div class="side-menu-wrap">
+    <div>
+      {% if settings.shop_button_link != blank and settings.enable_shop_button %}
+        <div class="site-header__shop_sp {% if request.path contains '/collections/' %}active{% endif %}"><a href="{{ settings.shop_button_link }}">{{ settings.shop_button }}</a></div>
+      {% endif %}
+      <div class="hide--desktop">
+        {{ menu }}
+      </div>
+    </div>
+    <div class="side-menu-social" style="display: flex;justify-content: center;">
+      {% if settings.social_instagram_link != blank %}
+        <a target="blank" href="{{ settings.social_instagram_link }}" style="padding-right: 10px;"><svg viewBox="0 0 511 511.9" width="19.248" height="19.248" xmlns="http://www.w3.org/2000/svg"><path d="m510.949219 150.5c-1.199219-27.199219-5.597657-45.898438-11.898438-62.101562-6.5-17.199219-16.5-32.597657-29.601562-45.398438-12.800781-13-28.300781-23.101562-45.300781-29.5-16.296876-6.300781-34.898438-10.699219-62.097657-11.898438-27.402343-1.300781-36.101562-1.601562-105.601562-1.601562s-78.199219.300781-105.5 1.5c-27.199219 1.199219-45.898438 5.601562-62.097657 11.898438-17.203124 6.5-32.601562 16.5-45.402343 29.601562-13 12.800781-23.097657 28.300781-29.5 45.300781-6.300781 16.300781-10.699219 34.898438-11.898438 62.097657-1.300781 27.402343-1.601562 36.101562-1.601562 105.601562s.300781 78.199219 1.5 105.5c1.199219 27.199219 5.601562 45.898438 11.902343 62.101562 6.5 17.199219 16.597657 32.597657 29.597657 45.398438 12.800781 13 28.300781 23.101562 45.300781 29.5 16.300781 6.300781 34.898438 10.699219 62.101562 11.898438 27.296876 1.203124 36 1.5 105.5 1.5s78.199219-.296876 105.5-1.5c27.199219-1.199219 45.898438-5.597657 62.097657-11.898438 34.402343-13.300781 61.601562-40.5 74.902343-74.898438 6.296876-16.300781 10.699219-34.902343 11.898438-62.101562 1.199219-27.300781 1.5-36 1.5-105.5s-.101562-78.199219-1.300781-105.5zm-46.097657 209c-1.101562 25-5.300781 38.5-8.800781 47.5-8.601562 22.300781-26.300781 40-48.601562 48.601562-9 3.5-22.597657 7.699219-47.5 8.796876-27 1.203124-35.097657 1.5-103.398438 1.5s-76.5-.296876-103.402343-1.5c-25-1.097657-38.5-5.296876-47.5-8.796876-11.097657-4.101562-21.199219-10.601562-29.398438-19.101562-8.5-8.300781-15-18.300781-19.101562-29.398438-3.5-9-7.699219-22.601562-8.796876-47.5-1.203124-27-1.5-35.101562-1.5-103.402343s.296876-76.5 1.5-103.398438c1.097657-25 5.296876-38.5 8.796876-47.5 4.101562-11.101562 10.601562-21.199219 19.203124-29.402343 8.296876-8.5 18.296876-15 29.398438-19.097657 9-3.5 22.601562-7.699219 47.5-8.800781 27-1.199219 35.101562-1.5 103.398438-1.5 68.402343 0 76.5.300781 103.402343 1.5 25 1.101562 38.5 5.300781 47.5 8.800781 11.097657 4.097657 21.199219 10.597657 29.398438 19.097657 8.5 8.300781 15 18.300781 19.101562 29.402343 3.5 9 7.699219 22.597657 8.800781 47.5 1.199219 27 1.5 35.097657 1.5 103.398438s-.300781 76.300781-1.5 103.300781zm0 0"/><path d="m256.449219 124.5c-72.597657 0-131.5 58.898438-131.5 131.5s58.902343 131.5 131.5 131.5c72.601562 0 131.5-58.898438 131.5-131.5s-58.898438-131.5-131.5-131.5zm0 216.800781c-47.097657 0-85.300781-38.199219-85.300781-85.300781s38.203124-85.300781 85.300781-85.300781c47.101562 0 85.300781 38.199219 85.300781 85.300781s-38.199219 85.300781-85.300781 85.300781zm0 0"/><path d="m423.851562 119.300781c0 16.953125-13.746093 30.699219-30.703124 30.699219-16.953126 0-30.699219-13.746094-30.699219-30.699219 0-16.957031 13.746093-30.699219 30.699219-30.699219 16.957031 0 30.703124 13.742188 30.703124 30.699219zm0 0"/></svg></a>
+      {% endif %}
+      {% if settings.social_tiktok_link != blank %}
+        <a target="blank" href="{{ settings.social_tiktok_link }}" style="padding-right: 10px;"><svg width="19.248" height="19.248" viewBox="-32 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m432.734375 112.464844c-53.742187 0-97.464844-43.722656-97.464844-97.464844 0-8.285156-6.714843-15-15-15h-80.335937c-8.28125 0-15 6.714844-15 15v329.367188c0 31.59375-25.707032 57.296874-57.300782 57.296874s-57.296874-25.703124-57.296874-57.296874c0-31.597657 25.703124-57.300782 57.296874-57.300782 8.285157 0 15-6.714844 15-15v-80.335937c0-8.28125-6.714843-15-15-15-92.433593 0-167.632812 75.203125-167.632812 167.636719 0 92.433593 75.199219 167.632812 167.632812 167.632812 92.433594 0 167.636719-75.199219 167.636719-167.632812v-145.792969c29.851563 15.917969 63.074219 24.226562 97.464844 24.226562 8.285156 0 15-6.714843 15-15v-80.335937c0-8.28125-6.714844-15-15-15zm0 0"/></svg></a>
+      {% endif %}
+      {% if settings.social_facebook_link != blank %}
+        <a target="blank" href="{{ settings.social_facebook_link }}" style="padding-right: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="19.248" height="19.248" viewBox="0 0 19.248 19.248"> <path fill="#0c0c0c" d="M1355.892 6444.78h-14.436a2.408 2.408 0 0 0-2.406 2.406v14.436a2.408 2.408 0 0 0 2.406 2.406h7.218v-6.616h-2.406v-3.012h2.406v-2.4a3.609 3.609 0 0 1 3.609-3.609h2.406v3.008h-1.2c-.664 0-1.2-.062-1.2.6v2.406h3.007l-1.2 3.008h-1.8v6.616h3.609a2.408 2.408 0 0 0 2.406-2.406v-14.436a2.409 2.409 0 0 0-2.419-2.407z" transform="translate(-1339.05 -6444.78)"/> </svg></a>
+      {% endif %}
+      {% if settings.social_twitter_link != blank %}
+        <a target="blank" href="{{ settings.social_twitter_link }}" style="padding-right: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="19.248" height="15.638" viewBox="0 0 19.248 15.638"> <path fill="#0c0c0c" d="M1296.266 6449.764a8.2 8.2 0 0 1-2.273.624 3.922 3.922 0 0 0 1.735-2.181 7.887 7.887 0 0 1-2.5.955 3.946 3.946 0 0 0-6.826 2.7 4.06 4.06 0 0 0 .092.9 11.17 11.17 0 0 1-8.133-4.127 3.947 3.947 0 0 0 1.213 5.274 3.9 3.9 0 0 1-1.783-.486v.043a3.964 3.964 0 0 0 3.161 3.878 3.933 3.933 0 0 1-1.035.129 3.5 3.5 0 0 1-.747-.067 3.983 3.983 0 0 0 3.687 2.748 7.927 7.927 0 0 1-4.892 1.684 7.333 7.333 0 0 1-.945-.055 11.231 11.231 0 0 0 17.284-9.458c0-.174-.006-.342-.014-.509a7.876 7.876 0 0 0 1.976-2.052z" transform="translate(-1277.018 -6447.913)"/> </svg></a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="sidenav-bg" data-open-menu></div>
+{% render 'minicart' %}
+
+<div class="popup is-hidden" data-popup="search-popup">
+  <div class="popup-window">
+    <div class="rte ingr-popup">
+      {% render 'search-overlay' %}
+    </div>
+  </div>
+  <div class="popup-bg" data-popup-close></div>
+</div>

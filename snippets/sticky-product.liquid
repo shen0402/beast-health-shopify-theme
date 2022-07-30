@@ -1,0 +1,43 @@
+{% comment %} ATTENTION!!! This is compiled version of sticky-product.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\sticky-product.liquid file to code and save your changes. {% endcomment %}{% if product.available %}
+  <div class="sticky-bottom hide--mobile">
+    <div class="sticky-bottom-wrapper container d-flex">
+      <div class="sticky-info">
+        <div class="sticky-title">{{ product.metafields.sticky.title | default: product.title }}</div>
+        <div class="sticky-desc">{{ product.metafields.sticky.desc | default: product.description }}</div>
+      </div>
+      <div class="sticky-form">
+        {% assign isDefault = false %}
+        {% if product.variants.size == 1 and product.variants[0].title == "Default Title" %}
+          {% assign isDefault = true %}
+        {% endif %}
+        {% assign first_available_variant = product.selected_or_first_available_variant %}
+        {% unless isDefault %}
+            <div class="custom-variants_select">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20.715" height="11.771" viewBox="0 0 20.715 11.771">
+                <defs>
+                    <style>
+                        .cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+                    </style>
+                </defs>
+                <g id="Group_11121" data-name="Group 11121" transform="translate(1.414 1.414)">
+                    <path id="Path_60654" data-name="Path 60654" class="cls-1" d="m50 32.422 8.943 8.943" transform="translate(-41.057 -32.422)"/>
+                    <path id="Path_60655" data-name="Path 60655" class="cls-1" d="m23.787 32.422-8.943 8.943" transform="translate(-14.844 -32.422)"/>
+                </g>
+            </svg>
+            
+                <div class="desc">Select your color</div>
+                {% for variant in product.variants %}
+                    <div data-price="{{ variant.price | money }}" data-variant_id="{{ variant.id }}" class="{% if first_available_variant.id == variant.id %}active{% endif %}">{{ variant.option1 }}</div>
+                {% endfor %}    
+            </div>
+          <select class="sticky-variants hide" name="id">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% if first_available_variant.id == variant.id %}selected{% endif %} data-available="{{ variant.available }}" data-value="{{ variant.option1 }}" ><strong>{{ product.options.first }}:</strong> {{ variant.option1 }}</option>
+            {% endfor %}
+          </select>
+        {% endunless %}
+        <button class="btn btn--primary add-to-cart " {% unless first_available_variant.available %}disabled{% endunless %} data-add-to-cart>{% if first_available_variant.available %}Add To Bag{% else %}Sold Out{% endif %} - <span>{{ product.selected_or_first_available_variant.price | money }}</span></button>
+      </div>
+    </div>
+  </div>
+{% endif %}

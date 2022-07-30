@@ -1,0 +1,292 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-product.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-product.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image vwo-b10_A" data-dd="{{ section.blocks[0].settings.title }}" id="section-product" data-animate-section {% unless section.settings.visible %}data--hidden{% endunless %}>
+  <div class="container d-flex-image {{ section.settings.image_pos }}" style="background: {{ section.settings.contents_color }};">
+
+    {% assign first_block = section.blocks[0] %}
+
+    {% assign product = all_products[section.settings.product] %}
+    {% assign opt_idx = 0 %}
+    {% for option in product.options %}
+      {% if option == 'Color' or option == 'Colour' %}
+        {% assign opt_idx = forloop.index %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign opt_handle = 'option' | append: opt_idx %}
+
+    <div class="section-image_left section-image_{{ section.settings.image_pos_ver }}" style="text-align: right;" >
+      {% assign list = '' %}
+      {% assign variant_num = product.variants | size | plus: 1 %}
+      {% assign main_image = section.settings.main_img | default: product.selected_or_first_available_variant.image %}
+      <div data-image="block{{ variant_num }}">
+        {%- comment -%}<img src="{{ variant.image | img_url: '800x' }}">{%- endcomment -%}
+        {% render 'rimage', image: main_image, size: '800x' %}
+      </div>
+      {% for variant in product.variants %}
+        {% assign option = variant[opt_handle] %}
+        {% unless list contains option %}
+          {% assign list = list | append: '||' | append: option %}
+          <div data-image="block{{ forloop.index }}" data--hidden>
+            {%- comment -%}<img src="{{ variant.image | img_url: '800x' }}">{%- endcomment -%}
+            {% render 'rimage', image: variant.image, size: '800x' %}
+          </div>
+        {% endunless %}
+      {% endfor %}
+      {% comment %}
+        <img src="{{ first_block.settings.image | img_url: 'master' }}" class="Rectangle-1599 hide--mobile product_img">
+        <img src="{{ first_block.settings.sp_image | img_url: 'master' }}" class="Rectangle-1599 hide--desktop product_img">
+      {% endcomment %}
+    </div>
+
+    <div class="section-image_left">
+      <div class="section-product_main" {% if template  != 'index' %}style="margin-left: 25px;" {% endif %}>
+        <div class="section-image_subtitle">{{ set.subtitle }}</div>
+        <div class="section-image_title title">{{ set.title }}</div>
+        <div class="section-image_description">{{ set.desc }}</div>
+
+        
+        <div class="section-image_price-group">
+          {% assign current_variant = product.variants[0] %}
+          
+            <div class="compare_price" 
+            {% if current_variant.compare_at_price > current_variant.price %} style="display:block;" {% endif %}
+            >
+              {{ current_variant.compare_at_price | money }}
+            </div>
+          
+          <div class="origin_price">{{ current_variant.price | money }}</div>
+        </div>
+
+        {% assign icon_blocks = section.blocks | where: 'type', 'icon' %}
+
+        <div class="section-image_option">Color: <span id="product_option_name">{{ product.variants.first[opt_handle] }}</span></div>
+        <div class="section-product_blocks">
+
+
+
+          {% assign option_list = '' %}
+          {% for variant in product.variants %}
+            {% assign option = variant[opt_handle] %}
+            {% unless option_list contains option %}
+              {% assign option_list = option_list | append: '||' | append: option %}
+              <div 
+                class="section-product_block section-product_block{{ forloop.index0 }}" 
+                data-option-title="{{ option }}">
+                <div 
+                  class="section-image_blockicon {% if forloop.index0 == 0 %} checked {% endif %}" 
+                  data-url="{{ product.url | append: '?variant=' | append: variant.id }}" 
+                  data-image-handle="block{{ forloop.index }}"
+                  data-variant-price="{{ variant.price | money }}"
+                  data-variant-compare-at-price="{{ variant.compare_at_price | money }}"
+                  data-color-name="{{ option | replace: ' ', '-' | downcase }}"
+                  ></div>
+              </div>
+            {% endunless %}
+          {% endfor %}
+
+          {% comment %}
+            {% for block in icon_blocks %}
+              {% assign i = forloop.index0 %}
+              <div class="section-product_block section-product_block{% increment my_counter %}" id="{{ block.settings.image | img_url: 'master' }}" data-option-title="{{ block.settings.title }}">
+                <div class="section-image_blockicon {% if i == 0 %} checked {% endif %}" style="background-color: {{ block.settings.color }};" data-image-handle="block{{ forloop.index }}"></div>
+              </div>
+            {% endfor %}
+          {% endcomment %}
+          </div>
+        <div class="section-image_linkblock">
+          <div class="section-Product_button buton_style_{{ section.settings.button_style }}">
+            {% assign btn_link = section.settings.button_link %}
+            {% assign v_url = false %}
+            {% if btn_link == blank or btn_link == '#' %}
+              {% assign btn_link = product.url | append: '?variant=' | append: product.variants.first.id %}
+              {% assign v_url = true %}
+            {% endif %}
+            {% if section.settings.button_style == "button1" %}
+              <a onclick="dataLayer.push({'CTA': '{{ btn_link }}'});" href="{{ btn_link }}" {% if v_url %}data-variant-url{% endif %}  class="section-image_linkbutton">
+                <div class="section-image_link">{{ section.settings.button_text }}</div>
+                <div class="section-image_link"><svg xmlns="http://www.w3.org/2000/svg" width="22.603" height="13.369" viewBox="0 0 22.603 13.369"> <path fill="#FF5500" stroke="#FF5500" d="M18.912 20.305l-5.569-5.569a.6.6 0 1 0-.855.855l4.539 4.539H-1.888a.619.619 0 0 0-.611.611.619.619 0 0 0 .611.611h18.914l-4.539 4.539a.591.591 0 0 0 0 .855.633.633 0 0 0 .873 0l5.569-5.569a.579.579 0 0 0 .175-.436.664.664 0 0 0-.192-.436z" transform="translate(2.999 -14.053)"></path> </svg></div>
+              </a>
+            {% else %}
+              <a onclick="dataLayer.push({'CTA': '{{ btn_link }}'});" href="{{ btn_link }}" {% if v_url %}data-variant-url{% endif %} class="d-flex buton_style_{{ section.settings.button_style }}">{{ section.settings.button_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Section Product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg_second",
+      "label": "Section background color (Half)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Info Content"
+    },
+    {
+      "type": "color",
+      "id": "contents_color",
+      "label": "Content Background Color",
+      "default": "#f4e8dc"
+    },
+    {
+      "type": "select",
+      "id": "image_pos",
+      "label": "Image Position (Horizon)",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "image_pos_ver",
+      "label": "Image Position (Vertical)",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "middle",
+          "label": "middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_img",
+      "label": "Main Image"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "button1", "label": "Button arrow" },
+        { "value": "button2", "label": "Button normal" }
+      ],
+      "default": "button2"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button"
+    },
+    {
+      "type": "url",
+      "id": "button_link", 
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Product",
+      "category": "Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+{% comment %} ATTENTION!!! This is compiled version of post-cell-custom.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\post-cell-custom.liquid file to code and save your changes. {% endcomment %}<article class="post-cell {% if type == 'featured' %} post-cell--featured {% endif %} post-cell-custom " data-handle="{{ handle | replace: ' ', '-' }}" data-title="{{ article.title | handleize }}" data-desc="{{ article.excerpt | handleize }}" data-handle-tag="{{ article.tags | join: ',' | replace: ' ', '-' | handleize }}">
+  <a href="{{ article.url }}" class="post-cell__image no-hover-link">
+    {% render 'rimage', image: article.image %}
+    <div class="badge">{{ blog.title }}</div>
+  
+    <div class="post-cell__content">
+      <h3 class="post-cell__title title h2 m-black not-animated">{{ article.title }}</h3>
+      <div class="post-cell__excerpt">{{ article.excerpt }}</div>
+      <div class="post-cell__bottom">
+        {% for title in article.metafields.feature.title %}
+          <div class="article_feature">
+            <span class="feature_title">{{ title }}</span>
+            <span class="feature_content">{{ article.metafields.feature.content[forloop.index0] }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </a>
+  {% comment %}
+  {%- unless article.tags.size == 0 -%}
+    <span class="post-cell__tags">
+      {%- for tag in article.tags -%}
+        {{ tag }} {%- unless forloop.last -%}+{%- endunless -%}
+      {%- endfor -%}
+    </span>
+  {%- endunless -%}
+  {% endcomment %}
+</article>

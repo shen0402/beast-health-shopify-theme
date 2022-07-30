@@ -1,0 +1,115 @@
+{% comment %} ATTENTION!!! This is compiled version of blog-contents-slider.liquid and it is overriding automatically. You should use theme development tool and sources\sections\blog-contents-slider.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% if set.visible %}
+  {% render 'ea-section-styles', section: section %}
+  {% render 'blog-slider-content', section: section %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Article Slider",
+    "tag": "section",
+    "class": "section article-slider",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "visible",
+        "label": "Show section",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Spacing"
+      },
+      {
+        "type": "range",
+        "id": "ptop",
+        "label": "Top spacing desktop",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "range",
+        "id": "pbottom",
+        "label": "Bottom spacing desktop",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "range",
+        "id": "ptop_mob",
+        "label": "Top spacing mobile",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "range",
+        "id": "pbottom_mob",
+        "label": "Bottom spacing mobile",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "color",
+        "id": "sectionbg",
+        "label": "Section background color",
+        "default": "#ffffff"
+      },
+      {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle"
+      },
+      {
+          "type": "html",
+          "id": "comma",
+          "label": "Comma Icon"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Item",
+        "name": "Item",
+        "settings": [
+          {
+            "id": "img",
+            "type": "image_picker",
+            "label": "image"
+          },
+          {
+            "id": "svg_logo",
+            "type": "html",
+            "label": "Logo svg"
+          },
+          {
+              "type": "richtext",
+              "id": "text",
+              "label": "Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog Contents Slider",
+        "category": "slider"
+      }
+    ]
+  }
+{% endschema %}

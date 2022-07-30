@@ -1,0 +1,133 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-feature.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-feature.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of ea-product-feature.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-feature.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="product-feature">
+  <div class="container">
+    <div class="product-feature_title">{{ product.metafields.features.title }}</div>
+    {% comment %}<div class="product-feature_description" id="product-feature_description">{{ section.blocks[0].settings.desc }}</div>{%endcomment%}
+    <div class="product-feature_description">{{ product.metafields.features.subtitle }}</div>
+    {% if set.show_option == 'show less' %}
+      {% assign count = 0 %}
+      <div class="product-feature_images">
+        {% assign meta_features = product.metafields.feature %}
+        {% for title in meta_features.item_title %}
+          {% assign count = forloop.index %}
+          {% assign i = forloop.index0 %}
+
+          {% assign idx_flag = forloop.index0 | modulo: 4 %}
+          {% if idx_flag == 0 %}
+            <div class="row_wrapper">
+          {% endif %}
+          <div class="product-feature_block {% if forloop.index > 4 %}hide--block{% endif %}">
+            <img src="{{ meta_features.item_image[i] }}">
+            <div class="product-feature_block_title">{{ title }}</div>
+            <div class="product-feature_block_description">{{ meta_features.item_subtitle[i] }}</div>
+          </div>
+          {% if idx_flag == 3 %}
+            </div>
+          {% endif %}
+          {% if idx_flag != 3 and forloop.last %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <hr class="product-feature_bar">
+      {% if count > 4 %}
+        <div class="product-feature_sub">
+          <a class="product-feature-more">
+            <span data-title="see all {{ count }} ">see all {{ count }} </span>&nbsp;&nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="5.58" height="12" viewBox="0 0 5.58 12" style="transform: rotate(90deg);"> <path id="np_down-arrow_3012911_000000" fill="#231f20" d="M6.02 5.58a.741.741 0 0 1-.28-.08L.142.7A.389.389 0 0 1 .1.142.389.389 0 0 1 .662.1L6.02 4.66 11.338.1a.389.389 0 0 1 .56.04.386.386 0 0 1-.04.56L6.26 5.5a.429.429 0 0 1-.24.08z" transform="rotate(-90 6 6)"/> </svg>
+          </a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="product-feature_images">
+        <div class="row_wrapper">
+        {% assign meta_features = product.metafields.feature %}
+        {% for title in meta_features.item_title %}
+          {% assign i = forloop.index0 %}
+            <div class="product-feature_block {% if forloop.index > 4 %}hide--block{% endif %}">
+              <img src="{{ meta_features.item_image[i] }}">
+              <div class="product-feature_block_title">{{ title }}</div>
+              <div class="product-feature_block_description">{{ meta_features.item_subtitle[i] }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Product Feature",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "select",
+      "id": "show_option",
+      "options": [
+        {
+          "label": "show less",
+          "value": "show less"
+        },
+        {
+          "label": "show all",
+          "value": "show all"
+        }
+      ],
+      "default": "show less",
+      "label": "Product Feature Show"
+    }
+  ]  
+}
+{% endschema %}

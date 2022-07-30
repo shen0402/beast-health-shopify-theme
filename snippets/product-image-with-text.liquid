@@ -1,0 +1,50 @@
+{% comment %} ATTENTION!!! This is compiled version of product-image-with-text.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-image-with-text.liquid file to code and save your changes. {% endcomment %}<div id="shopify-section-ea-product-picture" class="shopify-section">
+
+    {% assign meta_showcase = product.metafields.showcase %}
+
+    {% for title in meta_showcase.title %}
+        {% assign idx = forloop.index0 %}
+        <div class="section has-image" id="section-product-picture" style="background: {{ meta_showcase.bg_color[idx] }}">
+            
+            {% assign img_direction = meta_showcase.img_pos[idx] %}
+            
+            {% if img_direction == 'Left' %}
+                {% assign css_direction = '' %}
+            {% else %}
+                {% assign css_direction = 'section-image_right' %}
+            {% endif%}
+            
+            <div class="container product-picture_main {{ css_direction }}">
+        
+                <div class="product-picture_left" style="text-align: left;margin-left: 25px;">
+                    <img src="{{ meta_showcase.image[idx] }}" class="Rectangle-1599">
+                </div>
+            
+                <div class="product-picture_right">
+                    <div class="section-image_main" style="margin-left: auto;margin-right: 25px;">
+
+                        <div class="section-image_title">{{ title }}</div>
+                        <div class="section-image_description">{{ meta_showcase.content[idx] }}</div>
+                
+                        {% assign list_content = meta_showcase.list_content[i] %}
+                        {% unless list_content == '' %}
+                            {% assign lists = list_content | split: '||' %}
+                            {% for list in lists %}
+                                <div class="product-picture_block" data-animate-block>
+                                <div class="product-picture_blocktext hide--desktop">{{ list }}</div>
+                                <div class="product-picture_blockicon hide--desktop">{{ block.settings.icon }}</div>
+                                </div>
+                            {% endfor %}
+
+                        {% endunless %}
+            
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+</div>

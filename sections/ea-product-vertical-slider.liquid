@@ -1,0 +1,156 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-vertical-slider.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-vertical-slider.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: {{ set.ptop }}px 0 {{ set.pbottom }}px;
+    background-color: {{ set.sectionbg }};
+  }
+  #shopify-section-{{ section.id }} .s4__text {
+    background-color: {{ set.sectionbg }};
+  }
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} {
+      padding: {{ set.ptop_mob }}px 0 {{ set.pbottom_mob }}px;
+    }
+  }
+</style>
+
+<div class="section has-sticky" data-vertical-slider-section>
+  <div class="vertical-slider slider m-vertical-dots m-left-dots" data-vertical-slider>
+    <div class="container">
+      {% assign visible = section.blocks %}
+      {% for slide in (1..visible.size) %}
+        {% assign i = forloop.index0 %}
+        {% if visible[i] != blank %}
+          <div class="vertical-slide {% if i == 0 %}is-visible{% endif %}" data-vertical-slide>
+            <div class="s4__content m-image-pos-right">
+              {% if visible[i].settings.image != blank %}
+                <div class="s4__image"><img src="{{ visible[i].settings.image | img_url: 'master' }}" alt=""></div>
+              {% endif %}
+              <div class="s4__text">
+                {% for subslide in (1..visible.size) %}
+                  {% assign j = forloop.index0 %}
+                    {% if visible[j] != blank %}
+                      {% if j == i %}
+                        {% if visible[j].settings.title != blank %}
+                          <h2 class="title not-animated">{{ visible[j].settings.title }} <span class="js-info"></span></h2>
+                        {% endif %}
+                        {% if visible[j].settings.desc != blank %}
+                          <div class="description not-animated">{{ visible[j].settings.desc }}</div>
+                        {% endif %}
+                      {% else %}
+                        {% if visible[j].settings.title != blank %}
+                          <h2 class="subtitle not-animated">{{ visible[j].settings.title }} <span class="js-info"></span></h2>
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+                {% endfor %}
+              </div> <!-- /.s4__text -->
+            </div>  <!-- /.s4__content -->
+          </div> <!-- /.vertical-slide -->
+        {% endif %}
+      {% endfor %}
+
+      {%- capture dots -%}
+        {% for slide in (1..visible.size) %}
+          {% assign j = forloop.index0 %}
+          {% if visible[j] == 'true' %}
+            <li><button data-button="{{ forloop.index0 }}" {% if forloop.index0 == 0 %}class="is-active"{% endif %}>&nbsp;</button><div class="dots-line"></div></li>
+          {% endif %}
+        {% endfor %}
+      {%- endcapture -%}
+      {% if dots != blank %}
+        <div class="slider-controls" data-vertical-slider-controls>
+          <ul class="slider-dots">{{ dots }}</ul>
+          <button class="slider-arrow2" data-vertical-slider-arrow><i class="icon-down-arrow"></i></button>
+        </div>
+      {% endif %} <!-- /.slider-controls -->
+
+    </div> <!-- /.container -->
+  </div> <!-- /.vertical-slider -->
+</div>
+
+
+{% schema %}
+  {
+  "name": "Product Vertical Slider",
+  "class": "vertical-slider-section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "desc",
+          "label": "Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

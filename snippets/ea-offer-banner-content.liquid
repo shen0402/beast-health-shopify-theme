@@ -1,0 +1,28 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-offer-banner-content.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-offer-banner-content.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles', section: section %}
+
+<div class="offer-banner-section section-standard" data-section-id="{{ section.id }}" data-section-type="offer-banner-section">
+  <div class="contain-full-width">
+    <div class="wrapper">
+      <div class="content align-{{ section.settings.alignment }} rte">
+        {% if section.settings.sub-title != blank %}
+          <h4>{{ section.settings.sub-title | escape }}</h4>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h2>{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <div class="richtext">
+            {{ section.settings.text }}
+          </div>
+        {% endif %}
+        {% if section.settings.button-text != blank %}
+            <a href="{{ section.settings.button-url }}">
+                {{ section.settings.button-text }}
+            </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

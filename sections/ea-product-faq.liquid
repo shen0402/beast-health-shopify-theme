@@ -1,0 +1,138 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-faq.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-faq.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="product-faq" data-animate-section>
+  <div class="container">
+    <div class="product-faq_title title">{{ set.title }}</div>
+    <div class="faq-main" data-accordions-container>
+      {% for block in section.blocks %}
+        <div class="faq-item accordion subfaq" data-subaccordion>
+          <h3 class="faq-item__subtitle accordion__title {% if forloop.first == true %} is-open {% endif %}" data-accordion-button>
+              <span>{{ block.settings.title }}</span>           
+              <svg xmlns="http://www.w3.org/2000/svg" width="20.715" height="11.771" viewBox="0 0 20.715 11.771">
+                  <defs>
+                      <style>
+                          .cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+                      </style>
+                  </defs>
+                  <g id="Group_11121" data-name="Group 11121" transform="translate(1.414 1.414)">
+                      <path id="Path_60654" data-name="Path 60654" class="cls-1" d="m50 32.422 8.943 8.943" transform="translate(-41.057 -32.422)"/>
+                      <path id="Path_60655" data-name="Path 60655" class="cls-1" d="m23.787 32.422-8.943 8.943" transform="translate(-14.844 -32.422)"/>
+                  </g>
+              </svg>   
+          </h3>
+          <div class="faq-item__content accordion__content" data-accordion-content {% if forloop.first == true %} style="display: block;" {% endif %}>
+            {{ block.settings.content }}
+          </div>
+        </div>
+      {% endfor %}
+      <div class="user_guide_meta">
+        {% if product.metafields.user_guide.english %}
+            <a href="{{ product.metafields.user_guide.english  }}" download class="btn ea--btn">user guide<sup>English</sup></a>
+        {% endif %}
+
+        {% if product.metafields.user_guide.spanish %}
+            <a href="{{ product.metafields.user_guide.spanish  }}" download class="btn ea--btn">user guide<sup>Spanish</sup></a>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Product Faq",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sub Title"
+    },
+    {
+      "type": "text",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Url"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

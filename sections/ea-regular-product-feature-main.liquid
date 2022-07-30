@@ -1,0 +1,170 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-regular-product-feature-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-regular-product-feature-main.liquid file to code and save your changes. {% endcomment %}{% render 'ea-product-main-content', section: section, product: product %}
+
+{% schema %}
+  {
+  "name": "Reguler Feature Main",
+  "tag": "section",
+  "class": "product-main-section",
+  "settings": [
+
+
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "mobileimgbg",
+      "label": "Mobile image background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Upsell Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_pre_order",
+      "label": "Show Pre Order",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_upsell",
+      "label": "Shop Upsell",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "preorder",
+      "label": "Pre order"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_deliverr",
+      "label": "Show delieverr",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "free_text",
+      "label": "Free Text",
+      "default": "Free for the first 100"
+    },
+    {
+      "type": "text",
+      "id": "free_key",
+      "label": "Free Badge Text",
+      "default": "Free"
+    },
+    {
+      "type": "paragraph",
+      "content": "Pre Order Settings"
+    },
+    {
+      "type": "text",
+      "id": "progressbar_pretext",
+      "label": "Progressbar PreText",
+      "default": "Free for the first 100"
+    },
+    {
+      "type": "range",
+      "id": "rest_num",
+      "label": "Rest Number",
+      "min": 2,
+      "max": 100,
+      "step": 2,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "total_num",
+      "label": "Totoal Number",
+      "min": 50,
+      "max": 150,
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "after_text",
+      "label": "After Text",
+      "default": "Units Left"
+    },
+    {
+      "type": "color",
+      "id": "origin_color",
+      "label": "Origin Color",
+      "default": "#fffdfc"
+    },
+    {
+      "type": "color",
+      "id": "progress_color",
+      "label": "Progress Color",
+      "default": "#d8c0a0"
+    }
+  ],
+  "blocks": [    
+  ]
+}
+{% endschema %}

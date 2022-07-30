@@ -1,0 +1,109 @@
+{% comment %} ATTENTION!!! This is compiled version of page-press-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\page-press-main.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+  {% render 'page-press-main-content', section: section %}
+{% endif %}
+
+{% schema %}
+  {
+  "name": "Page main",
+  "class": "section text-block-lists",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+      {
+          "type": "text-block",
+          "name": "Text Block",
+          "settings": [
+              {
+                  "type": "richtext",
+                  "id": "title",
+                  "label": "Title"
+              },
+              {
+                  "info": "200 x 40 px recommended",
+                  "type": "image_picker",
+                  "id": "icon",
+                  "label": "Icon"
+              },
+              {
+                  "info": "Svg code will be prefered",
+                  "type": "html",
+                  "id": "svg",
+                  "label": "Svg"
+              },
+              {
+                  "type": "text",
+                  "id": "button_text",
+                  "label": "Button Text",
+                  "default": "read more +"
+              },
+              {
+                "type": "url",
+                "id": "url",
+                "label": "Link"
+              }
+          ]
+      }
+  ]
+}
+{% endschema %}

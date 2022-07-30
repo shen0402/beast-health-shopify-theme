@@ -1,0 +1,62 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-recommendations-content.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-product-recommendations-content.liquid file to code and save your changes. {% endcomment %}{% render 'ea-section-styles', section: section %}
+
+{% render 'ea-section-foreground-image', section: section %}
+
+{% assign set = section.settings %}
+
+{% if recommendations.products and recommendations.products_count > 0 %}
+  {%- assign related_collection = recommendations -%}
+{% endif %}
+
+<div data-product-recommendations 
+  data-product-id="{{ product.id }}" 
+  data-limit="{{ section.settings.related_count }}">
+    
+  {% if set.title != blank %}
+    <h2 class="title not-animated m-bold ta-center">{{ set.title }}</h2>
+  {% endif %}
+
+  {% if set.subtitle != blank %}
+    <h3 class="subtitle m-medium-grey m-normal-weight not-animated ta-center">{{ set.subtitle }}</h3>
+  {% endif %}
+
+  {% unless recommendations.products and recommendations.products_count > 0 %}
+
+    <div class="product-recommendations-placeholder" data-product-recommendations-placeholder>
+    </div>
+
+  {% else %}
+
+    <div class="product-recommendations-content hide--mobile" data-product-recommendations-content>
+      {% for product in recommendations.products %}
+
+        {% assign idx = forloop.index0 | modulo: 3 %}
+
+        {% if idx == 0 %}
+          <div class="col-md-12">
+        {% endif %}
+        {% unless product.type == 'Gift Cards' %}
+          {% render 'cart-else-item', cart_product: product.handle %}
+        {% endunless %}
+        {% if idx == 2 %}
+          </div>
+        {% endif %}
+
+        {% if idx != 2 and forloop.last %}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    </div>
+    
+    <div class="product-recommendations-content hide--desktop" data-product-recommendations-content>
+      {% for product in recommendations.products %}
+        {% unless product.type == 'Gift Cards' %}
+          {% render 'cart-else-item', cart_product: product.handle %}        
+        {% endunless %}
+      {% endfor %}
+    </div>
+
+  {% endunless %}
+
+</div>

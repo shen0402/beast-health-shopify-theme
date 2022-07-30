@@ -1,0 +1,154 @@
+{% comment %} ATTENTION!!! This is compiled version of custom-blocks.liquid and it is overriding automatically. You should use theme development tool and sources\sections\custom-blocks.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+
+  {% render 'ea-section-styles', section: section %}
+
+  <div class="section_container">
+    <div class="main_content container">
+      <div class="main_wrapper d-flex">
+        <div class="block_items d-flex" style="background: {{ section.settings.left_bg }}">
+          {% for block in section.blocks %}
+            <div class="block_item">
+              <div class="icon_wrapper">{{ block.settings.icon }}</div>
+              <div class="item_text">
+                <div class="item_title">{{ block.settings.title }}</div>
+                <div class="item_subtitle">{{ block.settings.subtitle }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="text_wrapper" style="background: {{ section.settings.right_bg }}">
+          {% if section.settings.title != blank %}
+            <div class="title not-animated">{{ section.settings.title }}</div>
+          {% endif %}
+          {% if section.settings.text != blank %}
+            <div class="text">{{ section.settings.text }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Custom Blocks",
+  "tag": "section",
+  "class": "custom-blocks",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show block",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Background",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "left_bg",
+      "label": "Background (Left side)",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "right_bg",
+      "label": "Background (Right side)",
+      "default": "#000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "subtitle"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

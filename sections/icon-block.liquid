@@ -1,0 +1,212 @@
+{% comment %} ATTENTION!!! This is compiled version of icon-block.liquid and it is overriding automatically. You should use theme development tool and sources\sections\icon-block.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of ea-section-othericonblock_second.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-othericonblock_second.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% assign cnt = set.icon_num | plus: 0 %}
+
+{% if cnt > 0 %}
+  {% render 'ea-section-styles' %}
+
+  <div class="section has-image" id="section-icon-auto-slider">
+    <div class="container">
+      <div class="section-icon-slider_title hide--mobile" style="font-size: {{ set.f_size }}px;">{{ section.blocks[0].settings.desc }}</div>
+      <div class="section-icon-slider_blocks"> 
+        {% for block in section.blocks %}
+          {% assign i = forloop.index0 %}
+          {% if i < cnt %}
+            <div class="section-icon-slider_block" style="width: {{ 100 | divided_by: cnt }}%">
+              <div class="section-icon-slider_title hide--desktop" style="font-size: {{ set.f_size }}px;">{{ block.settings.desc }}</div>
+
+              {% if block.settings.icon != blank %}
+                <div id="{{i}}" class="section-icon-slider_image" data-description="{{block.settings.desc}}">{{ block.settings.icon }}</div>
+              {% elsif block.settings.image != blank %}
+                <div id="{{i}}" class="section-icon-slider_image" data-description="{{block.settings.desc}}"><img src="{{ block.settings.image | img_url: 'master' }}"></div>
+              {% endif %}
+
+              {% if block.settings.pop_image != blank %}
+                <a  href="javascript:;" class="section-icon-slider_subtitle" data-icon-open="iconblock" data-url="{{block.settings.pop_image | img_url: '800x' }}">{{ block.settings.title }}</a>
+              {% elsif block.settings.icon_link != blank %} 
+                <a  class="section-icon-slider_subtitle" href="{{block.settings.icon_link}}" target="_blank">{{ block.settings.title }}</a>
+              {% else %}
+                <a  class="section-icon-slider_subtitle">{{ block.settings.title }}</a>
+              {% endif %}
+
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="about-tech-slider_content hide--desktop">Swipe <br> left or right.</div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="popup is-hidden" data-icon="iconblock">
+  <div class="popup-window">
+    <button class="close" data-icon-close>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 241.171 241.171" style="enable-background:new 0 0 241.171 241.171;" xml:space="preserve">
+        <g>
+          <path id="Close" d="M138.138,120.754l99.118-98.576c4.752-4.704,4.752-12.319,0-17.011c-4.74-4.704-12.439-4.704-17.179,0   l-99.033,98.492L21.095,3.699c-4.74-4.752-12.439-4.752-17.179,0c-4.74,4.764-4.74,12.475,0,17.227l99.876,99.888L3.555,220.497   c-4.74,4.704-4.74,12.319,0,17.011c4.74,4.704,12.439,4.704,17.179,0l100.152-99.599l99.551,99.563   c4.74,4.752,12.439,4.752,17.179,0c4.74-4.764,4.74-12.475,0-17.227L138.138,120.754z"/>
+        </g>
+      </svg>
+    </button>
+    <div class="icon_embed"><img class="img_embed" src=""></div>
+  </div>
+  <div class="popup-bg" data-icon-close></div>
+</div>
+
+{% schema %}
+  {
+  "name": "Icon auto slider",
+  "class": "icon-auto-slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "f_size",
+      "label": "Font Size",
+      "min": 1,
+      "unit": "px",
+      "max": 50,
+      "step": 1,
+      "default": 19
+    },
+    {
+      "type": "select",
+      "id": "icon_num",
+      "options": [
+        {
+          "label": "0",
+          "value": "0"
+        },
+        {
+          "label": "1",
+          "value": "1"
+        },
+        {
+          "label": "2",
+          "value": "2"
+        },
+        {
+          "label": "3",
+          "value": "3"
+        },
+        {
+          "label": "4",
+          "value": "4"
+        },
+        {
+          "label": "5",
+          "value": "5"
+        },
+        {
+          "label": "6",
+          "value": "6"
+        }
+      ],
+      "default": "5",
+      "label": "Icon Number"
+    },
+    {
+      "type": "range",
+      "id": "b_space",
+      "label": "Icon Block Spacing",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon", 
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "image", 
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "richtext", 
+          "id": "desc", 
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "icon_link", 
+          "label": "Url"
+        },
+        {
+          "type": "image_picker",
+          "id": "pop_image", 
+          "label": "Popup Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon List Second",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

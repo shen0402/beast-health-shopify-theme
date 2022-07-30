@@ -1,0 +1,140 @@
+{% comment %} ATTENTION!!! This is compiled version of article-regular.liquid and it is overriding automatically. You should use theme development tool and sources\sections\article-regular.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of article-custom.liquid and it is overriding automatically. You should use theme development tool and sources\sections\article-custom.liquid file to code and save your changes. {% endcomment %}{% render 'ea-section-styles', section: section %}
+
+<div class="section_container">
+  <div class="main_content container">
+    <div class="article_header d-flex">
+      <div class="breadcrumb d-flex">
+        <li class="hide--mobile">
+          {% if section.setting.bredcrumb_link %}
+            <a href="{{ section.settings.bredcrumb_link }}">
+          {% endif %}
+            <span>{{ section.settings.bredcrumb_title }}</span>
+          {% if section.setting.bredcrumb_link %}
+            </a>
+          {% endif %}
+          {% render 'icon' with 'icon-arrow-right' %}
+        </li>
+        {% assign request_path = request.path | split: '/' %}
+        {% assign _filter = request_path | last %}
+        {% assign _filter = '/' | append: _filter %}
+        {% assign url = request.path | replace: _filter, '' %}
+        <li class="hide--mobile">
+          <a href="{{ blog.url }}?{{ blog.title | replace: ' ', '-' }}">back to {{ blog.title }}</a>
+          {% render 'icon' with 'icon-arrow-right' %}
+        </li>
+        <li class="hide--desktop">
+          <a href="{{ blog.url }}?{{ blog.title | replace: ' ', '-' }}">Go back to {{ blog.title }}</a>
+          {% render 'icon' with 'icon-back' %}
+        </li>
+        <li class="hide--mobile"><span>{{ article.title }}</span></li>
+      </div>
+      <div class="social_icons">
+        {% render 'ea-social-share-buttons-article', article: article %}
+      </div>
+    </div>
+    <div class="article_body">
+      <div class="article_main">
+        <div class="article_title title not-animated">{{ article.title }}</div>
+        <div class="article_info">
+          Posted on {{ article.published_at | date: format: 'abbreviated_date'  }}, By: {{ article.author }} | Read time: {% render 'ea-blog__read-time', article: article %}
+        </div>
+        <div class="hide--desktop">{{ articleAuthor }}</div>
+        <div class="article_desc">
+          {{ article.content }}
+        </div>
+        {% if article.metafields.product != blank %}
+        <div class="article_products">
+          <label>Our Top</label>
+          <div>
+            <div class="d-flex">
+              {% assign products = article.metafields.product.product %}
+              {% for _product in products %}
+                {% assign product = all_products[_product] %}
+                <div class="product-cell-wrap">{% render 'product-cell-recipe', product: product, showInfo: true, showDescr: false, showPrice: true %}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Article Page",
+  "class": "ea-article-page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "text",
+      "id": "bredcrumb_title",
+      "label": "Breadcrumb home",
+      "default": "Blog"
+    },
+    {
+      "id": "bredcrumb_link",
+      "type": "url",
+      "label": "Breadcrumb link"
+    }
+  ]
+}
+{% endschema %}

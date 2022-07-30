@@ -1,0 +1,408 @@
+{% comment %} ATTENTION!!! This is compiled version of product-form-b.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-form-b.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+{% assign isDefault = false %}
+{% if product.variants.size == 1 and product.variants[0].title == "Default Title" %}
+  {% assign isDefault = true %}
+{% endif %}
+
+{% comment %}Recharge settings{% endcomment %}
+{% assign subscription_product = product.metafields.subscriptions %}
+{% assign subscription_id = subscription_product.subscription_id %}
+{% assign discount_percent = subscription_product.discount_percentage | round: 2 %}
+{% assign discount_floor = subscription_product.discount_percentage | floor %}
+{% if discount_percent == discount_floor %}
+  {% assign discount_percent = discount_floor %}
+{% endif %}
+{% if subscription_id != blank %}
+  {% assign isRecharge = true %}
+{% endif %}
+
+<form id="addToCartForm" class="product-form {% if isRecharge %}m-recharge{% endif %} product-{{ product.handle }}" action="/cart/add" method="post" enctype="multipart/form-data" data-productid="{{product.id}}" data-product-form data-variantid="{{ current_variant.id }}" data-discountid="{{ current_variant.metafields.subscriptions.discount_variant_id }}" data-tags="{{ product.tags | join: ', ' }}" data-preorder="{{ product.metafields.pre_order.is_visible }}">
+
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-selected-variant-id>
+  <input type="hidden" name="main_image" value="{{ product.metafields.upsell.main_image }}" data-main-image>
+  <input type="hidden" name="lifestyle_image" value="{{ product.metafields.upsell.lifestyle_image }}" data-lifestyle-image>
+
+
+  {% comment %}
+  <div class="product-info__top-label skewed-shape">
+    <i class="icon-double-chevron"></i>
+    <span>{% if isRecharge %} {% if product.handle contains 'annual' %} Subscribe {% else %} Subscribe For <b>only $1</b> {% endif %}  {% else %} <b>SHIPS IN 2 BUSINESS DAYS</b> {% endif %}</span>
+    <i class="icon-double-chevron"></i>
+  </div>
+  {% endcomment %}
+
+  {% assign logos = product.metafields.logo.icon %}
+  {% if logos != blank %}
+    <div class="logo_slider">
+      <div class="logo_slider_wrapper" {% if logos.size > 1 %}data-hor-slider data-arrows="false" data-dots="false" data-autoplay="true"{% endif %}>
+        {% for logo in logos %}
+          <div class="logo_slide_item">
+            <div class="icon">{{ logo }}</div>
+            <div class="desc">{{ product.metafields.logo.desc[forloop.index0] }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      {% render 'icon' with 'icon-quote' %}
+    </div>
+  {% endif %}
+
+
+  <h5 class="product-star-review hide--mobile">
+    <div data-oke-reviews-product-listing-rating>{{ product.metafields.okendo.ProductListingSnippet }}</div>
+  </h5>
+
+  <h1 class="title not-animated">{{ product.title }}</h1>
+  <div class="product-description">
+    {{product.metafields.global.description}}
+    {%comment%}{% assign desc =  product.description | strip_html %}
+    {% if desc.size > 120 %}
+      <div class="product-block">
+        <div class="product-description">{{ desc | truncate: 120, '...' | replace: 'div', 'span'}} </div>
+        <div class="product-description">{{ desc | truncate: 120, '...' | replace: 'div', 'span'}} </div>
+        <div class="product-read-more">Read More<svg xmlns="http://www.w3.org/2000/svg" width="10.369" height="11.603" viewBox="0 0 10.369 11.603" style="margin-left: 10px;"> <path d="M18.912 19.375l-5.569-4.669a.672.672 0 0 0-.855 0 .442.442 0 0 0 0 .717l4.539 3.805H8.112a.52.52 0 1 0 0 1.025h8.915l-4.539 3.805a.442.442 0 0 0 0 .717.724.724 0 0 0 .873 0l5.569-4.669a.448.448 0 0 0 .175-.366.52.52 0 0 0-.192-.366z" transform="rotate(90 16.211 8.711)"/> </svg></div>
+      </div>
+      <div class="product-block read-more">
+        <div class="product-description"> {{product.description}} </div>
+        <div class="product-read-more">Read Less<svg xmlns="http://www.w3.org/2000/svg" width="10.369" height="11.603" viewBox="0 0 10.369 11.603" style="transform: rotateX(180deg);margin-left: 10px;"> <path d="M18.912 19.375l-5.569-4.669a.672.672 0 0 0-.855 0 .442.442 0 0 0 0 .717l4.539 3.805H8.112a.52.52 0 1 0 0 1.025h8.915l-4.539 3.805a.442.442 0 0 0 0 .717.724.724 0 0 0 .873 0l5.569-4.669a.448.448 0 0 0 .175-.366.52.52 0 0 0-.192-.366z" transform="rotate(90 16.211 8.711)"/> </svg></div>
+      </div>
+    {% else %}
+    {{product.description}}
+    {% endif %}{%endcomment%}
+  </div>
+
+  <h5 class="product-star-review hide--desktop">
+    <div data-oke-reviews-product-listing-rating>{{ product.metafields.okendo.ProductListingSnippet }}</div>
+  </h5>
+  {% unless isRecharge %}
+    {% comment %}
+    <div data-price-wrapper class="product-price" data-afterpay-pre-selector>
+      <s class="was-price">{{ current_variant.compare_at_price | money }}</s>
+      <span data-price>{{ current_variant.price | money }}</span>
+      <span class="bundle-price-wrap hide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="168.523" height="35.5" viewBox="0 0 168.523 35.5">
+          <path id="Path_58385" data-name="Path 58385" d="M4.219,0h152.02a4.828,4.828,0,0,1,4.635,5V29a4.828,4.828,0,0,1-4.635,5H4.219A4.828,4.828,0,0,1-.416,29V21.6l-5.277-4.436L-.416,13.23V5A4.828,4.828,0,0,1,4.219,0Z" transform="translate(6.899 0.75)" fill="#fffdfc" stroke="#343333" stroke-width="1.5"/>
+        </svg>        
+        <span class="bundle-price">+$120 Bundle</span>
+      </span>
+    </div>
+    {% endcomment %}
+  {% endunless %}
+  
+  {% comment %}{% assign desc =  product.metafields.global.description %}{% endcomment %}
+    {% if desc.size > 85 %}
+      <div class="product-description hide--desktop">
+        <div class="product-block">
+          <div class="product-description">{{ desc | truncate: 85, '...' | replace: 'div', 'span'}} </div>
+          <div class="product-read-more">Read More<svg xmlns="http://www.w3.org/2000/svg" width="10.369" height="11.603" viewBox="0 0 10.369 11.603" style="margin-left: 10px;"> <path d="M18.912 19.375l-5.569-4.669a.672.672 0 0 0-.855 0 .442.442 0 0 0 0 .717l4.539 3.805H8.112a.52.52 0 1 0 0 1.025h8.915l-4.539 3.805a.442.442 0 0 0 0 .717.724.724 0 0 0 .873 0l5.569-4.669a.448.448 0 0 0 .175-.366.52.52 0 0 0-.192-.366z" transform="rotate(90 16.211 8.711)"/> </svg></div>
+        </div>
+        <div class="product-block read-more">
+          <div class="product-description"> {{product.description}} </div>
+          <div class="product-read-more">Read Less<svg xmlns="http://www.w3.org/2000/svg" width="10.369" height="11.603" viewBox="0 0 10.369 11.603" style="transform: rotateX(180deg);margin-left: 10px;"> <path d="M18.912 19.375l-5.569-4.669a.672.672 0 0 0-.855 0 .442.442 0 0 0 0 .717l4.539 3.805H8.112a.52.52 0 1 0 0 1.025h8.915l-4.539 3.805a.442.442 0 0 0 0 .717.724.724 0 0 0 .873 0l5.569-4.669a.448.448 0 0 0 .175-.366.52.52 0 0 0-.192-.366z" transform="rotate(90 16.211 8.711)"/> </svg></div>
+        </div>
+      </div>
+    {% else %}
+      {% comment %}{{product.metafields.global.description}}{% endcomment %}
+    {% endif %}
+
+  {% comment %}
+  <div class="description-tab-wrapper hide--mobile">
+    {{ tab_content }}
+  </div>
+  {% endcomment %}
+
+  {% comment %} All variants js selector {% endcomment %}
+  <select class="no-js" data-all-variants name="all-variants">
+    {% for variant in product.variants %}
+      {% assign discount_price = variant.metafields.subscriptions.discount_variant_price | replace: '.', '' %}
+      {% assign discount_amount = variant.price | minus: discount_price %}
+
+      {% assign is_available = true %}
+      {% if variant.inventory_quantity <= 0 and variant.inventory_policy != 'continue' %}
+        {% assign is_available = false %}
+      {% endif %}
+      <option value="{{ variant.id }}" 
+        data-variant-price="{{ variant.price }}" 
+        data-variant-compare-price="{{ variant.compare_at_price }}"
+        data-available="{{ is_available }}"
+        data-inventory-policy="{{ variant.inventory_policy }}"
+        data-inventory-quantity="{{ variant.inventory_quantity }}"
+        data-option1="{{ variant.option1 | default: '_BLANK_' }}" 
+        data-option2="{{ variant.option2 | default: '_BLANK_' }}" 
+        data-option3="{{ variant.option3 | default: '_BLANK_' }}"
+        data-subscription-id="{{ subscription_id }}" 
+        data-discount-variant-id="{{ variant.metafields.subscriptions.discount_variant_id }}" 
+        data-discount-variant-price="{{ discount_price }}"
+        data-discount-amount="{{ discount_amount }}"
+        data-discount-percent="{{ discount_percent }}%"
+        data-product-handle="{{ product.handle }}"
+        {% if current_variant == variant %}selected{% endif %} >
+        {{ variant.title }}
+      </option>
+    {% endfor %}
+  </select> <!-- / data-all-variants -->
+  
+
+  {% comment %} Options {% endcomment %}
+  <div class="product-form_options {% if isDefault %}no-options{% endif %} options-size-{{ product.options.size }}">
+    {% unless isDefault %}
+      {% render 'product-options', current_variant: current_variant, product: product %}
+    {% endunless %}
+  </div>
+
+  {%- comment -%} Recharge {%- endcomment -%}
+  {% if isRecharge %}
+    <div class="recharge" data-recharge-container>
+      <input id="subscription_id" type="hidden" name="properties[subscription_id]"
+        value="{{ subscription_id }}"
+        data-product-property="subscription_id">
+      <div class="recharge__block recharge__block--subscribe is-active" data-rc-type="subscribe">
+
+        {%- comment -%} Recharge period swatch {%- endcomment -%}
+        <div class="recharge__freq product-options">
+          <div class="product-options__title">Deliver Every:</div>
+          <div class="product-options__list">
+
+            {% assign counter = 0 %}
+            {% if product.metafields.recharge.monthly != blank %}
+              {% assign monthlyProductUrl = all_products[product.metafields.recharge.monthly].url %}
+              {% assign currentProduct = 'yearly' %}
+              {% assign counter = counter | plus: 1 %}
+            {% endif %}
+            
+            {% if product.metafields.recharge.yearly != blank %}
+              {% assign yearlyProductUrl = all_products[product.metafields.recharge.yearly].url %}
+              {% assign currentProduct = 'monthly' %}
+              {% assign counter = counter | plus: 1 %}
+            {% endif %}
+            {% if counter == 0 %}<!-- Error: no recharge period metafields setted up -->{% endif %}
+            {% if counter > 1 %}<!-- Error: both recharge period metafields setted up -->{% endif %}
+
+            <a href="{{ monthlyProductUrl | default: product.url }}" class="product-option m-half no-hover-link {% if currentProduct == 'monthly' %}is-checked{% endif %}">
+              <div class="product-option__label">
+                <div class="product-option__text">Monthly</div>
+              </div>
+            </a>
+            <a href="{{ yearlyProductUrl | default: product.url }}" class="product-option m-half no-hover-link {% if currentProduct == 'yearly' %}is-checked{% endif %}">
+              <div class="product-option__label">
+                <div class="product-option__accent">Save 20% Yearly Plan</div>
+                <div class="product-option__text">Yearly</div>
+              </div>
+            </a>
+            
+            {% assign shipping_interval_unit_type = subscription_product.shipping_interval_unit_type | default: 'Days' %}
+            {% assign shipping_interval_frequency = subscription_product.shipping_interval_frequency | split: ',' | default: 30 %}
+            <input id="shipping_interval_unit_type" type="hidden" name="properties[shipping_interval_unit_type]"
+              value="{{ shipping_interval_unit_type }}"
+              data-product-property="shipping_interval_unit_type">
+            {% for freq in shipping_interval_frequency %}
+                <input id="shipping_interval_frequency" type="hidden" name="properties[shipping_interval_frequency]"
+                  value="{{ freq }}"
+                  data-product-property="shipping_interval_frequency">
+            {% endfor %}
+          </div>
+
+        </div> <!-- / .recharge__freq -->
+      </div> <!-- /.recharge__block--subscribe -->
+
+    </div> <!-- / .recharge -->
+  {% endif %}
+
+  <deliverr data-component="BadgeWithCountdown" data-hide-promo="true"></deliverr>
+
+  {% if section.settings.is_pre_order %}  
+    
+    {% render 'pre-order', section: section %}
+  {% endif %}
+
+  {% render 'product-upsells-b', section: section %}
+  
+  {% if product.metafields.add_to_cart.text_before != blank %}
+    <div class="add-to-cart-before-text">{{ product.metafields.add_to_cart.text_before }}</div>
+  {% endif %}
+  
+  {% if template.suffix == 'offer' %}
+    <div class="klaviyo-form-popup">
+      <button class="close" data-popup-close>{% render 'icon' with 'icon-close' %}</button>
+      <div class="klaviyo-form-Ukrhwk"></div>
+    </div>
+  {% endif %}
+  <div class="d-flex product-add-to-cart {% if template.suffix == 'offer' %}redeem-offer{% endif %}" data-afterpay-pre-selector data-top="0">
+
+    {% comment %}
+    {% unless isRecharge %}
+      <div>
+        <div class="product-options__title">Quantity:</div>
+        {% render 'qty-selector', type: 'product' %}
+      </div>
+    {% endunless %}
+    {% endcomment %}
+    <button onclick="dataLayer.push({'ATC': '{{ product.handle }}'});"  type="submit" name="add" class="btn btn--primary add-to-cart {% if isRecharge %}m-recharge{% endif %}" data-add-to-cart></button>
+  </div>
+
+  <input type="hidden" name="return_to" value="/checkout" />
+
+  <div class="d-flex product-add-to-cart orginal-add-to-cart">
+    <button type="submit" name="add" >
+      submit
+    </button>
+  </div>
+  
+  <div class="custom-bis-trigger">
+    <button>notify me when available</button>
+  </div>
+
+  {% assign meta_info = product.metafields.global %}
+
+  <div class="faq-main" data-accordions-container>
+    <div class="faq-item accordion subfaq" data-subaccordion>
+      <h3 class="faq-item__subtitle accordion__title is-open" data-accordion-button>
+          <span>Description</span>
+          {% render 'icon' with 'accordion-icon' %}  
+      </h3>
+      <div class="faq-item__content accordion__content" data-accordion-content style="display: block;">
+        <div class="product-info__bottom" id="produc-feature_content" data-content-type="desc">
+          <span class="hide--mobile">
+            {{ product.description }}
+          </span>
+          <span class="hide--desktop">
+            <span data-full-desc>
+              {{ product.description }}
+            </span>
+            <span data-short-desc>
+              {{ product.description | strip_html | truncate: 115 }}
+            </span>
+            <span data-read-more>Read More</span>
+            <span data-read-less>Read Less</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item accordion subfaq" data-subaccordion>
+      <h3 class="faq-item__subtitle accordion__title" data-accordion-button>
+          <span>Specifications</span>          
+          {% render 'icon' with 'accordion-icon' %}  
+      </h3>
+      <div class="faq-item__content accordion__content" data-accordion-content>
+        <ul>
+          {% for feature in meta_info.feature_item %}
+            <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+
+        <div class="user_guide_meta">
+          {% if product.metafields.user_guide.english %}
+              <a href="{{ product.metafields.user_guide.english  }}" download class="btn ea--btn">user guide<sup>English</sup></a>
+          {% endif %}
+  
+          {% if product.metafields.user_guide.spanish %}
+              <a href="{{ product.metafields.user_guide.spanish  }}" download class="btn ea--btn">user guide<sup>Spanish</sup></a>
+          {% endif %}
+          </div>
+
+      </div>
+    </div>
+    <div class="faq-item accordion subfaq" data-subaccordion>
+      <h3 class="faq-item__subtitle accordion__title" data-accordion-button>
+          <span>What's in the box</span>           
+          {% render 'icon' with 'accordion-icon' %} 
+      </h3>
+      <div class="faq-item__content accordion__content" data-accordion-content>
+        <ul>
+          {% for list in meta_info.in-box-list %}
+            <li>{{ list }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  
+  {% comment %}
+  
+  {% if isRecharge %}
+    <div class="membership-info" data-popup-open="membership">
+      <div>
+        <i class="icon-info2"></i>
+        <span class="btn m-underline">Learn more</span> 
+        <span>about our membership</span>
+      </div>
+    </div>
+  {% endif %}
+
+  {% unless isRecharge %}
+    <div class="product-stock" data-low-stock>
+      <div class="product-stock__text"><i>Hurry,</i> Only <span data-random-number></span> left in stock.</div>
+      <div class="product-stock__bar"></div>
+    </div>
+  {% endunless %}
+
+  {% if isRecharge and set.info2 != blank %}
+    <div class="product-info__bottom">{{ set.info2 }}</div>
+  {% endif %}
+
+  {% unless isRecharge %}
+    <div class="product-info__bottom-label">Premium Quality Garments</div>
+  {% endunless %}
+  {% endcomment %}
+</form>
+
+{% assign upsell_product = all_products[product.metafields.upsell.product] %}
+{% assign upsell_description = product.metafields.upsell.description %}
+{% assign upsell_img = product.metafields.upsell.upsell_img %}
+
+{% assign isDefault1 = false %}
+{% if upsell_product.variants.size == 1 and upsell_product.variants[0].title == "Default Title" %}
+  {% assign isDefault1 = true %}
+{% endif %}
+{% comment %}Recharge settings{% endcomment %}
+{% assign subscription_product1 = upsell_product.metafields.subscriptions %}
+{% assign subscription_id1 = subscription_product1.subscription_id %}
+{% assign discount_percent1 = subscription_product1.discount_percentage | round: 2 %}
+{% assign discount_floor1 = subscription_product1.discount_percentage | floor %}
+{% if discount_percent1 == discount_floor1 %}
+  {% assign discount_percent1 = discount_floor1 %}
+{% endif %}
+{% if subscription_id1 != blank %}
+  {% assign isRecharge1 = true %}
+{% endif %}
+{% assign isRecharge1 = false %}
+{%- assign current_variant1 = upsell_product.selected_or_first_available_variant -%}
+
+{% comment %}
+<form id="addToCartForm1" class="product-form {% if isRecharge1 %}m-recharge{% endif %}" action="/cart/add" method="post" enctype="multipart/form-data" data-productid="{{upsell_product.id}}" data-product-form1 data-variantid="{{ current_variant1.id }}" data-discountid="{{ current_variant1.metafields.subscriptions.discount_variant_id }}">
+
+  <input type="hidden" name="id" value="{{ current_variant1.id }}" data-selected-variant-id1>
+
+  <select class="no-js" data-all-variants name="all-variants">
+    {% for variant in upsell_product.variants %}
+      {% assign discount_price = variant.metafields.subscriptions.discount_variant_price | replace: '.', '' %}
+      {% assign discount_amount = variant.price | minus: discount_price %}
+      <option value="{{ variant.id }}" 
+        data-variant-price="{{ variant.price }}" 
+        data-variant-compare-price="{{ variant.compare_at_price }}"
+        data-available="{{ variant.available }}"
+        data-inventory-policy="{{ variant.inventory_policy }}"
+        data-inventory-quantity="{{ variant.inventory_quantity }}"
+        data-option1="{{ variant.option1 | default: '_BLANK_' }}" 
+        data-option2="{{ variant.option2 | default: '_BLANK_' }}" 
+        data-option3="{{ variant.option3 | default: '_BLANK_' }}"
+        data-subscription-id="{{ subscription_id1 }}" 
+        data-discount-variant-id="{{ variant.metafields.subscriptions.discount_variant_id }}" 
+        data-discount-variant-price="{{ discount_price }}"
+        data-discount-amount="{{ discount_amount }}"
+        data-discount-percent="{{ discount_percent1 }}%"
+        data-product-handle="{{ upsell_product.handle }}"
+        {% if current_variant1 == variant %}selected{% endif %} >
+        {{ variant.title }}
+      </option>
+    {% endfor %}
+  </select> <!-- / data-all-variants -->
+
+  <div style="display: none;">
+    {% unless isDefault1 %}
+      {% render 'product-options', current_variant: current_variant1 %}
+    {% endunless %}
+  </div>
+
+</form>
+{% endcomment %}

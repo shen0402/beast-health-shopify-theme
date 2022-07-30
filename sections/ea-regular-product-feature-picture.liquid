@@ -1,0 +1,170 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-regular-product-feature-picture.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-regular-product-feature-picture.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% if set.image != blank %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="regular-product-feature-picture">
+  {% assign img_direction = set.direction %}
+  {% if img_direction == 'left' %}
+    {% assign css_direction = '' %}
+    {% assign img_style = 'style="text-align: right;margin-right: 30px;"' %}
+    {% assign txt_style = 'style="margin-right: auto;margin-left: 30px;"' %}
+  {% else %}
+    {% assign css_direction = 'section-image_right' %}
+    {% assign img_style = 'style="text-align: left;margin-left: 30px;"' %}
+    {% assign txt_style = 'style="margin-left: auto;margin-right: 30px;"' %}
+  {% endif%}
+  <div class="container product-picture_main {{ css_direction }}">
+
+    <div class="product-picture_left" {{img_style}}>
+      <img src="{{ set.image | img_url: 'master' }}" class="Rectangle-1599 hide--mobile">
+      <img src="{{ set.sp_image | img_url: 'master' }}" class="Rectangle-1599 hide--desktop">
+    </div>
+
+    <div class="product-picture_right">
+      <div class="section-image_main" {{txt_style}}>
+        <div class="section-image_title hide--mobile">{{ set.title }}</div>
+        <div class="section-image_title hide--desktop">{{ set.sp_title }}</div>
+        <div class="section-image_description hide--mobile">{{ set.desc }}</div>
+        <div class="section-image_description hide--desktop">{{ set.sp_desc }}</div>
+
+        {% assign icon_blocks = section.blocks | where: 'type', 'icon' %}
+
+        {% for block in icon_blocks %}
+          <div class="product-picture_block hide--desktop" data-animate-block>
+            <div class="product-picture_blocktext">{{ block.settings.title }}</div>
+            <div class="product-picture_blockicon">{{ block.settings.icon }}</div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div> 
+
+{% endif %}
+
+{% schema %}
+  {
+  "name": "Regular Feature Picture",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Image direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "sp_title",
+      "label": "Mobile Title"
+    },
+    {
+      "type": "richtext",
+      "id": "sp_desc",
+      "label": "Mobile Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon", 
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

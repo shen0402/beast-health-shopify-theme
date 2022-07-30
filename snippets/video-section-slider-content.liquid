@@ -1,0 +1,210 @@
+{% comment %} ATTENTION!!! This is compiled version of video-section-slider-content.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\video-section-slider-content.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+
+  {% render 'ea-section-styles', section: section %}
+
+  <div class="section_container">
+    <div class="main_content container" data-video-section-wrapper>
+      {% if section.settings.enable_indicator %}
+        <div data-sticky-indicator class="sticky-indicator {% if section.settings.is_white %}theme-white{% endif %} hide--mobile">
+          <div class="wrapper">
+            <div data-indicator-count><span data-current-index>1</span> / {{ section.blocks.size }}</div>
+            <div data-indicator-dots>
+              {% for block in section.blocks %}
+                <span class="{% if forloop.first %}active{% endif %}" data-target="slider_item_block-{{ forloop.index }}"></span>
+              {% endfor %}
+            </div>
+            <div data-indicator-arrow><svg xmlns="http://www.w3.org/2000/svg" width="8.346" height="14.721" viewBox="0 0 8.346 14.721"><path d="M8.19 13.6L1.917 7.357l6.212-6.239a.677.677 0 0 0-.955-.955L0 7.357l7.228 7.2a.677.677 0 0 0 .955-.955z" transform="rotate(180 4.173 7.36)"/></svg></div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="slider_wrapper" data-length="{{ section.blocks.size }}" data-video-slider>
+        {% for block in section.blocks %}
+          <div data-video-slider-item class="slider_item {% if block.settings.video_pos == 'right' %}reverse{% endif %}" style="background: {{ block.settings.bg_color }}" id="slider_item_block-{{ section.id }}-{{ forloop.index }}">
+            {% if block.settings.image != blank %}
+              <div class="image_wrapper">
+                <img src="{{ block.settings.image | img_url: '1200x' }}">
+              </div>
+            {% else %}
+              <div class="video_wrapper embed_container">
+                {% assign video_url = block.settings.video_url %}
+                {% assign mob_video_url = block.settings.mob_video_url | default: video_url %}
+
+                {% assign video_type = 'video' %}
+                {% assign mob_video_type = 'video' %}
+
+                {% if video_url contains 'youtube' or video_url contains 'vimeo' %}
+                  {% assign video_type = 'external_video' %}
+                {% endif %}
+
+                {% if mob_video_url contains 'youtube' or mob_video_url contains 'vimeo' %}
+                  {% assign mob_video_type = 'external_video' %}
+                {% endif %}
+
+                <div class="gradient_bar gradient_top {% unless block.settings.enable_gra_desktop %}hidden_desktop{% endunless %} {% unless block.settings.enable_gra_mobile %}hidden_mobile{% endunless %}"></div>
+                <div class="video_container">
+                  <div class="section-video_form {{ video_type }} hide--mobile" data-video-from>
+                    {% if video_type == 'video' %}
+                      <video class="section-video_video" id="videoId" muted playsinline><source src="{{ video_url }}" type="video/mp4"></video>
+                    {% elsif video_type == 'external_video' %}
+                      <iframe src="{{ video_url }}" frameborder="0" allow="autoplay" allowautoplay allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+
+                  <div class="section-video_form {{ mob_video_type }} hide--desktop" data-video-from>
+                    {% if mob_video_type == 'video' %}
+                      <video class="section-video_video" id="videoId" muted playsinline><source src="{{ mob_video_url }}" type="video/mp4"></video>
+                    {% elsif mob_video_type == 'external_video' %}
+                      <iframe src="{{ mob_video_url }}" frameborder="0" allow="autoplay" allowautoplay allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                  {% if block.settings.image == blank and block.settings.video_url != blank %}
+                    <div data-video-control data-play="false">
+                      <span data-video-play>{% render 'icon' with 'icon-video-replay' %}</span>
+                      <span data-video-pause>{% comment %}{% render 'icon' with 'icon-video-pause' %}{% endcomment %}</span>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="gradient_bar gradient_bottom {% unless block.settings.enable_gra_desktop %}hidden_desktop{% endunless %} {% unless block.settings.enable_gra_mobile %}hidden_mobile{% endunless %}"></div>
+                <style>
+                  
+                  @media (min-width: 990px) {
+                    {% assign left_bg_alpha = block.settings.left_bg | color_extract: 'alpha' %}
+                    {% assign left_gra_alpha = block.settings.left_gradient | color_extract: 'alpha' %}
+                    
+                    #slider_item_block-{{ section.id }}-{{ forloop.index }} {
+                      padding-top: {{ block.settings.m_top }}px;
+                      padding-bottom: {{ block.settings.m_bottom }}px;
+                    }
+
+                    #slider_item_block-{{ section.id }}-{{ forloop.index }} .gradient_top {
+                      background-image: linear-gradient({{ block.settings.left_rot }}deg, {{ block.settings.left_bg }}, {{ block.settings.left_gradient }});
+                      background-color: {%- if left_bg_alpha != 0 -%}{{ block.settings.left_bg }}{%- endif -%};
+                    }
+  
+                    {% assign right_bg_alpha = block.settings.right_bg | color_extract: 'alpha' %}
+                    {% assign right_gra_alpha = block.settings.right_gradient | color_extract: 'alpha' %}
+  
+                    #slider_item_block-{{ section.id }}-{{ forloop.index }} .gradient_bottom {
+                      background-image: linear-gradient({{ block.settings.right_rot }}deg, {{ block.settings.right_bg }}, {{ block.settings.right_gradient }});
+                      background-color: {%- if right_bg_alpha != 0 -%}{{ block.settings.right_bg }}{%- endif -%};
+                    }
+                  }
+
+                  @media(max-width: 989px) {
+                    {% assign top_bg_alpha = block.settings.top_bg | color_extract: 'alpha' %}
+                    {% assign top_gra_alpha = block.settings.top_gradient | color_extract: 'alpha' %}
+  
+                    #slider_item_block-{{ section.id }}-{{ forloop.index }} .gradient_top {
+                      background-image: linear-gradient({{ block.settings.top_rot }}deg, {{ block.settings.top_bg }}, {{ block.settings.top_gradient }});
+                      background-color: {%- if top_bg_alpha != 0 -%}{{ block.settings.top_bg }}{%- endif -%};
+                    }
+  
+                    {% assign bottom_bg_alpha = block.settings.bottom_bg | color_extract: 'alpha' %}
+                    {% assign bottom_gra_alpha = block.settings.bottom_gradient | color_extract: 'alpha' %}
+  
+                    #slider_item_block-{{ section.id }}-{{ forloop.index }} .gradient_bottom {
+                      background-image: linear-gradient({{ block.settings.bottom_rot }}deg, {{ block.settings.bottom_bg }}, {{ block.settings.bottom_gradient }});
+                      background-color: {%- if bottom_bg_alpha != 0 -%}{{ block.settings.bottom_bg }}{%- endif -%};
+                    }
+
+                    #slider_item_block-{{ section.id }}-{{ forloop.index }} {
+                      padding-top: {{ block.settings.m_top_mob }}px;
+                      padding-bottom: {{ block.settings.m_bottom_mob }}px;
+                    }
+
+                  }
+
+                </style>
+              </div>
+            {% endif %}
+            <div class="text_wrapper"data-animate-section>
+              <div class="d-flex">
+                {% if block.settings.title != blank %}
+                  <div class="title not-animated" style="color: {{ block.settings.title_color }}">{{ block.settings.title }}</div>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <div class="text hide--mobile" style="color: {{ block.settings.color }}">{{ block.settings.text }}</div>
+                {% endif %}
+                {% assign mob_text = block.settings.mob_text | default: block.settings.text %}
+                {% if mob_text != blank %}
+                  <div class="text hide--desktop" style="color: {{ block.settings.color }}">{{ mob_text }}</div>
+                {% endif %}
+                {% if block.settings.title1 != blank or block.settings.text1 != blank or blcok.settings.title2 != blank or block.settings.text2 != blank %}
+                  <div class="sub_text_wrapper {% if block.settings.grid %}d-flex{% endif %}" style="color: {{ block.settings.color }}">
+                    <div class="sub_text_item">
+                      {% if block.settings.title1 != blank %}
+                        <div class="title sub_title not-animated" style="color: {{ block.settings.sub_color }}">{{ block.settings.title1 }}</div>
+                      {% endif %}
+                      {% if block.settings.text1 != blank %}
+                        <div class="text sub_text">{{ block.settings.text1 }}</div>
+                      {% endif %}
+                    </div>
+                    <div class="sub_text_item">
+                      {% if block.settings.title2 != blank %}
+                        <div class="title sub_title not-animated" style="color: {{ block.settings.sub_color }}">{{ block.settings.title2 }}</div>
+                      {% endif %}
+                      {% if block.settings.text2 != blank %}
+                        <div class="text sub_text">{{ block.settings.text2 }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+                {% if block.settings.btn_label != blank and block.settings.btn_link != blank %}
+                  <div class="btn_wrapper">
+                    <a onclick="dataLayer.push({'CTA': '{{ block.settings.btn_link }}'});"  href="{{ block.settings.btn_link }}">{{ block.settings.btn_label }}</a>
+                  </div>
+                {% endif %}
+              </div>
+
+              <style>
+
+                @media (min-width: 990px) {
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .text_wrapper .title {
+                    font-size: {{ block.settings.f_title }}px;
+                  }
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .text_wrapper .sub_title {
+                    font-size: {{ block.settings.f_subtitle }}px;
+                  }
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .text_wrapper .text {
+                    font-size: {{ block.settings.f_text }}px;
+                  }
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .btn_wrapper a {
+                    font-size: {{ block.settings.f_btn }}px;
+                  }
+                }
+
+                @media (max-width: 989px) {
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .text_wrapper .title {
+                    font-size: {{ block.settings.f_title_mob }}px;
+                  }
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .text_wrapper .sub_title {
+                    font-size: {{ block.settings.f_subtitle_mob }}px;
+                  }
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .text_wrapper .text {
+                    font-size: {{ block.settings.f_text_mob }}px;
+                  }
+                  #slider_item_block-{{ section.id }}-{{ forloop.index }} .btn_wrapper a {
+                    font-size: {{ block.settings.f_btn_mob }}px;
+                  }
+                }
+
+                #slider_item_block-{{ section.id }}-{{ forloop.index }} .btn_wrapper a {
+                  background: {{ block.settings.btn_color }};
+                  color: {{ block.settings.btn_text_color }};
+                }
+                #slider_item_block-{{ section.id }}-{{ forloop.index }} .btn_wrapper a:hover {
+                  background: {{ block.settings.btn_h_color }};
+                  color: {{ block.settings.btn_h_text_color }};
+                }
+
+              </style>
+
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endif %}

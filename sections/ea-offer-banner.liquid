@@ -1,0 +1,119 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-offer-banner.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-offer-banner.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+  {% render 'ea-offer-banner-content', section: section %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Offer Banner",
+    "class": "section offer-banner-section",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "visible",
+        "label": "Show section",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Spacing"
+      },
+      {
+        "type": "range",
+        "id": "ptop",
+        "label": "Top spacing desktop",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "range",
+        "id": "pbottom",
+        "label": "Bottom spacing desktop",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "range",
+        "id": "ptop_mob",
+        "label": "Top spacing mobile",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "range",
+        "id": "pbottom_mob",
+        "label": "Bottom spacing mobile",
+        "min": 0,
+        "unit": "px",
+        "max": 500,
+        "step": 5,
+        "default": 45
+      },
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "color",
+        "id": "sectionbg",
+        "label": "Section background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "sub-title",
+        "label": "Sub Heading",
+        "default": "Sub Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button-text",
+        "label": "Button Text",
+        "default": "Shop now"
+      },
+      {
+        "type": "url",
+        "id": "button-url",
+        "label": "Button Link"
+      },
+      {
+        "type": "select",
+        "id": "alignment",
+        "label": "Alignment",
+        "default": "center",
+        "options": [
+          {"value": "left", "label": "Left"},
+          {"value": "center", "label": "Center"},
+          {"value": "right", "label": "Right"}
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Offer Banner",
+        "category": "Text"
+      }
+    ]
+  }
+{% endschema %}

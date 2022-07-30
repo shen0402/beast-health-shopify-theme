@@ -1,0 +1,14 @@
+{% comment %} ATTENTION!!! This is compiled version of post-cell-custom-mobile.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\post-cell-custom-mobile.liquid file to code and save your changes. {% endcomment %}<article class="post-cell post-cell-mob post-cell-custom-mob" data-handle="{{ handle | replace: ' ', '-' }}" data-title="{{ article.title | handleize }}" data-desc="{{ article.excerpt | handleize }}" data-handle-tag="{{ article.tags | join: ',' | replace: ' ', '-' | handleize }}">
+    <div class="post-cell__image">
+      <a href="{{ article.url }}" class="post-cell__no-link">
+        {% render 'rimage', image: article.image %}
+      </a>
+    </div>  
+    <div class="post-cell__content">
+      <a href="{{ article.url }}" class="post-cell__no-link">
+        <h3 class="post-cell__title title h2 m-black not-animated">{{ article.title }}</h3>
+        <div class="post-cell__excerpt">{{ article.excerpt }}</div>
+      </a>
+      <a href="{{ article.url }}" class="post-cell__link">Read more</a>
+    </div>  
+</article>

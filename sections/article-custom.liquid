@@ -1,0 +1,170 @@
+{% comment %} ATTENTION!!! This is compiled version of article-custom.liquid and it is overriding automatically. You should use theme development tool and sources\sections\article-custom.liquid file to code and save your changes. {% endcomment %}
+{% comment %} ATTENTION!!! This is compiled version of article-custom.liquid and it is overriding automatically. You should use theme development tool and sources\sections\article-custom.liquid file to code and save your changes. {% endcomment %}{% render 'ea-section-styles', section: section %}
+
+<div class="section_container">
+  <div class="main_content container">
+    <div class="article_header d-flex">
+      <div class="breadcrumb d-flex">
+        <li class="hide--mobile">
+          <span>Wellness</span>
+          {% render 'icon' with 'icon-arrow-right' %}
+        </li>
+        {% assign request_path = request.path | split: '/' %}
+        {% assign _filter = request_path | last %}
+        {% assign _filter = '/' | append: _filter %}
+        {% assign url = request.path | replace: _filter, '' %}
+        <li class="hide--mobile">
+          <a href="{{ blog.url }}?{{ blog.title | replace: ' ', '-' }}">back to {{ blog.title }}</a>
+          {% render 'icon' with 'icon-arrow-right' %}
+        </li>
+        <li class="hide--desktop">
+          <a href="{{ blog.url }}?{{ blog.title | replace: ' ', '-' }}">Go back to {{ blog.title }}</a>
+          {% render 'icon' with 'icon-back' %}
+        </li>
+        <li class="hide--mobile"><span>{{ article.title }}</span></li>
+      </div>
+      <div class="social_icons">
+        {% render 'ea-social-share-buttons-article', article: article %}
+      </div>
+    </div>
+    <div class="article_main">
+      <div class="article_title title not-animated">{{ article.title }}</div>
+      <div class="article_excerpt">{{ article.excerpt }}</div>
+      <div class="main_wrapper d-flex">
+        <div class="article__info" data-accordions-container data-accordions-mobile-only="1">
+          {% if article.metafields.feature != blank %}
+          <div class="features d-flex">
+            {% assign meta_feature = article.metafields.feature %}
+            {% for title in meta_feature.title %}
+              <div class="feature_item">
+                <span>{{ title }}</span>
+                <span>{{ meta_feature.content[forloop.index0] }}</span>
+              </div>
+            {% endfor %}
+          </div>         
+          {% endif %}
+          <div class="article__images hide--desktop">
+            <div data-hor-slider data-slides-to-show="1" data-arrows="false" data-dots="true">
+              {% for img in article.metafields.image.image %}
+                <div class="image_wrapper">
+                  <img src="{{ img }}">
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="article_desc">
+            {{ article.content }}
+          </div>
+          <div class="article_ingredients d-flex">
+            {% assign meta_ing = article.metafields.info %}
+            <div>
+              {% if meta_ing.ingredients != blank %}
+                <div class="ing_title" data-accordion-title>Ingredients {% render 'icon' with 'icon-arrow-down' %}</div>
+                <div data-subaccordion>{{ meta_ing.ingredients }}</div>
+              {% endif %}
+            </div>
+            <div>
+              {% if meta_ing.instructions != blank %}
+                <div class="ing_title" data-accordion-title>Instructions {% render 'icon' with 'icon-arrow-down' %}</div>
+                <div data-subaccordion>{{ meta_ing.instructions }}</div>
+              {% endif %}
+            </div>
+          </div>
+          {% unless article.metafields.product.product == blank %}
+            <div class="article_products">
+              <label data-accordion-title>Parts & accessories used {% render 'icon' with 'icon-arrow-down' %}</label>
+              <div data-subaccordion>
+                <div class="d-flex">
+                  {% assign products = article.metafields.product.product %}
+                  {% for _product in products %}
+                    {% assign product = all_products[_product] %}
+                    <div class="product-item">
+                      <div class="image_wrapper"><a href="{{ product.url }}"><img src="{{ product.featured_image | img_url: '160x' }}"></a></div>
+                      <div class="product_title"><a href="{{ product.url }}">{{ product.title }}</a></div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          {% endunless %}
+        </div>
+        <div class="article__images hide--mobile">
+          <div data-hor-slider data-slides-to-show="1" data-arrows="false" data-dots="true">
+            {% for img in article.metafields.image.image %}
+              <div class="image_wrapper">
+                <img src="{{ img }}">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Article Page",
+  "class": "ea-article-page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    }
+  ]
+}
+{% endschema %}

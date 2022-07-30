@@ -1,0 +1,108 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-page-about-tech-slider.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-page-about-tech-slider.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="page-about-tech-slider">
+  <div class="j-center"><div class="about-tech-slider_title">{{ set.title }}</div></div>
+  <div class="j-center"><div class="about-tech-slider_description">{{ set.desc }}</div></div>
+  <div class="about-tech-slider_main hide--mobile" data-hor-slider data-arrows="true" data-slides-to-show="1">
+    {% for block in section.blocks %}
+      {% render 'rimage-second', image: block.settings.image, size: '2000x', wrapper_class: 'about-tech-slider_image' %}
+    {% endfor %}
+  </div>
+  <div class="about-tech-slider_main hide--desktop" data-hor-slider data-arrows="false" data-slides-to-show-mob="1">
+    {% for block in section.blocks %}
+      {% render 'rimage-second', image: block.settings.sp_image, size: '600x', wrapper_class: 'about-tech-slider_image' %}
+    {% endfor %}
+  </div>
+  <div class="about-tech-slider_content hide--desktop">Swipe <br>left or right.</div>
+
+</div>
+
+{% schema %}
+  {
+  "name": "About Tecnology Slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Image Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image", 
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "sp_image", 
+          "label": "Mobile Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

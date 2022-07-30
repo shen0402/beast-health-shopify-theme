@@ -1,0 +1,28 @@
+{% comment %} ATTENTION!!! This is compiled version of page-press-main-content.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\page-press-main-content.liquid file to code and save your changes. {% endcomment %}
+{% if section.settings.visible %}
+
+{% render 'ea-section-styles', section: section %}
+
+<div class="container">
+    <div class="text-block-lists-content">
+        {% for block in section.blocks %}
+            <div class="text-block-item d-flex">
+                <div class="block-content-text">
+                    <div class="block-title">{{ block.settings.title }}</div>
+                    {% if block.settings.url != blank and block.settings.button_text != blank %}
+                      <a href="{% if block.settings.url != blank %}{{ block.settings.url }}{% else %}javascript:;{% endif %}" target="blank">{{ block.settings.button_text }}</a>
+                    {% endif %}
+                </div>
+                <div class="block-content-image">
+                  {% if block.settings.svg != blank %}
+                    {{ block.settings.svg }}
+                  {% else %}
+                    {{ block.settings.icon | img_url: '200x' | img_tag }}
+                  {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endif %}

@@ -1,0 +1,16 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-autoscroll-content.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-autoscroll-content.liquid file to code and save your changes. {% endcomment %}{% if section.blocks.size > 0 %}
+{% render 'ea-section-styles', section: section %}
+    <div class="autoscroll_content d-flex" autoscroll-contents>
+        {% for block in section.blocks %}
+            {% if block.settings.img != blank or block.settings.svg_logo != blank %}
+                <div class="logo_item">
+                    {% if block.settings.svg_logo != blank %}
+                        {{ block.settings.svg_logo }}
+                    {% else %}
+                        <img src="{{ block.settings.img | img_url: 'master' }}" alt="{{ block.settings.img.alt }}">
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

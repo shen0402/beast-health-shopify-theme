@@ -1,0 +1,150 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-register-faq.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-register-faq.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="product-faq">
+  <div class="container">
+    <div class="product-faq_title title">{{ set.title }}</div>
+
+    <div class="hide--mobile">
+      <div class="row product-faq_blocks">
+        {% for block in section.blocks %}
+          <div class="col-md-4">
+            <div class="product-faq_blocktitle">{{ block.settings.title }}</div>
+            <div class="product-faq_blocktext">{{ block.settings.content }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="hide--desktop">
+      <div class="row product-faq_blocks" data-faq-slider>
+        <div class="col-md-4">
+        {% for block in section.blocks %}
+          {% assign i = forloop.index0 %}
+          {% assign j = i | modulo: 2 %}
+          {% if j == 0 %}
+            <div>
+              <div class="product-faq_blocktitle">{{ block.settings.title }}</div>
+              <div class="product-faq_blocktext">{{ block.settings.content }}</div>
+            </div>
+          {% else %}
+            <div>
+              <div class="product-faq_blocktitle">{{ block.settings.title }}</div>
+              <div class="product-faq_blocktext">{{ block.settings.content }}</div>
+            </div>
+            {% assign cnt = section.blocks.size | minus: 1 %}
+            {% if i != cnt %}
+              </div>
+              <div class="col-md-4">
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+      <div class="about-tech-slider_content hide--desktop">Swipe <br>left or right.</div>
+    </div>
+
+    <div class="product-faq_subtitle">{{ set.subtitle }}</div>
+    <div class="product-faq_link"><a href="{{ set.url }}" class="product-faq_url">{{ set.link }}</a></div>
+
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Product Register Faq",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sub Title"
+    },
+    {
+      "type": "text",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Url"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

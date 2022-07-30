@@ -1,0 +1,280 @@
+{% comment %} ATTENTION!!! This is compiled version of hero-banner-press.liquid and it is overriding automatically. You should use theme development tool and sources\sections\hero-banner-press.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of hero-banner-press.liquid and it is overriding automatically. You should use theme development tool and sources\sections\hero-banner-press.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of hero-banner-press.liquid and it is overriding automatically. You should use theme development tool and sources\sections\hero-banner-press.liquid file to code and save your changes. {% endcomment %}{% assign image = section.settings.image %}
+{% assign mob_image = section.settings.mob_image | default: image %}
+
+{% if section.settings.visible and image != blank %}
+
+    {% render 'ea-section-styles', section: section %}
+
+    <div class="hero-container">
+        <div id="section-{{ section.id }}" class="hero">
+            <div class="hero__container container press">
+                <div class="hero__info-wrap">
+                    <div class="hero__info {{ section.settings.content_position }} text-align-{{ section.settings.text_align }} mob-text-align-{{ section.settings.text_align_mob }} mobile_{{ section.settings.content_position_mobile }}">
+                        {% assign title = section.settings.title %}
+                        {% assign subtitle = section.settings.desc %}
+                        
+                        {% assign color = section.settings.text_color %}
+
+                        {% if title != blank %}   
+                            <h1 class="hero__title title m-heavy not-animated" style="color: {{ color }}">{{ title }}</h1>
+                        {% endif %}
+
+                        {% if subtitle != blank %}
+                            <div class="subtitle not-animated" style="color: {{ color }}">{{ subtitle }}</div>
+                        {% endif %}
+                    </div>
+                </div>   
+                <div class="hero__img hide--mobile">
+                    {% render 'rimage', image: image, size: '2000x' %}
+                </div>
+                <div class="hero__img hide--desktop">
+                    {% render 'rimage', image: mob_image %}
+                </div>
+            </div> 
+            <div class="hero__container container gift" style="display: none;">
+              {% assign gift_image = section.settings.gift_image %}
+              {% assign gift_mob_image = section.settings.gift_mob_image | default: gift_image %}
+
+              <div class="hero__info-wrap">
+                  <div class="hero__info {{ section.settings.content_position }} text-align-{{ section.settings.text_align }} mob-text-align-{{ section.settings.text_align_mob }} mobile_{{ section.settings.content_position_mobile }}">
+                      {% assign title = section.settings.gift_title %}
+                      {% assign subtitle = section.settings.gift_desc %}
+                      
+                      {% assign color = section.settings.text_color %}
+
+                      {% if title != blank %}   
+                          <h1 class="hero__title title m-heavy not-animated" style="color: {{ color }}">{{ title }}</h1>
+                      {% endif %}
+
+                      {% if subtitle != blank %}
+                          <div class="subtitle not-animated" style="color: {{ color }}">{{ subtitle }}</div>
+                      {% endif %}
+                  </div>
+              </div>   
+              <div class="hero__img hide--mobile">
+                  {% render 'rimage', image: gift_image, size: '2000x' %}
+              </div>
+              <div class="hero__img hide--desktop">
+                  {% render 'rimage', image: gift_mob_image %}
+              </div>
+          </div> 
+        </div> 
+    </div>
+
+{% endif %}
+
+
+{% schema %}
+{
+    "name": "Hero Section",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "visible",
+            "label": "Show block",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "Background"
+        },
+        {
+            "type": "color",
+            "id": "sectionbg",
+            "label": "Background",
+            "default": "#fff"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mob_image",
+          "label": "Mobile Image"
+        },
+        {
+            "type": "header",
+            "content": "Control"
+        },
+        {
+            "type": "select",
+            "id": "content_position",
+            "label": "Content Position",
+            "options": [
+                {
+                    "value": "top-left",
+                    "label": "Top Left"
+                },
+                {
+                    "value": "top-center",
+                    "label": "Top Center"
+                },
+                {
+                    "value": "top-right",
+                    "label": "Top right"
+                },
+                {
+                    "value": "middle-left",
+                    "label": "Middle Left"
+                },
+                {
+                    "value": "middle-center",
+                    "label": "Middle Center"
+                },
+                {
+                    "value": "middle-right",
+                    "label": "Middle Right"
+                },
+                {
+                    "value": "bottom-left",
+                    "label": "Bottom Left"
+                },
+                {
+                    "value": "bottom-center",
+                    "label": "Bottom Center"
+                },
+                {
+                    "value": "bottom-right",
+                    "label": "Bottom Right"
+                }
+            ],
+            "default": "middle-center"
+          },
+          {
+            "type": "select",
+            "id": "content_position_mobile",
+            "label": "Content Position on Mobile",
+            "options": [
+              {
+                "value": "top-left",
+                "label": "Top Left"
+              },
+              {
+                "value": "top-center",
+                "label": "Top Center"
+              },
+              {
+                "value": "top-right",
+                "label": "Top right"
+              },
+              {
+                "value": "middle-left",
+                "label": "Middle Left"
+              },
+              {
+                "value": "middle-center",
+                "label": "Middle Center"
+              },
+              {
+                "value": "middle-right",
+                "label": "Middle Right"
+              },
+              {
+                "value": "bottom-left",
+                "label": "Bottom Left"
+              },
+              {
+                "value": "bottom-center",
+                "label": "Bottom Center"
+              },
+              {
+                "value": "bottom-right",
+                "label": "Bottom Right"
+              }
+            ],
+            "default": "middle-center"
+          },
+          {
+              "type": "select",
+              "id": "text_align",
+              "options": [
+                {
+                    "label": "Left",
+                    "value": "left"
+                },
+                {
+                    "label": "Center",
+                    "value": "center"
+                },
+                {
+                    "label": "Right",
+                    "value": "right"
+                }
+              ],
+              "default": "left",
+              "label": "Text Alignment"
+          },
+          {
+              "type": "select",
+              "id": "text_align_mob",
+              "options": [
+                {
+                    "label": "Left",
+                    "value": "left"
+                },
+                {
+                    "label": "Center",
+                    "value": "center"
+                },
+                {
+                    "label": "Right",
+                    "value": "right"
+                }
+              ],
+              "default": "center",
+              "label": "Text Alignment on Mobile"
+          },
+          {
+            "type": "header",
+            "content": "Gift Card Contet"
+          },
+          {
+            "type": "text",
+            "id": "gift_title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "gift_desc",
+            "label": "Text"
+          },
+          {
+            "type": "image_picker",
+            "id": "gift_image",
+            "label": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "gift_mob_image",
+            "label": "Mobile Image"
+          },
+          {
+            "type": "header",
+            "content": "Colors"
+          },
+          {
+            "type": "paragraph",
+            "content": "Text"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#fffdfc"
+          }
+    ]
+  }
+{% endschema %}

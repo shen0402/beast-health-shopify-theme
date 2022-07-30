@@ -1,0 +1,320 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-banner.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-banner.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="hero-container" id="section-banner">
+  <div id="section-{{ section.id }}" class="hero">
+      <div class="hero__container container section-banner_main">
+          <div class="hero__info-wrap">
+              <div class="hero__info--{{ section.id }}  hero__info {{ section.settings.content_position }} mobile_{{ section.settings.content_position_mobile }} banner-title_unset text_align_{{ section.settings.text_align }} mobile_text_align_{{ section.settings.text_align_mobile }} ">
+                {% assign title = section.settings.title %}
+                {% assign subtitle = section.settings.desc %}
+
+                {% if title != blank %}   
+                    <h1 class="hero__title title m-heavy not-animated section-banner_title" style="color: {{ section.settings.text_color }}">{{ title }}</h1>
+                {% endif %}
+
+                {% if subtitle != blank %}
+                    <div class="not-animated {% if set.subtitle_large %}h3{% endif %} section-banner_descriptoin" style="color: {{ section.settings.text_color }}">{{ subtitle }}</div>
+                {% endif %}
+
+                <div class="section-banner_shop"><a onclick="dataLayer.push({'CTA': '{{ set.url }}'});" href="{{ set.url }}">{{ set.button }}</a></div>
+              </div>
+
+              <style>
+                .hero__info--{{ section.id }} .section-banner_shop a {
+                  background: {{ section.settings.btn_bg }};
+                  color: {{ section.settings.btn_text }};
+                }
+                .hero__info--{{ section.id }} .section-banner_shop a:hover {
+                  background: {{ section.settings.btn_bg_hover }};
+                  color: {{ section.settings.btn_text_hover }};
+                }
+              </style>
+
+          </div>   
+          {% assign image = section.settings.image %}
+          {% assign sp_image = section.settings.sp_image %}
+          <div class="hero__img hide--mobile">
+            {% render 'rimage', image: image, size: '2000x' %}
+          </div>
+          {% if sp_image != blank %}
+            <div class="hero__img hide--desktop">
+              {% render 'rimage', image: sp_image, size: '800x' %}
+            </div>
+          {%endif%}
+      </div> 
+  </div> 
+</div>
+
+{% schema %}
+  {
+  "name": "Section Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "2000 x 800 px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image",
+      "label": "Mobile Image",
+      "info": "800 x 1300 px recommended"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Url"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+          {
+            "value": "top-left",
+            "label": "Top Left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top Center"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "middle-left",
+            "label": "Middle Left"
+          },
+          {
+            "value": "middle-center",
+            "label": "Middle Center"
+          },
+          {
+            "value": "middle-right",
+            "label": "Middle Right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom Left"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom Center"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom Right"
+          }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_mobile",
+      "label": "Content Position on Mobile",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle Left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle Center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "text align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_align_mobile",
+      "label": "Text align mobile",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFF"
+    },
+    {
+      "type": "paragraph",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#FFF"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "#000"
+    },
+    {
+      "type": "paragraph",
+      "content": "Button Hover"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_hover",
+      "label": "Button Background on Hover",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_hover",
+      "label": "Button Text on Hover",
+      "default": "#FFF"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

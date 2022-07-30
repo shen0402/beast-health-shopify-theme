@@ -1,0 +1,347 @@
+{% comment %} ATTENTION!!! This is compiled version of blog-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\blog-main.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of blog-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\blog-main.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+
+{% render 'ea-section-styles', section: section %}
+
+<div class="section_container">
+
+  <div class="hero-container">
+    <div id="section-{{ section.id }}" class="hero">
+        <div class="hero__container container">
+            <div class="hero__info-wrap">
+                <div class="hero__info {{ section.settings.content_position }} text-align-{{ section.settings.text_align }} mobile_{{ section.settings.content_position_mobile }} mob-text-align-{{ section.settings.mob_text_align }}">
+                    {% assign title = section.settings.title %}
+                    {% assign subtitle = section.settings.text %}
+                    {% assign mob_subtitle = section.settings.mob_text %}
+
+                    {% if title != blank %}   
+                        <h1 class="hero__title title m-heavy not-animated" style="color: {{ section.settings.text_color }}">{{ title }}</h1>
+                    {% endif %}
+
+                    {% if subtitle != blank %}
+                        <div class="subtitle hide--mobile not-animated {% if set.subtitle_large %}h3{% endif %}" style="color: {{ section.settings.text_color }}">{{ subtitle }}</div>
+                    {% endif %}
+
+                    {% if mob_subtitle != blank %}
+                        <div class="subtitle hide--desktop not-animated {% if set.subtitle_large %}h3{% endif %}" style="color: {{ section.settings.text_color }}">{{ mob_subtitle }}</div>
+                    {% endif %}
+
+                </div>
+            </div>   
+            {% assign image = section.settings.image %}
+            {% assign mob_image = section.settings.mob_image | default: image %}
+            <div class="hero__img hide--mobile">
+              {% render 'rimage', image: image, size: '2000x' %}
+            </div>
+            <div class="hero__img hide--desktop">
+              {% render 'rimage', image: mob_image, size: '800x' %}
+            </div>
+        </div> 
+    </div> 
+  </div>
+
+  <div class="blog_wrapper container">
+    <div class="blog_header d-flex">
+      <div class="header_wrapper d-flex">
+        <div class="blog_header_item" data-type="all">All</div>
+        {% for block in section.blocks %}
+          {% assign blog = blogs[block.settings.blog] %}
+          {% assign title = block.settings.title | default: blog.title %}
+          <div class="blog_header_item {% if forloop.first == true %} active {% endif %}" data-type="{{ blog.title | replace: ' ', '-' }}">{{ title }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="blog_desc_wrap d-flex">
+      {% for block in section.blocks %}
+        {% assign blog = blogs[block.settings.blog] %}
+        {% assign title = block.settings.title | default: blog.title %}
+        {% assign desc = block.settings.desc  %}
+        <div class="blog_desc {% if forloop.first == true %} active {% endif %}" data-type="{{ blog.title | replace: ' ', '-' }}">
+          {{ desc }}
+        </div>
+      {% endfor %}
+    </div>
+    
+
+    <div class="blog_content" data-article-slider>
+      {% for block in section.blocks %}
+        {% assign blog = blogs[block.settings.blog] %}
+        {% assign title = block.settings.title | default: blog.title %}
+        {% for article in blog.articles %}
+          {% render 'post-cell-custom', handle: blog.title, article: article, blog: blog %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <div class="hide--desktop">
+      <div class="swipe-text">swipe left to see more.</div>
+    </div>
+  </div>
+  
+</div>
+
+
+{% endif %}
+
+{% schema %}
+{
+"name": "Blog",
+"class": "blog-tab",
+"tag": "section",
+"settings": [
+  {
+    "type": "checkbox",
+    "id": "visible",
+    "label": "Show block",
+    "default": true
+  },
+  {
+    "type": "header",
+    "content": "Spacing"
+  },
+  {
+    "type": "range",
+    "id": "ptop",
+    "label": "Top spacing desktop",
+    "min": 0,
+    "unit": "px",
+    "max": 500,
+    "step": 5,
+    "default": 45
+  },
+  {
+    "type": "range",
+    "id": "pbottom",
+    "label": "Bottom spacing desktop",
+    "min": 0,
+    "unit": "px",
+    "max": 500,
+    "step": 5,
+    "default": 45
+  },
+  {
+    "type": "range",
+    "id": "ptop_mob",
+    "label": "Top spacing mobile",
+    "min": 0,
+    "unit": "px",
+    "max": 500,
+    "step": 5,
+    "default": 45
+  },
+  {
+    "type": "range",
+    "id": "pbottom_mob",
+    "label": "Bottom spacing mobile",
+    "min": 0,
+    "unit": "px",
+    "max": 500,
+    "step": 5,
+    "default": 45
+  },
+  {
+    "type": "header",
+    "content": "Background"
+  },
+  {
+    "type": "color",
+    "id": "sectionbg",
+    "label": "Background",
+    "default": "#fff"
+  },
+  {
+    "type": "header",
+    "content": "Content"
+  },
+  {
+    "type": "image_picker",
+    "id": "image",
+    "label": "Image"
+  },
+  {
+    "type": "image_picker",
+    "id": "mob_image",
+    "label": "Mobile Image"
+  },
+  {
+    "type": "select",
+    "id": "content_position",
+    "label": "Content Position",
+    "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle Left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle Center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+    ],
+    "default": "middle-center"
+  },
+  {
+    "type": "select",
+    "id": "content_position_mobile",
+    "label": "Content Position on Mobile",
+    "options": [
+      {
+        "value": "top-left",
+        "label": "Top Left"
+      },
+      {
+        "value": "top-center",
+        "label": "Top Center"
+      },
+      {
+        "value": "top-right",
+        "label": "Top right"
+      },
+      {
+        "value": "middle-left",
+        "label": "Middle Left"
+      },
+      {
+        "value": "middle-center",
+        "label": "Middle Center"
+      },
+      {
+        "value": "middle-right",
+        "label": "Middle Right"
+      },
+      {
+        "value": "bottom-left",
+        "label": "Bottom Left"
+      },
+      {
+        "value": "bottom-center",
+        "label": "Bottom Center"
+      },
+      {
+        "value": "bottom-right",
+        "label": "Bottom Right"
+      }
+    ],
+    "default": "middle-center"
+  },
+  {
+    "type": "text",
+    "id": "title",
+    "label": "Title"
+  },
+  {
+    "type": "richtext",
+    "id": "text",
+    "label": "Text"
+  },
+  {
+    "type": "richtext",
+    "id": "mob_text",
+    "label": "Text (Mobile)"
+  },
+  {
+    "type": "select",
+    "id": "text_align",
+    "options": [
+      {
+        "label": "Left",
+        "value": "left"
+      },
+      {
+        "label": "Center",
+        "value": "center"
+      },
+      {
+        "label": "Right",
+        "value": "right"
+      }
+    ],
+    "default": "left",
+    "label": "Text Alignment"
+  },
+  {
+    "type": "select",
+    "id": "mob_text_align",
+    "options": [
+      {
+        "label": "Left",
+        "value": "left"
+      },
+      {
+        "label": "Center",
+        "value": "center"
+      },
+      {
+        "label": "Right",
+        "value": "right"
+      }
+    ],
+    "default": "center",
+    "label": "Text Alignment on Mobile"
+  },
+  {
+    "type": "header",
+    "content": "Colors"
+  },
+  {
+    "type": "paragraph",
+    "content": "Text"
+  },
+  {
+    "type": "color",
+    "id": "text_color",
+    "label": "Text Color",
+    "default": "#fffdfc"
+  }
+],
+"blocks": [
+  {
+    "type": "blog",
+    "name": "Blog",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "blog",
+        "id": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "richtext",
+        "id": "desc",
+        "label": "Description text"
+      }
+
+    ]
+  }
+]
+}
+{% endschema %}

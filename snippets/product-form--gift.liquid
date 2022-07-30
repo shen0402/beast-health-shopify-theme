@@ -1,0 +1,128 @@
+{% comment %} ATTENTION!!! This is compiled version of product-form--gift.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-form--gift.liquid file to code and save your changes. {% endcomment %}<form id="addToCartForm" class="product-form" action="/cart/add" method="post" enctype="multipart/form-data" data-productid="{{product.id}}" data-variantid="{{ current_variant.id }}" data-discountid="{{ current_variant.metafields.subscriptions.discount_variant_id }}" data-product-form>
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-selected-variant-id>
+
+  {% if product.available %}
+
+  {%- comment -%}
+    <div class="field">
+      <label for="amount-select" class="label">Amount:</label>
+      <select id="amount-select" class="select" name="id" data-variant-select>
+        {% for variant in product.variants %}
+          <option value="{{ variant.id | handle }}" {% if forloop.index == 1 %}selected{% endif %} data-price="{{ variant.price }}">
+            {{ variant.title }}
+          </option>
+        {% endfor %}
+      </select> 
+    </div>
+    {%- endcomment -%}
+
+    <h1 class="title not-animated">{{ product.title }}</h1>
+
+    <h5 class="product-star-review hide--desktop">
+      <div data-oke-reviews-product-listing-rating>{{ product.metafields.okendo.ProductListingSnippet }}</div>
+    </h5>
+
+
+    {% comment %} All variants js selector {% endcomment %}
+    <select class="no-js" data-all-variants name="all-variants">
+      {% for variant in product.variants %}
+        {% assign discount_price = variant.metafields.subscriptions.discount_variant_price | replace: '.', '' %}
+        {% assign discount_amount = variant.price | minus: discount_price %}
+
+        {% assign is_available = true %}
+        {% if variant.inventory_quantity <= 0 and variant.inventory_policy != 'continue' %}
+          {% assign is_available = false %}
+        {% endif %}
+        <option value="{{ variant.id }}" 
+          data-variant-price="{{ variant.price }}" 
+          data-variant-compare-price="{{ variant.compare_at_price }}"
+          data-available="{{ is_available }}"
+          data-inventory-policy="{{ variant.inventory_policy }}"
+          data-inventory-quantity="{{ variant.inventory_quantity }}"
+          data-option1="{{ variant.option1 | default: '_BLANK_' }}" 
+          data-option2="{{ variant.option2 | default: '_BLANK_' }}" 
+          data-option3="{{ variant.option3 | default: '_BLANK_' }}"
+          data-subscription-id="{{ subscription_id }}" 
+          data-discount-variant-id="{{ variant.metafields.subscriptions.discount_variant_id }}" 
+          data-discount-variant-price="{{ discount_price }}"
+          data-discount-amount="{{ discount_amount }}"
+          data-discount-percent="{{ discount_percent }}%"
+          data-product-handle="{{ product.handle }}"
+          {% if current_variant == variant %}selected{% endif %} >
+          {{ variant.title }}
+        </option>
+      {% endfor %}
+    </select> <!-- / data-all-variants -->
+
+    <div class="product-form_options product-form_options_gift {% if isDefault %}no-options{% endif %} options-size-{{ product.options.size }}">
+      {% unless isDefault %}
+        {% render 'product-options_gift', current_variant: current_variant, product: product %}
+      {% endunless %}
+    </div>
+
+  {% else %}
+    <select name="id" class="no-js" data-product-select data-productid="{{product.id}}">
+      {% for variant in product.variants %}
+      <option {% if variant == current_variant %}selected="selected" {% endif %}
+        {% unless variant.available %}disabled="disabled" {% endunless %} value="{{ variant.id }}">
+        {{ variant.title }}
+      </option>
+      {% endfor %}
+    </select>
+  {% endif %} 
+
+  <div class="add-to-cart-container">
+    <button onclick="dataLayer.push({'ATC': '{{ product.handle }}'});"  type="submit" name="add" class="btn btn--primary add-to-cart" data-add-to-cart></button>
+  </div> <!-- / .d-flex -->
+
+  {% capture tab_content  %}
+    <div class="product-info__blocks product-info__blocks_gift">
+
+        {% assign meta_info = product.metafields.global %}
+
+        {% capture in_box_list %}
+          <ul>
+            {% for list in meta_info.in-box-list %}
+              <li>{{ list }}</li>
+            {% endfor %}
+          </ul>
+        {% endcapture %}
+
+        {% capture features %}
+          <ul>
+            {% for feature in meta_info.feature_item %}
+              <li>{{ feature }}</li>
+            {% endfor %}
+          </ul>
+        {% endcapture %}
+      
+        <div class="product-benefits checked" id="product-benefits1" data-in-box="false" data-type="desc">Description</div>
+        <hr/>
+        <span data-product-desc style="display: none;">{{ product.description }}</span>
+    </div>
+    <div class="product-info__bottom" id="produc-feature_content" data-content-type="desc">
+      <span class="hide--mobile">
+        {{ product.description }}
+      </span>
+      <span class="hide--desktop">
+        <span data-full-desc>
+          {{ product.description }}
+        </span>
+        <span data-short-desc>
+          {{ product.description | strip_html | truncate: 115 }}
+        </span>
+        <span data-read-more>Read More</span>
+        <span data-read-less>Read Less</span>
+      </span>
+    </div>
+
+  {% endcapture %}
+
+  <div class="description-tab-wrapper">
+    {{ tab_content }}
+  </div>
+
+
+</form>
+
+

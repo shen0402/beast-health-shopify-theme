@@ -1,0 +1,213 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-register.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-register.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles', section: section %}
+
+<div class="section has-image page-contact" data-login-forgot>
+  {% render 'ea-section-foreground-image', section: section %}
+
+  <div class="container">
+    {% comment %}<div class="ea-product-register_title">{{ set.pretitle }}</div>{% endcomment %}
+    <div class="register__wrap m-no-margin">
+      <div class="register__form">
+        <div class="login__content">
+        
+          {% if set.title != blank %}
+            <h2 class="title not-animated">{{ set.title }}</h2>
+          {% endif %}
+          {% if set.desc != blank %}
+            <div class="description not-animated">{{ set.desc }}</div>
+          {% endif %}
+          {% comment %}<div style="margin:0 auto;" class="pxFormGenerator" id="QUmgSdSl_eKazdJeEHT9Zg"></div>{% endcomment %}
+          <div style="margin:0 auto;" class="pxFormGenerator" id="o6xhso0xootAWTeZfhR6lA"></div>
+          {% comment %}
+          {% if set.subtitle != blank %}
+            <div class="subtitle not-animated hide--mobile">{{ set.subtitle }}</div>
+          {% endif %}
+          <div class="form">
+            {%- assign formId = 'ProductRegisterForm' -%}
+            {% form 'contact', id: formId %}
+              {% if form.errors %}
+                <div class="">
+                  {% for field in form.errors %}
+                    <p class="form__error">{{ field | capitalize }} - {{ form.errors.messages[field] }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {%- if form.posted_successfully? -%}
+                <script>
+                  Swal.fire({
+                    title: 'Success!',
+                    text: 'Thank you for product register.',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+                </script>
+              {%- endif -%}
+              
+              <div class="field-group">
+                <div class="form__field">
+                  <input type="text" id="{{ formId }}-name" class="form__input1 first_input" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="First Name *" required>
+                </div>
+
+                <div class="form__field">
+                  <input type="text" id="{{ formId }}-last" class="form__input1 second_input" name="contact[last]" value="{% if form[last] %}{{ form[last] }}{% elsif customer %}{{ customer.last }}{% endif %}" placeholder="Last Name *" required>
+                </div>
+              </div>
+
+              <div class="form__field">
+                <input
+                  type="email"
+                  id="{{ formId }}-email"
+                  class="form__input1 third_input"
+                  name="contact[email]"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  aria-required="true"
+                  {%- if form.errors contains 'email' -%}
+                    class="input--error"
+                    aria-invalid="true"
+                    aria-describedby="{{ formId }}-email-error"
+                  {%- endif -%}
+                  placeholder="Email *"
+                  required
+                  >
+              </div>
+
+              <div class="field-group">
+                <div class="form__field">
+                  <input type="text" id="{{ formId }}-phone" class="form__input1 first_input" name="contact[phone]" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Phone number *" required>
+                </div>
+
+                <div class="form__field">
+                  <input type="text" id="{{ formId }}-model" class="form__input1 second_input" name="contact[model]" value="{% if form[model] %}{{ form[model] }}{% elsif customer %}{{ customer.model }}{% endif %}" placeholder="Model Number *" required>
+                </div>
+              </div>
+      
+              <div class="field-group">
+
+                <div class="form__field">
+                  <input type="text" id="{{ formId }}-serial" class="form__input1 first_input" name="contact[serial]" value="{% if form[serial] %}{{ form[serial] }}{% elsif customer %}{{ customer.serial }}{% endif %}" placeholder="Serial number *" required>
+                </div>
+
+                <div class="form__field">
+                  <input type="text" id="{{ formId }}-puechase_date" class="form__input1 second_input" name="contact[puechase_date]" value="{% if form[puechase_date] %}{{ form[puechase_date] }}{% elsif customer %}{{ customer.puechase_date }}{% endif %}" placeholder="Date of  purchase *" required>
+                </div>
+
+              </div>
+              
+              <div class="form__field m-select">
+                <select name="{{ formId }}-purchase_from" id="" class="form__input1 select third_input" name="contact[purchase_from]" required>
+                  <option value="">Purchased from *</option>
+                  <option value=""></option>
+                  <option value=""></option>
+                </select>
+                <i class="icon-caret-down"></i>
+              </div>  
+        
+              <button type="submit" class="m-product">{{ set.button }}</button>
+
+              <div class="thumb_image pt-2">
+                <img src="{{ set.thumb_image | img_url: '500x' }}" alt="{{ set.thumb_image.alt }}">
+              </div>
+            {% endform %}
+          </div> <!-- /.form -->
+          {% endcomment %}
+          <div class="thumb_image pt-2">
+            <img src="{{ set.thumb_image | img_url: '500x' }}" alt="{{ set.thumb_image.alt }}">
+          </div>
+        </div>
+      </div> <!-- /.login__form -->
+
+      {% if set.image %}
+        <div class="register__image hide--mobile">
+          <img src="{{ set.image | img_url: '1000x' }}" alt="{{ set.image.alt }}">
+        </div> <!-- /.login__image -->
+      {% endif %}
+    </div> <!-- /.login__wrap -->
+  </div>
+</div> <!-- /.section -->
+
+
+
+{% schema %}
+  {
+  "name": "Product Register",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumb_image",
+      "label": "Thumb Image"
+    }
+  ],
+  "blocks": [
+  ]
+}
+{% endschema %}

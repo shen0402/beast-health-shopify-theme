@@ -1,0 +1,49 @@
+{% comment %} ATTENTION!!! This is compiled version of product-images.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-images.liquid file to code and save your changes. {% endcomment %}<div class="product-images {% if product.images.size > 1 %}is-multiple{% endif %} ">
+  <div class="{% if product.images.size > 1 %}slider product-slider {% else %} single-image{% endif %}" {% if product.images.size > 1 %}data-ps{% endif %} data-main-img="{% if product.metafields.upsell.main_image == blank %}false{% else %}true{% endif %}">
+    {% if product.metafields.upsell.main_image != blank %}
+      <img src="{{ product.metafields.upsell.main_image }}" data-index="-2" class="all-slides mobile-slides"> 
+    {% endif %}
+    {% if product.metafields.upsell.lifestyle_image != blank %}
+      <img src="{{ product.metafields.upsell.lifestyle_image }}"  data-index="-1" class="lifestyle mobile-slides">
+    {% endif %}
+    {% for image in product.images %}
+      {% if section.settings.zoom_image %}
+        <a data-fancybox="images" href="{{ image.src | img_url: '2000x' }}" id="imageZoom" data-zoom-image="{{ image.src | img_url: '2000x' }}">
+      {% endif %}
+          {% if image.alt == 'Box' or image.alt == 'box' %}
+            {% assign is_box_image = 'data-box-image' %}
+          {% else %}
+            {% assign is_box_image = '' %}
+          {% endif %}
+          <img src="{{ image.src | img_url: '1000x' }}" {{ is_box_image }} data-variant="{% for variant in image.variants %}{{ variant.id }},{% endfor %}" 
+          alt="{{ image.alt | escape }}" data-index="{{ forloop.index0 }}" class="all-slides mobile-slides">
+      {% if section.settings.zoom_image %}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>  
+  {% if product.images.size > 1 %}
+  <div class="slider product-thumb-slider hide--mobile" data-thumb-ps>
+    {% if product.metafields.upsell.main_image != blank %}
+      <img src="{{ product.metafields.upsell.main_image }}" class="all-slides mobile-slides">
+    {% endif %}
+    {% if product.metafields.upsell.lifestyle_image != blank %}
+      <img src="{{ product.metafields.upsell.lifestyle_image }}" class="lifestyle mobile-slides">
+    {% endif %}
+    {% for image in product.images %}
+      <img src="{{ image.src | img_url: '200x' }}" class="all-slides mobile-slides">
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% comment %}
+  <div class="custom-slider-dots {% unless section.settings.hide_dots %}hide--desktop{% endunless %}" {% if section.settings.hide_dots %}data--hidden{% endif %}>
+    <ul>
+      <li class="active"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  {% endcomment %}
+</div>
+

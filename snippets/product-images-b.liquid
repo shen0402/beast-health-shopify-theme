@@ -1,0 +1,204 @@
+{% comment %} ATTENTION!!! This is compiled version of product-images-b.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-images-b.liquid file to code and save your changes. {% endcomment %}{%- assign current_color_name = product.selected_or_first_available_variant.options | join: ' | ' -%}
+<div class="product-images {% if product.images.size > 1 %}is-multiple{% endif %} {% if color != blank %} forcolor_{{color | handleize }}{% endif %} {% if current_color_name contains color %}active{% endif %}" {% if current_color_name contains color %} data-active {% else %} data--hidden{% endif %} data-variant-color="{{ color }}">
+  {%- comment -%} Count images by color {%- endcomment -%}
+  {%- assign byColorCount = 0 -%}
+  {% for image in product.images %}
+    {% if image.alt contains color %}
+      {%- assign byColorCount = byColorCount| plus: 1 -%} 
+    {% endif %}
+  {% endfor %}
+  {% if product.metafields.upsell.main_image != blank %}
+    {%- assign byColorCount = byColorCount| plus: 1 -%} 
+  {% endif %}
+
+  <div class="hide--mobile {% if byColorCount > 6 %}slider product-slider {% else %} single-image{% endif %}" {% if byColorCount > 6 %}data-ps{% endif %} data-main-img="{% if product.metafields.upsell.main_image == blank %}false{% else %}true{% endif %}" >
+    {% assign imageCount = 0 %}
+    {% assign imagePageCount = 0 %}
+    <div class="product-images-grid" data-index="{{ imagePageCount }}">
+      {%- comment -%}
+      {% if product.metafields.upsell.main_image != blank %}
+        {% if section.settings.zoom_image %}
+          <a data-fancybox="images" href="{{ product.metafields.upsell.main_image }}" id="imageZoom" data-zoom-image="{{ product.metafields.upsell.main_image }}">
+        {% endif %}
+          <img src="{{ product.metafields.upsell.main_image }}" data-index="-2" class="all-slides mobile-slides"> 
+        {% if section.settings.zoom_image %}
+          </a>
+        {% endif %}
+        {% assign imageCount = imageCount | plus: 1 %}
+      {% endif %}
+      {% if product.metafields.upsell.lifestyle_image != blank %}
+        {% if section.settings.zoom_image %}
+          <a data-fancybox="images" href="{{ product.metafields.upsell.lifestyle_image }}" id="imageZoom" data-zoom-image="{{ product.metafields.upsell.lifestyle_image }}">
+        {% endif %}
+          <img src="{{ product.metafields.upsell.lifestyle_image }}"  data-index="-1" class="lifestyle mobile-slides">
+        {% if section.settings.zoom_image %}
+          </a>
+        {% endif %}
+        {% assign imageCount = imageCount | plus: 1 %}
+      {% endif %}
+      {%- endcomment -%}
+
+      {%- assign byColorCount = 0 -%}
+      {%- assign videoSet = false -%}
+
+      {% for image in product.images %}
+        {% assign color_idx = null %}
+        {% assign selected_color = null %}
+
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Color' or option.name == 'color' %}
+            {% assign color_idx = forloop.index %}
+          {% endif %}
+        {% endfor %}
+
+        {% if color_idx != null %}
+          {% assign opt_handle = 'option' | append: color_idx %}
+          {% assign selected_color = product.selected_or_first_available_variant[opt_handle] %}
+        {% endif %}
+
+        {% assign image_alt = image.alt | split:"|" %}
+
+          {% if byColorCount == 1 and videoSet == false %}
+            {% for video in product.metafields.gallery.video %}
+                <a data-fancybox="images-{{ color }}" href="{{ video }}" id="imageZoom" class="video-iframe">
+                  {% if product.metafields.gallery.video_thumbnail != blank %}
+
+                    <img src="{{ product.metafields.gallery.video_thumbnail }}" {{ is_box_image }}
+                    alt="{{ product.metafields.gallery.video_thumbnail.alt | escape }}" data-index="{{ forloop.index0 }}" class="video-iframe all-slides mobile-slides">
+                    {% render 'icon' with 'play-icon' %}  
+                  {% else %}
+                    <img src="{{ product.featured_image.src | img_url: '1000x' }}" {{ is_box_image }}
+                    alt="{{ product.featured_image.alt | escape }}" data-index="{{ forloop.index0 }}" class="video-iframe all-slides mobile-slides">
+                    {% render 'icon' with 'play-icon' %}  
+                  {% endif %}
+                </a>
+              {% assign imageCount = imageCount | plus: 1 %}
+              {%- assign byColorCount = byColorCount| plus: 1 -%} 
+              {%- assign videoSet = true -%}
+            {% endfor %}
+          {% endif %}
+
+        {% if image.alt contains color %}
+
+
+          {%- assign byColorCount = byColorCount| plus: 1 -%} 
+          {% if section.settings.zoom_image %}
+            <a data-fancybox="images-{{ color }}" href="{{ image.src | img_url: '2000x' }}" id="imageZoom" data-zoom-image="{{ image.src | img_url: '2000x' }}"  data-color-idx="{{ color_idx }}">
+          {% endif %}
+              {% if image.alt contains 'Box' or image.alt contains 'box' %}
+                {% assign is_box_image = 'data-box-image' %}
+              {% else %}
+                {% assign is_box_image = '' %}
+              {% endif %}
+              <img src="{{ image.src | img_url: '1000x' }}" {{ is_box_image }} data-variant="{% for variant in image.variants %}{{ variant.id }},{% endfor %}"
+              alt="{{ image.alt | escape }}" data-index="{{ forloop.index0 }}" class="all-slides mobile-slides"  data-color-idx="{{ color_idx }}" data-imgalt = {{ image.alt | json }} data-selected-color="{{ selected_color }}" data-media-id="{{ section.id }}-{{ featured_media.id }}">
+          {% if section.settings.zoom_image %}
+            </a>
+          {% endif %}
+          {% assign imageCount = imageCount | plus: 1 %}
+          {% assign imageCountmodulo = imageCount | modulo:6 %}
+          {% if imageCountmodulo == 0 %}
+            {% assign imagePageCount = imagePageCount | plus: 1 %}
+            </div>
+            <div class="product-images-grid" data-index="{{ imagePageCount }}">
+          {% endif %}
+
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>  
+  {% if byColorCount > 6 %}
+    <div class="hide--mobile slider-info">Scroll left to see more images.</div>
+  {% endif %}
+  
+  <div class="hide--desktop mobile-product-images {% if product.images.size > 1 %}slider product-slider {% else %} single-image{% endif %}" {% if product.images.size > 1 %}data-ps{% endif %} data-main-img="{% if product.metafields.upsell.main_image == blank %}false{% else %}true{% endif %}">
+   {%- comment -%}
+    {% if product.metafields.upsell.main_image != blank %}
+      {% if section.settings.zoom_image %}
+        <a data-fancybox="images" href="{{ product.metafields.upsell.main_image }}" id="imageZoom" data-zoom-image="{{ product.metafields.upsell.main_image }}">
+      {% endif %}
+        <img src="{{ product.metafields.upsell.main_image }}" data-index="-2" class="all-slides mobile-slides"> 
+      {% if section.settings.zoom_image %}
+        </a>
+      {% endif %}
+    {% endif %}
+    {% if product.metafields.upsell.lifestyle_image != blank %}
+      {% if section.settings.zoom_image %}
+        <a data-fancybox="images" href="{{ product.metafields.upsell.lifestyle_image }}" id="imageZoom" data-zoom-image="{{ product.metafields.upsell.lifestyle_image }}">
+      {% endif %}
+        <img src="{{ product.metafields.upsell.lifestyle_image }}"  data-index="-1" class="lifestyle mobile-slides">
+      {% if section.settings.zoom_image %}
+        </a>
+      {% endif %}
+    {% endif %}
+
+    {% if product.metafields.upsell.lifestyle_image != blank %}
+    {% assign videoPlace = 0 %}
+   {% else %}
+     {% assign videoPlace = 1 %}
+   {% endif %}{%- endcomment -%}
+
+   {%- assign byColorCount = 0 -%}
+   {%- assign videoSet = false -%}
+
+    {% for image in product.images %}
+        {% if byColorCount == 1 and videoSet == false %}
+          {% for video in product.metafields.gallery.video %}
+            <a data-fancybox="images-{{ color }}-mobile" href="{{ video }}" id="imageZoom" class="video-iframe">
+              {% if product.metafields.gallery.video_thumbnail != blank %}
+
+                <img src="{{ product.metafields.gallery.video_thumbnail }}" {{ is_box_image }}
+                alt="{{ product.metafields.gallery.video_thumbnail.alt | escape }}" data-index="{{ forloop.index0 }}" class="video-iframe all-slides mobile-slides">
+                {% render 'icon' with 'play-icon' %}  
+              {% else %}
+                <img src="{{ product.featured_image.src | img_url: '1000x' }}" {{ is_box_image }}
+                alt="{{ product.featured_image.alt | escape }}" data-index="{{ forloop.index0 }}" class="video-iframe all-slides mobile-slides">
+                {% render 'icon' with 'play-icon' %}  
+              {% endif %}
+            </a>
+            {%- assign byColorCount = byColorCount| plus: 1 -%} 
+            {% assign imageCount = imageCount | plus: 1 %}
+          {% endfor %}
+      {% endif %}
+      {% if image.alt contains color %}
+        {%- assign byColorCount = byColorCount| plus: 1 -%} 
+        {% if section.settings.zoom_image %}
+          <a data-fancybox="images-{{ color }}-mobile" href="{{ image.src | img_url: '2000x' }}" id="imageZoom" data-zoom-image="{{ image.src | img_url: '2000x' }}">
+        {% endif %}
+            {% if image.alt contains 'Box' or image.alt contains 'box' %}
+              {% assign is_box_image = 'data-box-image' %}
+            {% else %}
+              {% assign is_box_image = '' %}
+            {% endif %}
+            <img src="{{ image.src | img_url: '1000x' }}" {{ is_box_image }} data-variant="{% for variant in image.variants %}{{ variant.id }},{% endfor %}" 
+            alt="{{ image.alt | escape }}" data-index="{{ forloop.index0 }}" class="all-slides mobile-slides">
+        {% if section.settings.zoom_image %}
+          </a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>  
+  {% comment %}
+  {% if product.images.size > 1 %}
+  <div class="slider product-thumb-slider hide--mobile" data-thumb-ps>
+    {% if product.metafields.upsell.main_image != blank %}
+      <img src="{{ product.metafields.upsell.main_image }}" class="all-slides mobile-slides">
+    {% endif %}
+    {% if product.metafields.upsell.lifestyle_image != blank %}
+      <img src="{{ product.metafields.upsell.lifestyle_image }}" class="lifestyle mobile-slides">
+    {% endif %}
+    {% for image in product.images %}
+      <img src="{{ image.src | img_url: '200x' }}" class="all-slides mobile-slides">
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="custom-slider-dots {% unless section.settings.hide_dots %}hide--desktop{% endunless %}" {% if section.settings.hide_dots %}data--hidden{% endif %}>
+    <ul>
+      <li class="active"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  {% endcomment %}
+</div>  

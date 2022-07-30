@@ -1,0 +1,70 @@
+<div class="sections-wrapper">
+  {% section 'ea-regular-product-main' %}
+  {% unless product.type == 'Gift Cards' %}
+    {% section 'icon-block' %}
+    {% section 'ea-regular-product-image' %}
+    {% section 'ea-regular-product-picture' %}
+  {% endunless %}
+  {% section 'ea-products-slider' %}
+  {% unless product.type == 'Gift Cards' %}
+    {% section 'ea-reviews' %}
+  {% endunless %}
+</div>
+
+<div class="popup is-hidden" data-popup="ingredients">
+  <div class="popup-window">
+    <button class="close" data-popup-close><i class="icon-close"></i></button>
+    <div class="rte ingr-popup">{{ product.metafields.ingredients.all }}</div>
+  </div>
+  <div class="popup-bg" data-popup-close></div>
+</div>
+
+<script>
+  window.productTemplateLoaded = true;
+</script>
+
+{% if product.metafields.loox.num_reviews %}
+<script id="looxSchemaJson" type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "Product",
+	"@id": {{ canonical_url | json }},
+	"aggregateRating": {
+		"@type": "AggregateRating",
+		"ratingValue": "{{ product.metafields.loox.avg_rating }}",
+		"reviewCount": "{{ product.metafields.loox.num_reviews }}"
+	},
+	"name": {{ product.title | json }}
+}
+</script>
+{% endif %}
+
+
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>

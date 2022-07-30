@@ -1,0 +1,453 @@
+{% comment %} ATTENTION!!! This is compiled version of press-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\press-main.liquid file to code and save your changes. {% endcomment %}{% comment %} ATTENTION!!! This is compiled version of press-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\press-main.liquid file to code and save your changes. {% endcomment %}{% assign ss = section.settings %}
+{% if ss.press_text != blank %}
+<div class="section_contents" data-tabs>
+    <div class="data-tab_container" data-tab-container>
+        <div class="tab-header-wrapper">
+            <div class="tab-header is-active" data-tab="press">{{ ss.press_text }}</div>
+            {% if ss.other_text != blank %}
+            <div class="tab-header" data-tab="gift-card">{{ ss.other_text }}</div>
+            {% endif %}
+        </div>
+        {% assign per_page = ss.per_page %}
+        
+        <div class="tab-content-wrapper hide--mobile">
+            {% assign press_count = 0 %}
+            {% for block in section.blocks %}
+                {% if block.type == 'press_content' %}
+                    {% assign press_count = press_count | plus: 1 %}
+                {% endif %}
+            {% endfor %}        
+            
+            
+            <div class="tab-content is-active" 
+                data-tab-content="press" 
+                data-press-count=" {{ press_count }}" 
+            {% if per_page < press_count %}
+                data-hor-slider 
+                data-arrows="true" 
+                data-dots="true"  
+                data-disable-swipe="1" 
+                data-dragable="false"    
+                data-infinite="false"      
+            {% endif %}
+            >
+            {% assign press_counter = 0 %}
+            {% assign openediv = false %}
+            
+                {% for block in section.blocks %}
+                    
+                    {% assign bs = block.settings %}
+                    {% if block.type == 'press_content' %}
+                        {% assign press_counter = press_counter | plus: 1 %}
+                        {% assign mod = press_counter | modulo: per_page %}
+                        
+                        {% if per_page < press_count %}
+                            {% if mod == 1  or  forloop.first %}
+                                <div class="per_page_wrap">
+                                {% assign openediv = true %}
+                            {% endif %}
+                        {% endif %}
+
+                            <div class="block_item" data-mod="{{- mod -}}" data-open=" {{ openediv | json }} ">
+                                <a href="{{ bs.item_url }}" target="_blank">
+                                    <div class="img_wrapper">
+                                        {% if bs.shop_image != blank %}
+                                            {% render 'rimage', image: bs.shop_image, size: '250x', wrapper_class: 'shop_image_wrap' %}
+                                        {% else %}
+                                            <div class="shop_name">{{ bs.shop_name }}</div>
+                                        {% endif %}
+                                        {% if bs.item_image != blank %}
+                                            {% render 'rimage', image: bs.item_image, size: '200x', wrapper_class: 'item_image_wrap' %} 
+                                        {% endif %}
+                                        
+                                    </div>
+                                    <div class="text_wrapper">
+                                        <div class="item_text">{{ bs.item_text }}</div>
+                                        <div class="text_footer">
+                                            <div class="item_read_more ">Read more</div>
+                                            <div class="item_date">{{ bs.item_date }}</div>
+                                        </div>
+                                    </div>
+                                    {%- comment -%}
+                                    {% assign badge_text = ss.press_text | handleize %}
+                                    {% unless badge_text == 'in-the-press' %}
+                                        <div class="item_badge">{{ ss.press_text }}</div>
+                                    {% endunless %}
+                                    {%- endcomment -%}
+
+                                </a>
+                            </div>
+                        {% if per_page < press_count %}
+                            {% if mod == 0 or press_count == press_counter %}
+                                </div>
+                                {% assign openediv = false %}
+                            {% endif %}
+                        {% endif %}
+
+
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+            {% assign other_count = 0 %}
+            
+            {% for block in section.blocks %}
+                {% if block.type == 'other_content' %}
+                    {% assign other_count = other_count | plus: 1 %}
+                {% endif %}
+            {% endfor %}  
+
+            <div class="tab-content" 
+                {% if per_page < other_count %}
+                    data-hor-slider 
+                    data-arrows="true" 
+                    data-dots="true" 
+                    data-disable-swipe="1" 
+                    data-dragable="false"    
+                    data-infinite="false"  
+                {% endif %}
+            data-tab-content="gift-card"  
+            >
+                {% assign other_counter = 0 %}
+                {% assign openediv = false %}
+                {% for block in section.blocks %}
+                    {% if block.type == 'other_content' %}
+                        {% assign bs = block.settings %}
+                        {% assign item_product = all_products[bs.item_product] %}
+                        {% assign item_image = bs.item_image | default: item_product.featured_image %}
+                        {% assign item_title = bs.item_title | default: item_product.title %}
+                        {% assign item_text = bs.item_text | default: item_product.description %}
+                            
+                        {% if bs.item_product != blank %}
+                            {% assign other_counter = other_counter | plus: 1 %}
+                            {% assign mod = other_counter | modulo: per_page %}
+                            {% assign openediv = false %}
+
+                            {% if per_page < other_count %}
+                                {% if mod == 1 %}
+                                    <div class="per_page_wrap">
+                                    {% assign openediv = true %}
+                                {% endif %}
+                            {% endif %}
+
+                                <div class="block_item">
+                                    <a href="{{ item_product.url }}" target="_blank">
+                                        {% if item_image != blank %}
+                                        <div class="img_wrapper">
+                                                {% render 'rimage', image: item_image, size: '800x' %}
+                                        </div>                                        
+                                        {% endif %}
+                                        <div class="text_wrapper {% if item_image == blank %} full-width {% endif %}">
+                                            <div class="item_title">{{ item_title }}</div>
+                                            <div class="item_text">{{ item_text }}</div>
+                                            <div class="text_footer">
+                                                <div class="item_price">{{ item_product.first_available_variant.price | money }}</div>
+                                                {% if bs.button_text != blank %}
+                                                    <button class="item_button" target="_blank">{{ bs.button_text }}</button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {%- comment -%}
+                                        <div class="item_badge">{{ ss.other_text }}</div>
+                                        {%- endcomment -%}
+                                    </a>
+                                </div>
+                                <span style="display: none;"> {{ per_page }}  {{ other_count }}  {{ other_counter }} </span>
+                                
+                            {% if per_page < other_count %}
+                                {% if mod == 0 or other_count == other_counter %}
+                                </div>
+                                {% assign openediv = false %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if openediv %}
+                                </div>
+                            {% endif %}
+                        {% endif %}    
+
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+
+
+        {% assign per_page_mobile = ss.per_page_mobile %}
+        <div class="tab-content-wrapper hide--desktop">
+            {% assign press_count = 0 %}
+            {% for block in section.blocks %}
+                {% if block.type == 'press_content' %}
+                    {% assign press_count = press_count | plus: 1 %}
+                {% endif %}
+            {% endfor %}        
+            
+            
+            <div class="tab-content is-active" 
+                data-tab-content="press" 
+                data-press-count=" {{ press_count }}" 
+            {% if per_page_mobile < press_count %}
+                data-hor-slider 
+                data-arrows="true" 
+                data-dots="true"  
+                data-disable-swipe="1" 
+                data-dragable="false"    
+                data-infinite="false"      
+            {% endif %}
+            >
+            {% assign press_counter = 0 %}
+            {% assign openediv = false %}
+                {% for block in section.blocks %}
+                    
+                    {% assign bs = block.settings %}
+                    {% if block.type == 'press_content' %}
+                        {% assign press_counter = press_counter | plus: 1 %}
+                        {% assign mod = press_counter | modulo: per_page_mobile %}
+
+                        {% if per_page < press_count %}
+                            {% if mod == 1  or  forloop.first %}
+                                <div class="per_page_wrap">
+                                {% assign openediv = true %}
+                            {% endif %}
+                        {% endif %}
+
+                            <div class="block_item" data-mod="{{- mod -}}" data-open=" {{ openediv | json }} ">
+                                <a href="{{ bs.item_url }}" target="_blank">
+                                    {% if bs.item_image != blank %}
+                                    <div class="img_wrapper">
+                                        {% render 'rimage', image: bs.item_image, size: '800x' %}
+                                    </div>
+                                    {% endif %}
+                                    <div class="text_wrapper {% if bs.item_image == blank %} full-width {% endif %}">
+                                        <div class="item_text">{{ bs.item_text }}</div>
+                                        <div class="text_footer">
+                                            {% if bs.shop_image != blank %}
+                                                {% render 'rimage', image: bs.shop_image, size: '250x' %}
+                                            {% else %}
+                                                <div class="shop_name">{{ bs.shop_name }}</div>
+                                            {% endif %}
+                                            {%- comment -%}<div class="item_date">{{ bs.item_date }}</div>{%- endcomment -%}
+                                            <div class="item_date ">Read more</div>
+                                        </div>
+                                    </div>
+                                    {%- comment -%}
+                                    {% assign badge_text = ss.press_text | handleize %}
+                                    {% unless badge_text == 'in-the-press' %}
+                                        <div class="item_badge">{{ ss.press_text }}</div>
+                                    {% endunless %}
+                                    {%- endcomment -%}
+                                </a>
+                            </div>
+                        
+                        {% if per_page_mobile < press_count %}
+                            {% if mod == 0  or press_count == press_counter %}
+                                </div>
+                                {% assign openediv = false %}
+                            {% endif %}
+                        {% endif %}
+
+
+                    {% endif %}
+                {% endfor %}
+
+                {% if openediv %}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% assign other_count = 0 %}
+            
+            {% for block in section.blocks %}
+                {% if block.type == 'other_content' %}
+                    {% assign other_count = other_count | plus: 1 %}
+                {% endif %}
+            {% endfor %}  
+
+            <div class="tab-content" 
+                {% if per_page_mobile < other_count %}
+                    data-hor-slider 
+                    data-arrows="false" 
+                    data-dots="true" 
+                    data-disable-swipe="1" 
+                    data-dragable="false"    
+                    data-infinite="false"  
+                {% endif %}
+            data-tab-content="gift-card" >
+            {% assign other_counter = 0 %}
+            {% assign openediv = false %}
+                {% for block in section.blocks %}
+                    {% if block.type == 'other_content' %}
+                        {% assign bs = block.settings %}
+                        {% assign item_product = all_products[bs.item_product] %}
+                        {% assign item_image = bs.item_image | default: item_product.featured_image %}
+                        {% assign item_title = bs.item_title | default: item_product.title %}
+                        {% assign item_text = bs.item_text | default: item_product.description %}
+                        
+                        {% if bs.item_product != blank %}
+                            {% assign other_counter = other_counter | plus: 1 %}
+                            {% assign mod = other_counter | modulo: per_page_mobile %}
+                            {% assign openediv = false %}
+
+                            {% if per_page_mobile < other_count %}
+                                {% if mod == 1 or  forloop.first %}
+                                    <div class="per_page_wrap">
+                                    {% assign openediv = true %}
+                                {% endif %}
+                            {% endif %}
+
+                                <div class="block_item">
+                                    <a href="{{ item_product.url }}" target="_blank">
+                                        <div class="img_wrapper">
+                                                {% render 'rimage', image: item_image, size: '800x' %}
+                                        </div>
+                                        <div class="text_wrapper">
+                                            <div class="item_title">{{ item_title }}</div>
+                                            <div class="item_text">{{ item_text }}</div>
+                                            <div class="text_footer">
+                                                <div class="item_price">{{ item_product.first_available_variant.price | money }}</div>
+                                                {% if bs.button_text != blank %}
+                                                    <button class="item_button" target="_blank">{{ bs.button_text }}</button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {%- comment -%}
+                                        <div class="item_badge">{{ ss.other_text }}</div>
+                                        {%- endcomment -%}
+                                    </a>
+                                </div>
+
+                            {% if per_page_mobile < other_count %}
+                                {% if mod == 0  or other_count == other_counter %}
+                                </div>
+                                {% assign openediv = false %}
+                                {% endif %}
+                            {% endif %}
+
+
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="hide--desktop">
+            <div class="swipe-text">swipe left to see more.</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+{
+    "name": "Press Main",
+    "class": "press-main",
+    "settings": [
+        {
+            "type": "text",
+            "id": "press_text",
+            "label": "Tab Text1",
+            "default": "In The Press"
+        },
+        {
+            "type": "text",
+            "id": "other_text",
+            "label": "Tab Text2",
+            "default": "Gift Ideas"
+        },
+        {
+            "type": "header",
+            "content": "Number of displayed articles per page"
+        },
+        {
+            "type": "range",
+            "id": "per_page",
+            "label": "Desktop",
+            "min": 3,
+            "max": 30,
+            "step": 3,
+            "default": 6
+          },
+          {
+              "type": "range",
+              "id": "per_page_mobile",
+              "label": "Mobile",
+              "min": 3,
+              "max": 30,
+              "step": 3,
+              "default": 3
+            }
+    ],
+    "blocks": [
+        {
+            "type": "press_content",
+            "name": "Main Press Item",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "item_image",
+                    "label": "Item Image"
+                },
+                {
+                    "type": "richtext",
+                    "id": "item_text",
+                    "label": "Item Text"
+                },
+                {
+                    "type": "html",
+                    "id": "shop_name",
+                    "label": "Shop Logo"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "shop_image",
+                    "label": "Shop image"
+                },
+                {
+                    "type": "text",
+                    "id": "item_date",
+                    "label": "Item Date"
+                },
+                {
+                    "type": "url",
+                    "id": "item_url",
+                    "label": "Item Url"
+                }
+            ]
+        },
+        {
+            "type": "other_content",
+            "name": "Gift Card Item",
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "item_product",
+                    "label": "Item Product"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "item_image",
+                    "label": "Item Image"
+                },
+                {
+                    "type": "text",
+                    "id": "item_title",
+                    "label": "Item Title"
+                },
+                {
+                    "type": "text",
+                    "id": "item_text",
+                    "label": "Item Text"
+                },
+                {
+                    "type": "text",
+                    "id": "button_text",
+                    "label": "Button Text"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+{% comment %} ATTENTION!!! This is compiled version of product-options_gift.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-options_gift.liquid file to code and save your changes. {% endcomment %}{% assign optionName = product.options[0] %}
+{% if optionName != blank %}
+  <div class="product-options m-{{ optionName| handle }}">
+    <div class="product-options__title"><b>Amount:</b> <span id="product_option1"></span></div>
+    <div class="product-options__list product-options__list_gift" data-options-list>
+
+      {% for option in product.options_by_name[optionName].values %}
+        <div class="product-option">
+          <input id="option-{{ optionName }}-{{ option }}" type="radio" name="product-option-{{ optionName | handle }}"
+            value="{{ option }}"
+            data-product-option="1"
+            {% if current_variant.option1 == option %}checked{% endif %}>
+          <label class="product-option__label" for="option-{{ optionName }}-{{ option }}">
+            <div class="product-option__text">{{ option }}</div>
+          </label>
+        </div>
+      {% endfor %}
+  </div>
+  </div> <!-- /.product-options -->
+{% endif %} {% comment %} / option1 {% endcomment %}

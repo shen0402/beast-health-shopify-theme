@@ -1,0 +1,129 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-producticonblock.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-producticonblock.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="section-othericonblock">
+  <div class="container">
+    {% unless set.title == '' %}
+      <div class="section-othericonblock_title">{{ set.title }}</div>
+    {% endunless %}
+    <div class="section-othericonblock_blocks">
+      {% for block in section.blocks %}
+        <div class="section-othericonblock_block">
+
+          {% if block.settings.icon != blank %}
+            <div class="section-othericonblock_image">{{ block.settings.icon }}</div>
+          {% endif %}
+
+          {% if block.settings.title != blank %}
+            <div class="section-othericonblock_subtitle">{{ block.settings.title | capitalize }}</div>
+          {% endif %}
+
+          {% if block.settings.desc != blank %}
+            <div class="section-othericonblock_description">{{ block.settings.desc }}</div>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Icon List",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    
+    {
+      "type": "text",
+      "id": "title", 
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon", 
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desc", 
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "icon_link", 
+          "label": "Url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon List",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

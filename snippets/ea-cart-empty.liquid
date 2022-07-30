@@ -1,0 +1,15 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-cart-empty.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-cart-empty.liquid file to code and save your changes. {% endcomment %}<div class="section has-image" id="cart-empty">
+  <div class="cart-empty_main">
+      <div class="cart-empty_title">{{ settings.cart_title }}</div>
+      <div class="cart-empty_description">{{ settings.cart_desc }}</div>
+      {% if settings.cart_item1 != blank and settings.cart_link1 != blank %}
+        <div class="cart-empty_item"><a href="{{ settings.cart_link1 }}" class="cart-empty_link">{{ settings.cart_item1 }}</a></div>
+      {% endif %}
+      {% if settings.cart_item2 != blank and settings.cart_link2 != blank %}
+        <div class="cart-empty_item"><a href="{{ settings.cart_link2 }}" class="cart-empty_link">{{ settings.cart_item2 }}</a></div>
+      {% endif %}
+      {% if settings.cart_item3 != blank and settings.cart_link3 != blank %}
+        <div class="cart-empty_item"><a href="{{ settings.cart_link3 }}" class="cart-empty_link">{{ settings.cart_item3 }}</a></div>
+      {% endif %}
+  </div>
+</div>

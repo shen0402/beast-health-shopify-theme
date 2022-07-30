@@ -1,0 +1,35 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-social-share-buttons-article.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\ea-social-share-buttons-article.liquid file to code and save your changes. {% endcomment %}<nav class="nav social-links">
+  <span>Share: </span>
+  <ul class="nav__items">
+    {% comment %}
+    <li class="nav__item">
+      <a target="_blank" class="nav__link" href="//www.instagram.com">
+        {% comment %}<i class="icon icon-insta"></i>{% endcomment %}
+        {% render 'icon' with 'social-instagram' %}
+      </a>
+    </li>
+    {% endcomment %}
+    <li class="nav__item">
+      <a target="_blank" class="nav__link" href="//twitter.com/share?text={{ article.title | url_param_escape }}&amp;url={{ shop.url | append: article.url }}">
+        {% comment %}<i class="icon icon-tw"></i>{% endcomment %}
+        {% render 'icon' with 'social-twitter' %}
+      </a>
+    </li>
+    {% comment %}
+    {% if settings.social_youtube_link != blank %}
+      <li class="nav__item">
+        <a class="nav__link" href="{{ settings.social_youtube_link }}">
+          {% comment %}<i class="icon icon-youtube"></i>{% endcomment %}
+          {% render 'icon' with 'social-youtube' %}
+        </a>
+      </li>
+    {% endif %}
+    {% endcomment %}
+    <li class="nav__item">
+      <a class="nav__link" href="//www.facebook.com/sharer.php?u={{ shop.url | append: article.url }}">
+        {% comment %}<i class="icon icon-fb"></i>{% endcomment %}
+        {% render 'icon' with 'social-facebook' %}
+      </a>
+    </li>
+  </ul>
+</nav>

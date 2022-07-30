@@ -1,0 +1,125 @@
+{% comment %} ATTENTION!!! This is compiled version of image-and-text-blog.liquid and it is overriding automatically. You should use theme development tool and sources\sections\image-and-text-blog.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+
+  {% render 'ea-section-styles', section: section %}
+
+  <div class="section-container">
+    <div class="main_content container">
+
+      <div class="main_wrapper d-flex">
+
+        <div class="image_wrapper">{% render 'rimage', image: section.settings.image, size: '800x' %}</div>
+        <div class="text_wrapper">
+          <div class="title not-animated">{{ section.settings.title }}</div>
+          <div class="text">{{ section.settings.text }}</div>
+          {% if section.settings.btn_label != blank and section.settings.btn_link != blank %}
+            <div class="btn_wrapper">
+              <a href="{{ section.settings.btn_link }}">{{ section.settings.btn_label }}</a>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Image and text",
+  "class": "image-and-text-simple",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show block",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Background",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Label"
+    }
+  ]
+}
+{% endschema %}

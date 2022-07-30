@@ -1,0 +1,39 @@
+{% comment %} ATTENTION!!! This is compiled version of klaviyo-bis.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\klaviyo-bis.liquid file to code and save your changes. {% endcomment %}<script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+<script>
+    var klaviyo = klaviyo || [];
+    klaviyo.init({
+      account: "TardUm",
+      list: "TZj3qD",
+      platform: "shopify",
+      exclude_on_tags: "bis-off"
+    });
+    klaviyo.enable("backinstock",{ 
+    trigger: {
+      product_page_text: "Notify Me When Available",
+      product_page_class: "bis-btn",
+      product_page_text_align: "center",
+      product_page_margin: "0 auto",
+      replace_anchor: false
+    },    modal: {
+     headline: "{product_name}",
+     body_content: "Complete this form and you'll receive a notification when this item comes back in stock.",
+     email_field_label: "Email",
+     button_label: "Notify me",
+     subscription_success_label: "You're in! We'll let you know when it's back.",
+     footer_content: '',
+     additional_styles: "@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&display=swap');body{font-family:Montserrat,sans-serif;}.modal-title{font-weight:900;text-align:center;}.btn{;border-radius: 5px;font-size: 18px;padding:10px;}.form-control{border-radius: 5px;border-color: #767676;box-shadow:none;} .input-lg {height:40px;} .input-lg:active{border: 1px solid #767676 !important;} .input-lg:focus{outline:none;}",
+     drop_background_color: "#000",
+     background_color: "#f8f3ec",
+     text_color: "#000",
+     button_text_color: "#fff",
+     button_background_color: "#f50",
+     close_button_color: "#121212",
+     error_background_color: "#fcd6d7",
+     error_text_color: "#C72E2F",
+     success_background_color: "#d3efcd",
+     success_text_color: "#1B9500",
+     newsletter_subscribe_label: "Get added to the Beast Health list",
+     subscribe_checked: true
+    }
+  });
+</script>

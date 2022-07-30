@@ -1,0 +1,138 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-page-wellness-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-page-wellness-main.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="wellmain-main">
+  <div class="container">
+
+    
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Wellness Main",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Left Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image2",
+      "label": "Right Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image1",
+      "label": "Mobile Left Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image2",
+      "label": "Mobile Right Image"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon", 
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        }
+      ]
+    },
+    {
+      "type": "link_icon",
+      "name": "Link Icon Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category", 
+          "label": "Category"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "icon_link", 
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,492 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Goats Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Binaery",
+    "theme_documentation_url": "https:\/\/binaery.com",
+    "theme_support_url": "https:\/\/binaery.com"
+  },
+  {
+    "name": "Color",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Pre Order Color"
+      },
+      {
+        "type": "paragraph",
+        "content": "Progress Color"
+      },
+      {
+        "type": "color",
+        "id": "origin_color",
+        "label": "Origin Color",
+        "default": "#fffdfc"
+      },
+      {
+        "type": "color",
+        "id": "bar_color",
+        "label": "Bar Color",
+        "default": "#d8c0a0"
+      }
+    ]
+  },
+  {
+    "name": "Shop Button",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_shop_button",
+        "label": "Show button"
+      },
+      {
+        "type": "text",
+        "id": "shop_button",
+        "label": "Shop Text"
+      },
+      {
+        "type": "url",
+        "id": "shop_button_link",
+        "label": "Shop Url"
+      }
+    ]
+  },
+  {
+    "name": "Section Sticky Bar",
+    "settings": [
+      {
+        "type": "text",
+        "id": "product_back",
+        "label": "BACK TO PRODUCT"
+      },
+      {
+        "type": "text",
+        "id": "sticky_button",
+        "label": "Sticky Button"
+      }
+    ]
+  },
+  {
+    "name": "Product Sticky Bar",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title1",
+        "label": "Title1"
+      },
+      {
+        "type": "text",
+        "id": "sp_title1",
+        "label": "Mobile Title1"
+      },
+      {
+        "type": "url",
+        "id": "url1",
+        "label": "Url1"
+      },
+      {
+        "type": "text",
+        "id": "title2",
+        "label": "Title2"
+      },
+      {
+        "type": "text",
+        "id": "sp_title2",
+        "label": "Mobile Title2"
+      },
+      {
+        "type": "url",
+        "id": "url2",
+        "label": "Url2"
+      },
+      {
+        "type": "text",
+        "id": "title3",
+        "label": "Title3"
+      },
+      {
+        "type": "text",
+        "id": "sp_title3",
+        "label": "Mobile Title3"
+      },
+      {
+        "type": "url",
+        "id": "url3",
+        "label": "Url3"
+      },
+      {
+        "type": "text",
+        "id": "title4",
+        "label": "Title4"
+      },
+      {
+        "type": "text",
+        "id": "sp_title4",
+        "label": "Mobile Title4"
+      },
+      {
+        "type": "url",
+        "id": "url4",
+        "label": "Url4"
+      },
+      {
+        "type": "text",
+        "id": "title5",
+        "label": "Title5"
+      },
+      {
+        "type": "text",
+        "id": "sp_title5",
+        "label": "Mobile Title5"
+      },
+      {
+        "type": "url",
+        "id": "url5",
+        "label": "Url5"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Cart Empty"
+      },
+      {
+        "type": "text",
+        "id": "cart_title",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "cart_desc",
+        "label": "Description"
+      },
+      {
+        "type": "header",
+        "content": "Order instructions"
+      },
+      {
+        "type": "text",
+        "id": "cart_message",
+        "label": "Label",
+        "info": "Remove text to hide block",
+        "default": "Order instructions"
+      },
+      {
+        "type": "header",
+        "content": "Offer Text"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_offer",
+        "label": "Show offer on cart",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "offer_title",
+        "label": "Offer Title",
+        "default": "Mothers Day Sale"
+      },
+      {
+        "type": "richtext",
+        "id": "offer_desc",
+        "label": "Offer Description",
+        "default": "<p>Congrats! You saved $30 on your order.<\/p>"
+      },
+      {
+        "type": "number",
+        "id": "offer_amount",
+        "label": "Offer Amount",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "offer_min_limit",
+        "label": "Offer Minimum Limit",
+        "default": 198
+      },
+      {
+        "type": "header",
+        "content": "Pre order"
+      },
+      {
+        "type": "text",
+        "id": "pre_order_label",
+        "label": "Label",
+        "default": "*Ships starting October 29 2021"
+      },
+      {
+        "type": "header",
+        "content": "Afterpay"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_afterpay",
+        "label": "Show afterpay on cart",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "header_afterpay",
+        "label": "Show afterpay on topbar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "afterpay_title",
+        "label": "Title"
+      },
+      {
+        "type": "html",
+        "id": "afterpay_logo",
+        "label": "Afterpay Logo"
+      },
+      {
+        "type": "text",
+        "id": "cart_item1",
+        "label": "Navigation 1"
+      },
+      {
+        "type": "url",
+        "id": "cart_link1",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "cart_item2",
+        "label": "Navigation 2"
+      },
+      {
+        "type": "url",
+        "id": "cart_link2",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "cart_item3",
+        "label": "Navigation 3"
+      },
+      {
+        "type": "url",
+        "id": "cart_link3",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Cart Upsell"
+      },
+      {
+        "type": "text",
+        "id": "cart_other",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "cart_content",
+        "label": "Text"
+      },
+      {
+        "type": "product",
+        "id": "cart_product1",
+        "label": "Upsell Product 1"
+      },
+      {
+        "type": "product",
+        "id": "cart_product2",
+        "label": "Upsell Product 2"
+      },
+      {
+        "type": "product",
+        "id": "cart_product3",
+        "label": "Upsell Product 3"
+      },
+      {
+        "type": "product",
+        "id": "cart_product4",
+        "label": "Upsell Product 4"
+      },
+      {
+        "type": "product",
+        "id": "cart_product5",
+        "label": "Upsell Product 5"
+      },
+      {
+        "type": "product",
+        "id": "cart_product6",
+        "label": "Upsell Product 6"
+      }
+    ]
+  },
+  {
+    "name": "Free Product",
+    "settings": [
+      {
+        "type": "product",
+        "id": "free_product",
+        "label": "Special 100% discount product"
+      },
+      {
+        "type": "product",
+        "id": "main_product_1",
+        "label": "Main product 1",
+        "info": "Main product needed to be in cart that is connected to free product"
+      },
+      {
+        "type": "product",
+        "id": "main_product_2",
+        "label": "Main product 2",
+        "info": "Main product needed to be in cart that is connected to free product"
+      }
+    ]
+  },
+  {
+    "name": "Meta Image",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "og_image_fallback",
+        "label": "Meta Image",
+        "info": "600x600 image recommended"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "logosvg",
+        "label": "SVG Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "sp_logo",
+        "label": "Mobile Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "sp_home_logo",
+        "label": "Scroll Logo"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sharing links"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok link"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter link"
+      },
+      {
+        "type": "text",
+        "id": "socical_pinterest_link",
+        "label": "Pinterest link"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  },
+  {
+    "name": "Checkout (customize)",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sticky Header"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sticky_header",
+        "label": "Enalble Sticky Header",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "s_h_logo_img",
+        "label": "Image"
+      },
+      {
+        "type": "html",
+        "id": "s_h_logo",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "s_h_text",
+        "label": "Text"
+      },
+      {
+        "type": "header",
+        "content": "Afterpay"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_afterpay",
+        "label": "Enalble Afterpay",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "afterpay_img",
+        "label": "Image"
+      },
+      {
+        "type": "html",
+        "id": "afterpay_svg",
+        "label": "SVG"
+      },
+      {
+        "type": "header",
+        "content": "Timer"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_timer",
+        "label": "Enalble Timer",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "timer_text",
+        "label": "Text"
+      }
+    ]
+  }
+]

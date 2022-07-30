@@ -1,0 +1,289 @@
+{% comment %} ATTENTION!!! This is compiled version of checkout.css.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\checkout.css.liquid file to code and save your changes. {% endcomment %}<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .hide--desktop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hide--mobile {
+    display: none !important;
+  }
+}
+
+/* ============================================
+  Breadcrumb
+============================================== */
+
+ol.breadcrumb {
+  margin-bottom: 45px;
+  margin-right: -20px;
+  padding-left: 15px;
+}
+
+@media (max-width: 767px) {
+  ol.breadcrumb {
+    margin-bottom: 10px;
+  }
+}
+
+ol.breadcrumb li {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start !important;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: fit-content;
+  position: relative;
+}
+
+ol.breadcrumb li a {
+  color: #707070;
+}
+
+ol.breadcrumb li a, ol.breadcrumb li span {
+  transform: translateX(-50%);
+}
+
+ol.breadcrumb li.activated a, ol.breadcrumb li.current {
+  color: #000;
+}
+
+ol.breadcrumb li.activated a:hover {
+  color: #007ace;
+}
+
+ol.breadcrumb li:last-child {
+  flex: 0;
+}
+
+ol.breadcrumb li::after {
+  content: '';
+  display: block;
+  background: #707070;
+  width: calc(100% - 32px);
+  height: 1px;
+  position: absolute;
+  bottom: 11px;
+  left: 16px;
+}
+
+ol.breadcrumb li.activated::after {
+  background: #000;
+}
+
+ol.breadcrumb li:last-child::after {
+  display: none !important;
+}
+
+ol.breadcrumb li span[data-step] {
+  border: 1px solid #707070;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 8px;
+  position: relative;
+}
+
+ol.breadcrumb li.activated span[data-step] svg {
+  display: block;
+  fill: #FFF;
+  width: 12px;
+  height: auto;
+}
+
+ol.breadcrumb li.activated span[data-step], ol.breadcrumb li.current span[data-step] {
+  border: 1px solid #000;
+  color: #000;
+}
+
+ol.breadcrumb li.activated span[data-step] {
+  background: #000;
+  border: transparent;
+  font-size: 0px;
+}
+
+ol.breadcrumb li svg {
+  display: none;
+}
+
+
+/* =========================================
+  Sticky Header
+=========================================== */
+
+
+.sticky-header {
+  background: #000;
+  color: #FFF;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 9;
+}
+
+.sticky-header-wrapper {
+  // max-width: 78.5714285714em;
+  // margin-left: auto;
+  // margin-right: auto;
+}
+.sticky-header-wrapper .wrap {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0 calc(5% + 5px);
+}
+
+.sticky-header-wrapper .wrap::before, .sticky-header-wrapper .wrap::after {
+  display: none !important;
+}
+
+.sticky-header-wrapper .logo {
+  width: 80px;
+  height: auto;
+}
+
+.page--no-banner .main, .page--no-banner .sidebar {
+  padding-top: 6em;
+}
+
+.step__footer__previous-link {
+  color: #415cc7;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.step__footer__previous-link svg {
+  color: #415cc7;
+}
+
+
+
+@media (max-width: 767px) {
+  .sticky-header-wrapper .logo svg {
+    width: auto;
+    height: auto;
+  }
+  .sticky-header-wrapper .wrap {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .sticky-header-wrapper .wrap > div:last-child {
+    flex: 1;
+    font-size: 14px;
+    min-width: max-content;
+    text-align: right;
+    /* max-width: 45%; */
+  }
+  
+  .page--no-banner .main, .page--no-banner .sidebar {
+    padding-top: 3em;
+  }
+}
+
+
+/* ====================================================
+  Afterpay
+======================================================= */
+
+.afterpay_wrapper svg {
+  width: 100%;
+  height: auto;
+}
+
+.afterpay_wrapper.hide--mobile {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+  .afterpay_wrapper {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+}
+
+
+/* ===================================================
+  Order Timer
+====================================================== */
+
+.order-reservation-timer {
+  background: #ffe398;
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  padding: 10px;
+  text-align: center;
+}
+
+.content .wrap .main {
+  padding-top: 6em;
+}
+
+@media (min-width: 768px) {
+  .content .wrap .sidebar {
+    padding-top: 6em;
+  }
+}
+
+@media (max-width: 767px) {
+  .order-reservation-timer {
+    margin-top: 0px;
+  }
+
+  .content .wrap .main {
+    padding-top: 20px;
+  }
+}
+
+.order-reservation-timer .label {
+  font-weight: normal;
+}
+
+@media (max-width: 767px) {
+  .order-reservation-timer .label {
+    display: none;
+  }
+}
+
+.order-reservation-timer label {
+  font-weight: bold;
+}
+
+
+
+[data-step-footer] button#continue_button {
+  font-size: 19px;
+  font-weight: 900;
+  padding: 18px 50px;
+  text-transform: capitalize;
+}
+
+[data--hidden] {
+  display: none !important;
+}
+
+
+
+</style>

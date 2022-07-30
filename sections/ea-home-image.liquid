@@ -1,0 +1,209 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-home-image.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-home-image.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="section-image" data-animate-section>
+  {% assign img_direction = set.direction %}
+  {% if img_direction == 'left' %}
+    {% assign css_direction = '' %}
+    {% assign img_style = 'style="text-align: right;margin-right: 30px;"' %}
+    {% assign txt_style = 'style="margin-right: auto;margin-left: 30px;"' %}
+  {% else %}
+    {% assign css_direction = 'section-image_right' %}
+    {% assign img_style = 'style="text-align: left;margin-left: 30px;"' %}
+    {% assign txt_style = 'style="margin-left: auto;margin-right: 30px;"' %}
+  {% endif%}
+  <div class="container d-flex-image {{ css_direction }}">
+
+    <div class="section-image_left section-image_top" {{img_style}}>
+        {% comment %}
+          <img src="{{ set.image | img_url: 'master' }}" class="Rectangle-1599 hide--mobile">
+          <img src="{{ set.sp_image | img_url: 'master' }}" class="hide--desktop">
+        {% endcomment %}
+        {% render 'rimage', image: set.image, size: '800x', wrapper_class: 'hide--mobile' %}
+        {% render 'rimage', image: set.image, size: '480x', wrapper_class: 'hide--desktop' %}
+    </div>
+
+    <div class="section-image_left">
+      <div class="section-image_main" {{txt_style}}>
+        <div class="section-image_title title">{{ set.title }}</div>
+        <div class="section-image_description">{{ set.desc }}</div>
+
+        {% assign icon_blocks = section.blocks | where: 'type', 'icon' %}
+
+        {% for block in icon_blocks %}
+          <div class="section-image_block" data-animate-block>
+            <div class="section-image_blockicon">{{ block.settings.icon }}</div>
+            <div class="section-image_blocktext">{{ block.settings.title }}</div>
+          </div>
+        {% endfor %}
+
+        {% if set.title_bt != '' %}
+        <div class="section-image_linkblock hide--mobile">
+          {% if set.opt == 'button' %}
+            <a href="{{ set.button_link }}" class="section-image_linkbutton">
+            <div class="section-image_button">{{ set.title_bt }}</div>
+          {% elsif set.opt == 'arrow' %}
+            <a href="{{ set.button_link }}" class="section-image_linkbutton">
+            <div class="section-image_link">{{ set.title_bt }}</div>
+            <div class="section-image_link"><svg xmlns="http://www.w3.org/2000/svg" width="22.603" height="13.369" viewBox="0 0 22.603 13.369"> <path fill="#FF5500" stroke="#FF5500" d="M18.912 20.305l-5.569-5.569a.6.6 0 1 0-.855.855l4.539 4.539H-1.888a.619.619 0 0 0-.611.611.619.619 0 0 0 .611.611h18.914l-4.539 4.539a.591.591 0 0 0 0 .855.633.633 0 0 0 .873 0l5.569-5.569a.579.579 0 0 0 .175-.436.664.664 0 0 0-.192-.436z" transform="translate(2.999 -14.053)"></path> </svg></div>
+          {% endif %}
+        </a></div>
+        {% endif %}
+
+        <div class="section-image_linkblock hide--desktop">
+          {% if set.opt == 'button' %}
+            <a href="{{ set.button_link }}" class="section-image_linkbutton">
+            <div class="section-image_button">{{ set.title_bt }}</div>
+          {% elsif set.opt == 'arrow' %}
+            <a href="{{ set.button_link }}" class="section-image_linkbutton">
+            <div class="section-image_link">{{ set.title_bt }}</div>
+            <div class="section-image_link"><svg xmlns="http://www.w3.org/2000/svg" width="22.603" height="13.369" viewBox="0 0 22.603 13.369"> <path fill="#FF5500" stroke="#FF5500" d="M18.912 20.305l-5.569-5.569a.6.6 0 1 0-.855.855l4.539 4.539H-1.888a.619.619 0 0 0-.611.611.619.619 0 0 0 .611.611h18.914l-4.539 4.539a.591.591 0 0 0 0 .855.633.633 0 0 0 .873 0l5.569-5.569a.579.579 0 0 0 .175-.436.664.664 0 0 0-.192-.436z" transform="translate(2.999 -14.053)"></path> </svg></div>
+          {% endif %}
+        </a></div> 
+
+      </div>
+    </div>
+  </div>
+</div>
+ 
+{% schema %}
+  {
+  "name": "Home Image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Image direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "title_bt", 
+      "label": "Button Title"
+    },
+    {
+      "type": "url",
+      "id": "button_link", 
+      "label": "Button Url"
+    },
+    {
+      "type": "select",
+      "id": "opt",
+      "label": "Button Option",
+      "options": [
+        {
+          "value": "button",
+          "label": "Button"
+        },
+        {
+          "value": "arrow",
+          "label": "Arrow"
+        }
+      ],
+      "default": "arrow"
+    }
+  ],
+  "blocks": [ 
+    {
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon", 
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,94 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-page-wellness-banner.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-page-wellness-banner.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="page-wellness-banner">
+  <div class="container">
+    <img src="{{ set.image | img_url: 'master' }}" class="hide--mobile">
+    <img src="{{ set.sp_image | img_url: 'master' }}" class="hide--desktop">
+    <div class="wellness-banner_title">{{ set.title }}</div>
+    <div class="wellness-banner_desc">{{ set.desc }}</div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Wellness Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image",
+      "label": "Mobile Image"
+    }
+  ],
+  "blocks": [
+  ]
+}
+{% endschema %}

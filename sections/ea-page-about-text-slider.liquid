@@ -1,0 +1,95 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-page-about-text-slider.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-page-about-text-slider.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="page-about-text-slider">
+  <div class="container">
+    <div class="about-text-slider_container">
+      <div class="about-text-slider_main" data-hor-slider data-arrows="false" data-slides-to-show="1">
+        {% for block in section.blocks %}
+          <div class="testimonial_item">
+            <div class="testimonial_title">{{ block.settings.title }}</div>
+            <div class="about-text-slider_description">{{ block.settings.desc }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="about-tech-slider_content hide--desktop">Swipe <br>left or right.</div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Text Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

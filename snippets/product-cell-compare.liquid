@@ -1,0 +1,160 @@
+{% comment %} ATTENTION!!! This is compiled version of product-cell-compare.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\product-cell-compare.liquid file to code and save your changes. {% endcomment %}{% assign hoverImage = product.images[1] %}
+{% if hoverImage == blank %}
+  {% assign hoverImage = product.images[0] %}
+{% endif %}
+
+{% assign current_variant = product.variants.first %}
+
+<div class="product-cell {{ class }} {% if product.images.size > 1 %}hover_img{% endif %}" data-variant-id="{{ current_variant.id }}" data-quick-atc-wrap {% if type == 'scrolling' %}data-scrolling-product-cell{% endif %}>
+  <div class="product-item-top">
+    <div class="pre_title">
+      {% if title contains '/' %}
+        {% assign seg = title | split: '/' %}
+        <strong>{{ seg[0] }}</strong>{{ seg[1] }}
+      {% else %}
+        <strong>{{ title }}</strong>
+        {% comment %}
+        {% if product.compare_at_price > product.price %}
+          <strong>Save {{ product.compare_at_price | minus: product.price | money }}</strong>
+        {% endif %}
+        ({{ product.compare_at_price | money }} Value)
+        {% endcomment %}
+      {% endif %}
+    </div>
+    <div class="product-cell__img">
+      <a href="{{ product.url }}" class="no-hover-link img_wrapper" data-link='true'>
+        {% assign _image = product.featured_image %}
+        {% if product.variants.size > 1 %}
+          {% assign _image = current_variant.image  %}
+        {% endif %}
+        <div class="img">{% render 'rimage', image: _image, paddingTop: '100', image_attributes: 'data-quick-atc-image' %}</div>
+        {% if product.images.size > 1 %}
+        <div class="second_img">
+          {% if current_variant.metafields.global.variant_img != blank %}
+            <img src="{{ current_variant.metafields.global.variant_img }}" data-second-image alt="">
+          {% else %}
+            {% render 'rimage', image: product.images[1], paddingTop: '100', image_attributes: 'data-second-image' %}
+          {% endif %}
+        </div>
+        {% endif %}
+      </a>
+      <a href="{{ product.url }}" class="product_title" data-link='true'>{{ product.title }}</a>
+    </div>
+
+
+    <div class="product-options__list">
+      
+      {% for optionName in product.options %}    
+        {% if optionName == 'Color' %}
+          {% assign is_color = true %}
+          {% assign color_option = product.options_by_name['Color'].values %}
+          
+          {% for option in product.options_by_name[optionName].values %}
+            {% for variant in product.variants %}
+              {% if variant.option1 == option %}
+                {% assign option_variant = variant %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% if option_variant.available %}
+              
+            {% endif %}
+            <div class="product-option">
+              {% assign h_img = option_variant.image | img_url: '800x' %}
+              {% assign meta_img_url = option_variant.metafields.variant.hover_img %}
+              {% assign meta_img = option_variant.metafields.global.variant_img %}
+              {% unless meta_img_url == blank %}
+                {% for image in product.images %}
+                  {% assign _img_url = image.src | split: 'products/' %}
+                  {% assign img_url = _img_url[1] %}
+                  {% if meta_img_url == img_url %}
+                    {% comment %}{% assign h_img = image | img_url: "800x" %}{% endcomment %}
+                  {% endif %}
+                {% endfor %}
+              {% endunless %}
+              {% if meta_img != blank %}
+                {% assign h_img = meta_img %}
+              {% else %}
+                {% if forloop.first %}
+                  {% assign h_img = product.images[1] | img_url: '800x' %}
+                {% endif %}
+              {% endif %}
+              <label class="product-option__color {% if is_color %}color_option__label{% endif %} {% if current_variant.option1 == option %}checked{% endif %}" 
+                class="product-option__label" 
+                data-quick-atc-swatch 
+                data-variant-id="{{ option_variant.id }}"
+                data-variant-url="{{ option_variant.url }}" 
+                data-variant-image="{% if option_variant.image != blank %}{{ option_variant.image | img_url: '800x' }}{% endif %}" 
+                data-variant-hover-image="{{ h_img }}"
+                data-variant-price="{{ option_variant.price }}"
+                data-variant-compare-price="{{ option_variant.compare_at_price }}"
+                {% if is_color %}data-color-name="{{ option | replace: ' ', '-' | downcase }}"{% endif %}>
+              </label>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if template == 'collection' or showInfo %}
+      <div class="product-cell__info">
+        <div class="product-cell__info-right">
+          {% if showPrice == true or showPrice == nil %}
+            {%- capture productPrice -%}
+              {% assign variant0 = product.variants[0] %}
+              ${{ variant0.price | money_without_currency }}
+              {% if variant0.compare_at_price > variant0.price %}
+              &nbsp;<s class="was-price">${{ variant0.compare_at_price | money_without_currency }}</s> 
+              {% endif %}
+            {%- endcapture -%}
+          {% endif %}
+
+          <div class="product-cell-price ta-center">
+            {{ productPrice }}
+          </div>
+          {% if showBtn == true %}
+            <a href="javascript:;" class="btn add-to-cart" data-ajax-btn data-id="{{ current_variant.id }}">add to bag</a>
+          {% endif %}
+          {% comment%}
+          {% if section.settings.show_quick_view %}
+            <a href="#" class="btn" data-quick-view="{{ product.handle }}">Quick View</a>
+          {% endif %}
+          {% endcomment %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="product-item-bottom">
+    {% if feature != blank %}
+      <div class="product_feature_title hide--mobile">What’s in the box {% render 'icon' with 'icon-arrow-top' %}</div>
+      <div class="product_features">
+        {% assign features = feature | split: '/' %}
+        {% for item in features %}
+          <p>{{ item }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="learn_more_btn d-flex">
+      <a href="{% if isDefault %}javascript{% else %}{{ product.url }}{% endif %}" class="btn_learn_more" data-link="{% if isDefault %}false{% else %}true{% endif %}">Learn more</a>
+    </div>
+  </div>
+
+
+
+  {%- comment -%}
+  <div class="cart_btn">
+      <div class="d-flex product-add-to-cart">
+        <button type="submit" name="add" class="add_cart" data-quick-atc-btn>
+          <span class="hide--mobile">
+            <span class="show-on-hover">{{ productPrice }}</span>
+            <span class="hide-on-hover">add to bag</span>
+          </span>          
+          <span class="hide--desktop">add</span></button>
+      </div>
+    </div>
+    {%- endcomment -%}
+
+  
+
+</div>

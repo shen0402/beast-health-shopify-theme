@@ -1,0 +1,323 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-footer.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-footer.liquid file to code and save your changes. {% endcomment %}{% render 'ea-section-styles', section: section %}
+
+{% assign set = section.settings %}
+
+{% capture newsletter_form %}
+  {% form 'customer', class: 'site-footer__form', id: 'newsletter_form' %}
+    {% if form.errors %}              
+      <script>
+        {% for field in form.errors %}
+            Swal.fire({
+            title: 'Error',
+            text: '{{ field | capitalize }} - {{ form.errors.messages[field] }}',
+            icon: 'error',
+            confirmButtonText: 'Cool' 
+            })
+        {% endfor %}
+      </script>
+    {% endif %}
+
+    {%- if form.posted_successfully? -%}
+      <script>
+        Swal.fire({
+          title: 'Success!',
+          text: 'Thank you! Please check your email to confirm your subscription.',
+          icon: 'success',
+          confirmButtonText: 'Cool' 
+        })
+      </script>
+    {%- endif -%}
+    <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
+    <input type="hidden" name="challenge" value="false" />
+    <div class="container">
+      <div class="site-footer__newsletter_title">
+        {% if set.contact_title != blank %}
+          {{ set.contact_title }}
+        {% endif %}
+      </div>
+      <div class="site-footer__newsletter_description">
+        {% if set.contact_text != blank %}
+          {{ set.contact_text }}
+        {% endif %}
+      </div>
+      <div class="site-footer__newsletter_form">
+        <div class="site-footer__newsletter_main">
+          <input type="text" class="input site-footer__newsletter_input" size="40" name="contact[email]" placeholder="Enter your email">
+          <div class="site-footer__newsletter_icon"><button type="submit" class="btn m-underline"><svg xmlns="http://www.w3.org/2000/svg" width="18.194" height="16.755" viewBox="0 0 18.194 16.755"> <path stroke="#fff" d="M20.193 11.769a1.272 1.272 0 0 0-.333-.8l-6.55-6.606a1.466 1.466 0 0 0-1.791-.1 1.171 1.171 0 0 0 .013 1.7l4.606 4.637H4.228a1.167 1.167 0 1 0 0 2.332h11.91l-4.605 4.639a1.236 1.236 0 0 0-.013 1.7 1.447 1.447 0 0 0 1.791-.1l6.55-6.606a1.1 1.1 0 0 0 .333-.8z" transform="translate(-2.5 -3.404)"/> </svg></button> </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  {% endform %}
+{% endcapture %}
+
+
+<div class="container">
+  <div class="site-footer__top">
+    <div class="row">
+      <div class="col-md-4 footer-box hide--desktop">
+        {% comment %}{{ newsletter_form }}{% endcomment %}
+        <!-- <div class="klaviyo-form-V7dDeE"></div> -->
+        <div class="klaviyo-form-Rm9nS6"></div>
+      </div>
+      <div class="col-md-8">
+        <nav class="nav m-vertical m-flex site-footer__nav" data-accordions-container data-accordions-mobile-only="1">
+          {% for block in section.blocks %}
+            {% assign idx = forloop.index %}
+            {% if block.type == 'menu' %}
+              {% assign menu = linklists[block.settings.menu] %}
+              <div class="nav__col footer-box {% if forloop.first %}m-no-border{% endif %}">
+                <h4 class="title not-animated accordion__title" data-accordion-button>
+                  <span>{{ menu.title }}</span>
+                  <i class="icon-plus"><svg xmlns="http://www.w3.org/2000/svg" width="6.103" height="13.125" viewBox="0 0 6.103 13.125" class=" hide--desktop"> <path fill="#f8f3ec" d="M6.584 6.1a.811.811 0 0 1-.306-.087L.155.767A.425.425 0 0 1 .111.155.425.425 0 0 1 .724.111L6.584 5.1 12.4.111a.425.425 0 0 1 .612.044.423.423 0 0 1-.044.612L6.847 6.016a.469.469 0 0 1-.262.087z" transform="rotate(-90 6.563 6.563)"/> </svg></i>
+                  <i class="icon-minus"><svg xmlns="http://www.w3.org/2000/svg" width="6.103" height="13.125" viewBox="0 0 6.103 13.125" style="transform: rotate(90deg);" class=" hide--desktop"> <path fill="#f8f3ec" d="M6.584 6.1a.811.811 0 0 1-.306-.087L.155.767A.425.425 0 0 1 .111.155.425.425 0 0 1 .724.111L6.584 5.1 12.4.111a.425.425 0 0 1 .612.044.423.423 0 0 1-.044.612L6.847 6.016a.469.469 0 0 1-.262.087z" transform="rotate(-90 6.563 6.563)"/> </svg></i>
+                </h4>
+                <ul class="nav__items idx-{{forloop.index}}" data-accordion-content>
+                  {% for link in menu.links %}
+                    <li class="nav__item">
+                      <a class="nav__link" href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                  {% if idx == 2 %}
+                    <li class="nav__item nav__item-info">
+                      <a class="nav__link" href="#add-aacc-link">{% render 'icon' with 'icon-accessibility' %} Accessibility</a>
+                    </li>
+                    {% if section.settings.email != blank %}
+                      <li class="nav__item nav__item-info">
+                        <a class="nav__link" href="mailto:{{ section.settings.email }}">{% render 'icon' with 'icon-email' %} Email Us</a>
+                      </li>
+                    {% endif %}
+                  {% endif %}
+                </ul>
+              </div>
+            {% elsif block.type == 'newsletter' %}
+              <div class="nav__col footer-box social_box{% if forloop.first %}m-no-border{% endif %}">
+                <h4 class="title not-animated hide--mobile"><span>
+                  {{ block.settings.title }}</span>
+                </h4>
+                <div class="d-flex customer_social">
+                  {% if block.settings.insta_link != blank %}
+                    <div class="nav__item">
+                      <a target="_blank" class="nav__link no-hover-link" href="{{ block.settings.insta_link }}" aria-label="instagram link"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.5px" height="27.5px" viewBox="0 0 512 512" style="fill: #f8f3ec; margin: 15px 12px 0 0;" xml:space="preserve"> <g> <g> <path d="M352,0H160C71.648,0,0,71.648,0,160v192c0,88.352,71.648,160,160,160h192c88.352,0,160-71.648,160-160V160 C512,71.648,440.352,0,352,0z M464,352c0,61.76-50.24,112-112,112H160c-61.76,0-112-50.24-112-112V160C48,98.24,98.24,48,160,48 h192c61.76,0,112,50.24,112,112V352z"/> </g> </g> <g> <g> <path d="M256,128c-70.688,0-128,57.312-128,128s57.312,128,128,128s128-57.312,128-128S326.688,128,256,128z M256,336 c-44.096,0-80-35.904-80-80c0-44.128,35.904-80,80-80s80,35.872,80,80C336,300.096,300.096,336,256,336z"/> </g> </g> <g> <g> <circle cx="393.6" cy="118.4" r="17.056"/> </g> </g> </svg></a>
+                    </div>
+                  {% endif %}
+                  {% if block.settings.twitter_link != blank %}
+                    <div class="nav__item">
+                      <a target="_blank" class="nav__link no-hover-link" href="{{ block.settings.twitter_link }}" aria-label="twitter link"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.5px" height="27.5px" viewBox="0 0 512 512" style="fill: #f8f3ec; margin: 15px 12px 0 0;" xml:space="preserve"> <g> <g> <path d="M512,97.248c-19.04,8.352-39.328,13.888-60.48,16.576c21.76-12.992,38.368-33.408,46.176-58.016 c-20.288,12.096-42.688,20.64-66.56,25.408C411.872,60.704,384.416,48,354.464,48c-58.112,0-104.896,47.168-104.896,104.992 c0,8.32,0.704,16.32,2.432,23.936c-87.264-4.256-164.48-46.08-216.352-109.792c-9.056,15.712-14.368,33.696-14.368,53.056 c0,36.352,18.72,68.576,46.624,87.232c-16.864-0.32-33.408-5.216-47.424-12.928c0,0.32,0,0.736,0,1.152 c0,51.008,36.384,93.376,84.096,103.136c-8.544,2.336-17.856,3.456-27.52,3.456c-6.72,0-13.504-0.384-19.872-1.792 c13.6,41.568,52.192,72.128,98.08,73.12c-35.712,27.936-81.056,44.768-130.144,44.768c-8.608,0-16.864-0.384-25.12-1.44 C46.496,446.88,101.6,464,161.024,464c193.152,0,298.752-160,298.752-298.688c0-4.64-0.16-9.12-0.384-13.568 C480.224,136.96,497.728,118.496,512,97.248z"/> </g> </g> </svg></a>
+                    </div>
+                  {% endif %}
+                  {% if block.settings.youtube_link != blank %}
+                    <div class="nav__item">
+                      <a target="_blank" class="nav__link no-hover-link" href="{{ block.settings.youtube_link }}" aria-label="youtube link"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="27.5px" height="27.5px" viewBox="0 0 310 310" style="fill: #f8f3ec; margin: 15px 12px 0 0;" xml:space="preserve"> <g id="XMLID_822_"> <path id="XMLID_823_" d="M297.917,64.645c-11.19-13.302-31.85-18.728-71.306-18.728H83.386c-40.359,0-61.369,5.776-72.517,19.938 C0,79.663,0,100.008,0,128.166v53.669c0,54.551,12.896,82.248,83.386,82.248h143.226c34.216,0,53.176-4.788,65.442-16.527 C304.633,235.518,310,215.863,310,181.835v-53.669C310,98.471,309.159,78.006,297.917,64.645z M199.021,162.41l-65.038,33.991 c-1.454,0.76-3.044,1.137-4.632,1.137c-1.798,0-3.592-0.484-5.181-1.446c-2.992-1.813-4.819-5.056-4.819-8.554v-67.764 c0-3.492,1.822-6.732,4.808-8.546c2.987-1.814,6.702-1.938,9.801-0.328l65.038,33.772c3.309,1.718,5.387,5.134,5.392,8.861 C204.394,157.263,202.325,160.684,199.021,162.41z"/> </g> </svg></a>
+                    </div>
+                  {% endif %}
+                  {% if block.settings.facebook_link != blank %}
+                    <div class="nav__item">
+                      <a target="_blank" class="nav__link no-hover-link" href="{{ block.settings.facebook_link }}" aria-label="facebook link"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="27.5px" height="27.5px" viewBox="0 0 60.734 60.733" style="fill: #f8f3ec; margin: 15px 12px 0 0;" xml:space="preserve"> <g> <path d="M57.378,0.001H3.352C1.502,0.001,0,1.5,0,3.353v54.026c0,1.853,1.502,3.354,3.352,3.354h29.086V37.214h-7.914v-9.167h7.914 v-6.76c0-7.843,4.789-12.116,11.787-12.116c3.355,0,6.232,0.251,7.071,0.36v8.198l-4.854,0.002c-3.805,0-4.539,1.809-4.539,4.462 v5.851h9.078l-1.187,9.166h-7.892v23.52h15.475c1.852,0,3.355-1.503,3.355-3.351V3.351C60.731,1.5,59.23,0.001,57.378,0.001z"/> </g> </svg></a>
+                    </div>
+                  {% endif %}
+                  {% if settings.socical_pinterest_link != blank %}
+                    <div class="nav__item">
+                      <a target="_blank" class="nav__link no-hover-link" href="{{ block.settings.pinterest_link }}" aria-label="facebook link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27.46" height="27.46" viewBox="0 0 27.46 27.46">
+                          <path d="M27.46 34.942v21.576a2.943 2.943 0 0 1-2.942 2.942H9.464a15.706 15.706 0 0 0 1.679-3.635l.938-3.58a4.024 4.024 0 0 0 3.451 1.728c4.542 0 7.809-4.174 7.809-9.36 0-4.971-4.058-8.691-9.28-8.691-6.5 0-9.942 4.358-9.942 9.108 0 2.207 1.177 4.953 3.052 5.829.288.135.435.074.5-.2.049-.208.306-1.232.417-1.7a.444.444 0 0 0-.1-.429 5.867 5.867 0 0 1-1.122-3.432 6.515 6.515 0 0 1 6.8-6.534 5.944 5.944 0 0 1 6.289 6.123c0 4.07-2.053 6.889-4.732 6.889a2.189 2.189 0 0 1-2.231-2.721c.423-1.79 1.244-3.721 1.244-5.014 0-3.249-4.628-2.8-4.628 1.532a5.5 5.5 0 0 0 .447 2.237c-1.925 8.14-2.213 8.244-1.814 11.805l.135.049H2.942A2.943 2.943 0 0 1 0 56.518V34.942A2.943 2.943 0 0 1 2.942 32h21.576a2.943 2.943 0 0 1 2.942 2.942z" transform="translate(0 -32)" style="fill:#fffdfc"/>
+                      </svg>
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </nav>
+      </div>
+      <div class="col-md-4 footer-box hide--mobile">
+        {% comment %}{{ newsletter_form }}{% endcomment %}
+        <!-- <div class="klaviyo-form-V7dDeE"></div> -->
+        <!-- <div class=“klaviyo-form-Rm9nS6”></div> -->
+        <div class="klaviyo-form-Rm9nS6"></div>
+      </div>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <div class="site-footer__term footer-box">
+      {{ set.info }}
+    </div>
+    <div class="site-footer__copy footer-box">
+      {{ set.copy | replace: 'href="#"', 'href="https://www.shopify.com/free-trial?ref=ea-goats1"' }}
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+  "name": "Footer",
+  "tag": "footer",
+  "class": "site-footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content":"Email"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email"
+    },
+    {
+      "type": "header",
+      "content": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_text",
+      "label": "Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Social"
+    },
+    {
+      "type": "checkbox",
+      "id": "showSocial",
+      "label": "Show links to social networks",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom"
+    },
+    {
+      "type": "richtext",
+      "id": "info",
+      "label": "Info"
+    },
+    {
+      "type": "richtext",
+      "id": "copy",
+      "label": "Copyright"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "header",
+          "content": "Links"
+        },
+        {
+          "type": "text",
+          "id": "insta_link",
+          "label": "Instagram Link"
+        },
+        {
+          "type": "text",
+          "id": "twitter_link",
+          "label": "Twitter Link"
+        },
+        {
+          "type": "text",
+          "id": "youtube_link",
+          "label": "Youtube Link"
+        },
+        {
+          "type": "text",
+          "id": "facebook_link",
+          "label": "Facebook Link"
+        },
+        {
+          "type": "text",
+          "id": "pinterest_link",
+          "label": "Pinterest Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

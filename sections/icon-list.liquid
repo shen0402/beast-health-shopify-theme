@@ -1,0 +1,138 @@
+{% comment %} ATTENTION!!! This is compiled version of icon-list.liquid and it is overriding automatically. You should use theme development tool and sources\sections\icon-list.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+
+	{% render 'ea-section-styles', section: section %}
+
+	<div class="section_container">
+
+		<div class="main_content container">
+
+			<div class="title not-animated">{{ section.settings.title }}</div>
+			<div class="list-wrapper d-flex">
+
+				{% for block in section.blocks %}
+          {% if block.settings.link != blank %}
+					  <a href="{{ block.settings.link }}" class="list-item">
+          {% else %}
+            <div div class="list-item">
+          {% endif %}
+						<div class="icon_wrapper">{{ block.settings.icon }}</div>
+            <div class="item_title">{{ block.settings.title }}</div>
+          {% if block.settings.link == blank %}
+					</div>
+          {% else %}
+          </a>
+          {% endif %}
+				{% endfor %}
+
+			</a>
+
+		</div>
+
+	</div>
+
+
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "Icon List",
+  "class": "icon-list",
+  "tag": "section",
+  "settings": [
+		{
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show block",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Background",
+      "default": "#fff"
+		},
+		{
+			"type": "header",
+			"content": "Content"
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		}
+	],
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Block",
+			"limit": 4,
+			"settings": [
+				{
+					"type": "html",
+					"id": "icon",
+					"label": "Icon"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+			]
+		}
+	]
+}
+{% endschema %}

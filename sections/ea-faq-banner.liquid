@@ -1,0 +1,265 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-faq-banner.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-faq-banner.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="hero-container">
+  <div id="section-{{ section.id }}" class="hero">
+      <div class="hero__container container section-banner_main">
+          <div class="hero__info-wrap">
+              <div class="hero__info {{ section.settings.content_position }} text-align-{{ section.settings.text_align }} mob-text-align-{{ section.settings.text_align_mob }} mobile_{{ section.settings.content_position_mobile }} banner-title_unset">
+                  {% assign title = section.settings.title %}
+                  {% assign subtitle = section.settings.desc %}
+
+                  {% if title != blank %}   
+                      <h1 class="hero__title title m-heavy not-animated faq-banner_title" style="color: {{ section.settings.text_color }}">{{ title }}</h1>
+                  {% endif %}
+
+                  {% if subtitle != blank %}
+                      <div class="subtitle not-animated {% if set.subtitle_large %}h3{% endif %}" style="color: {{ section.settings.text_color }}">{{ subtitle }}</div>
+                  {% endif %}
+                  {%- comment -%}
+                  <div class="faq-banner_search">
+                    <input type="text" class="faq-banner_input" placeholder="Search Our Faq" data-faq-search>
+                    <div class="faq-banner_icon hide--mobile" data-faq-search-btn><svg xmlns="http://www.w3.org/2000/svg" width="20.556" height="20.556" viewBox="0 0 20.556 20.556"> <path d="M52.388 51.581a.571.571 0 0 1-.807.807l-6.15-6.15a.325.325 0 0 0-.424-.022s-.094.08-.259.2a7.992 7.992 0 1 1 1.738-1.762c-.143.2-.27.348-.27.348a.323.323 0 0 0 .022.426zm-12.394-4.735a6.852 6.852 0 1 0-6.852-6.852 6.851 6.851 0 0 0 6.852 6.852z" transform="translate(-32 -32)"/> </svg></div>
+                    <div class="faq-banner_icon hide--desktop" data-faq-search-btn><svg xmlns="http://www.w3.org/2000/svg" width="17.762" height="17.156" viewBox="0 0 17.762 17.156"> <g> <path stroke="#fffdfc" d="M43.544 48.4a6.63 6.63 0 1 1 6.63-6.63 6.638 6.638 0 0 1-6.63 6.63zm0-11.6a4.974 4.974 0 1 0 4.974 4.974 4.98 4.98 0 0 0-4.974-4.98z" transform="translate(.5 .5) translate(-36.914 -35.136)"/> <path d="M60.6 59.934a.827.827 0 0 1-.586-.241l-4.97-4.97a.828.828 0 0 1 1.171-1.171l4.97 4.97a.827.827 0 0 1-.584 1.412z" transform="translate(.5 .5) translate(-44.163 -43.279)"/> </g> </svg></div>
+                  </div>
+                  {%- endcomment -%}
+              </div>
+          </div>   
+          {% assign image = section.settings.image %}
+          {% assign sp_image = section.settings.sp_image %}
+          <div class="hero__img hide--mobile">
+            {% render 'rimage', image: image, size: '2000x' %}
+          </div>
+          {% if sp_image != blank %}
+            <div class="hero__img hide--desktop">
+              {% render 'rimage', image: sp_image, size: '800x' %}
+            </div>
+          {%endif%}
+      </div> 
+  </div> 
+</div>
+
+{% schema %}
+  {
+  "name": "Faq Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+          {
+            "value": "top-left",
+            "label": "Top Left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top Center"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "middle-left",
+            "label": "Middle Left"
+          },
+          {
+            "value": "middle-center",
+            "label": "Middle Center"
+          },
+          {
+            "value": "middle-right",
+            "label": "Middle Right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom Left"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom Center"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom Right"
+          }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_mobile",
+      "label": "Content Position on Mobile",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle Left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle Center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Text Alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_align_mob",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Text Alignment on Mobile"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFF"
+    }
+  ],
+  "blocks": [
+  ]
+}
+{% endschema %}

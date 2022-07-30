@@ -1,0 +1,514 @@
+{% comment %} ATTENTION!!! This is compiled version of video-section-slider-second.liquid and it is overriding automatically. You should use theme development tool and sources\sections\video-section-slider-second.liquid file to code and save your changes. {% endcomment %}{% render 'video-section-slider-content', section: section %}
+
+{% schema %}
+  {
+  "name": "Video Section",
+  "tag": "section",
+  "class": "video-slider-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show block",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Background",
+      "default": "#fffdfc"
+    },
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "header",
+      "content": "Indicator"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_indicator",
+      "label": "Enable indicator",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "is_white",
+      "label": "Make layout white?"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Video Slide",
+      "type": "block",
+      "settings": [
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background",
+          "default": "#000"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "paragraph",
+          "content": "Desktop"
+        },
+        {
+          "type": "range",
+          "id": "m_top",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 45,
+          "unit": "px",
+          "label": "Top spacing"
+        },
+        {
+          "type": "range",
+          "id": "m_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 45,
+          "unit": "px",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "paragraph",
+          "content": "Mobile"
+        },
+        {
+          "type": "range",
+          "id": "m_top_mob",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 30,
+          "unit": "px",
+          "label": "Top spacing"
+        },
+        {
+          "type": "range",
+          "id": "m_bottom_mob",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 30,
+          "unit": "px",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL"
+        },
+        {
+          "type": "url",
+          "id": "mob_video_url",
+          "label": "Video URL (mobile)"
+        },
+        {
+          "type": "select",
+          "id": "video_pos",
+          "options": [
+            {
+              "label": "Left",
+              "value": "left"
+            },
+            {
+              "label": "Right",
+              "value": "right"
+            }
+          ],
+          "default": "left",
+          "label": "Video alignment"
+        },
+        {
+          "type": "paragraph",
+          "content": "Gradient (Desktop)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_gra_desktop",
+          "label": "Enable gradient"
+        },
+        {
+          "type": "paragraph",
+          "content": "Gradient Left (Desktop)"
+        },
+        {
+          "type": "color",
+          "id": "left_bg",
+          "label": "Background",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "left_gradient",
+          "label": "Gradient",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "range",
+          "id": "left_rot",
+          "min": 0,
+          "max": 180,
+          "step": 5,
+          "default": 90,
+          "unit": "deg",
+          "label": "Gradient rotation"
+        },
+        {
+          "type": "paragraph",
+          "content": "Gradient Right (Desktop)"
+        },
+        {
+          "type": "color",
+          "id": "right_bg",
+          "label": "Background",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "color",
+          "id": "right_gradient",
+          "label": "Gradient",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "right_rot",
+          "min": 0,
+          "max": 180,
+          "step": 5,
+          "default": 90,
+          "unit": "deg",
+          "label": "Gradient rotation"
+        },
+        {
+          "type": "paragraph",
+          "content": "Gradient (Mobile)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_gra_mobile",
+          "label": "Enable gradient"
+        },
+        {
+          "type": "header",
+          "content": "Gradient top (Mobile)"
+        },
+        {
+          "type": "color",
+          "id": "top_bg",
+          "label": "Background",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "top_gradient",
+          "label": "Gradient",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "range",
+          "id": "top_rot",
+          "min": 0,
+          "max": 180,
+          "step": 5,
+          "default": 180,
+          "unit": "deg",
+          "label": "Gradient rotation"
+        },
+        {
+          "type": "header",
+          "content": "Gradient bottom (Mobile)"
+        },
+        {
+          "type": "color",
+          "id": "bottom_bg",
+          "label": "Background",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "color",
+          "id": "bottom_gradient",
+          "label": "Gradient",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "bottom_rot",
+          "min": 0,
+          "max": 180,
+          "step": 5,
+          "default": 180,
+          "unit": "deg",
+          "label": "Gradient rotation"
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "mob_text",
+          "label": "Text (Mobile)"
+        },
+        {
+          "type": "text",
+          "id": "title1",
+          "label": "Sub title 1"
+        },
+        {
+          "type": "richtext",
+          "id": "text1",
+          "label": "Sub text 1"
+        },
+        {
+          "type": "text",
+          "id": "title2",
+          "label": "Sub title 2"
+        },
+        {
+          "type": "richtext",
+          "id": "text2",
+          "label": "Sub text 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "grid",
+          "label": "Make sub text grid ?",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "CTA Button"
+        },
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Text Color",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "color",
+          "id": "sub_color",
+          "label": "Sub title color",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "paragraph",
+          "content": "Button"
+        },
+        {
+          "type": "color",
+          "id": "btn_color",
+          "label": "Button background",
+          "default": "#FF5500"
+        },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "Button Text",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "color",
+          "id": "btn_h_color",
+          "label": "Button hover background",
+          "default": "#fffdfc"
+        },
+        {
+          "type": "color",
+          "id": "btn_h_text_color",
+          "label": "Button hover text",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Font Size"
+        },
+        {
+          "type": "paragraph",
+          "content": "Desktop"
+        },
+        {
+          "type": "range",
+          "id": "f_title",
+          "min": 20,
+          "max": 40,
+          "default": 34,
+          "step": 1,
+          "unit": "px",
+          "label": "Title"
+        },
+        {
+          "type": "range",
+          "id": "f_subtitle",
+          "min": 20,
+          "max": 40,
+          "default": 34,
+          "step": 1,
+          "unit": "px",
+          "label": "Sub title"
+        },
+        {
+          "type": "range",
+          "id": "f_text",
+          "min": 14,
+          "max": 24,
+          "default": 16,
+          "step": 1,
+          "unit": "px",
+          "label": "Text"
+        },
+        {
+          "type": "range",
+          "id": "f_btn",
+          "min": 10,
+          "max": 20,
+          "default": 14,
+          "step": 1,
+          "unit": "px",
+          "label": "Button"
+        },
+        {
+          "type": "paragraph",
+          "content": "Mobile"
+        },
+        {
+          "type": "range",
+          "id": "f_title_mob",
+          "min": 16,
+          "max": 34,
+          "default": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Title"
+        },
+        {
+          "type": "range",
+          "id": "f_subtitle_mob",
+          "min": 16,
+          "max": 34,
+          "default": 19,
+          "step": 1,
+          "unit": "px",
+          "label": "Sub title"
+        },
+        {
+          "type": "range",
+          "id": "f_text_mob",
+          "min": 12,
+          "max": 24,
+          "default": 14,
+          "step": 1,
+          "unit": "px",
+          "label": "Text"
+        },
+        {
+          "type": "range",
+          "id": "f_btn_mob",
+          "min": 10,
+          "max": 20,
+          "default": 14,
+          "step": 1,
+          "unit": "px",
+          "label": "Button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

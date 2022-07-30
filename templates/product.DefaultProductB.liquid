@@ -1,0 +1,95 @@
+<div class="productTemplate--b">
+    <div class="sections-wrapper" style="margin-top: -38px;">
+    {% section 'ea-product-main' %}
+    <div id="product-process">
+      {% comment %}{% section 'ea-product-vertical-slider' %}{% endcomment %}
+      {% comment %}{% section 'icon-block' %}{% endcomment %}
+      {% comment %}{% section 'comparison' %}{% endcomment %}
+      {% section 'ea-section-producticonblock' %}
+      {% section 'ea-product-video' %}
+      {% section 'ea-product-feature' %}
+      <!-- {% if product.metafields.showcase != blank %}
+     
+        {% section 'ea-product-picture' %}
+      {% endif %} -->
+  
+    </div>
+    <div id="product-reviews">
+      {% section 'ea-reviews' %}
+    </div>
+    <div id="product-faq">
+      {% section 'ea-products-slider' %}
+      {% section 'ea-product-faq' %}
+    </div>
+  </div>
+  
+  
+  <div class="popup is-hidden" data-popup="ingredients">
+    <div class="popup-window"> 
+      <button class="close" data-popup-close><i class="icon-close"></i></button>
+      <div class="rte ingr-popup">{{ product.metafields.ingredients.all }}</div>
+    </div>
+    <div class="popup-bg" data-popup-close></div>
+  </div>
+  
+  
+  <script>
+    window.productTemplateLoaded = true;
+    document.cookie = "{{ product.url }}";
+    if (typeof(Storage) !== "undefined") {
+      // Write code for local storage.
+      localStorage.setItem('productUrl', document.cookie.split(';')[0]);
+      localStorage.setItem('vId', "{{ product.selected_or_first_available_variant.id }}");
+      localStorage.setItem('pTitle', "{{ product.title }}");
+      } else {
+          // Sorry, your browser does not support Web Storage..
+          alert('Sorry, your browser does not support Web Storage');
+      }
+  </script>
+  
+  
+  {% if product.metafields.loox.num_reviews %}
+  <script id="looxSchemaJson" type="application/ld+json">
+  {
+      "@context": "http://schema.org",
+      "@type": "Product",
+      "@id": {{ canonical_url | json }},
+      "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "{{ product.metafields.loox.avg_rating }}",
+          "reviewCount": "{{ product.metafields.loox.num_reviews }}"
+      },
+      "name": {{ product.title | json }}
+  }
+  </script>
+  {% endif %}
+  
+  <script type="text/javascript">
+    var _learnq = _learnq || [];
+  
+    var item = {
+      Name: {{ product.title|json }},
+      ProductID: {{ product.id|json }},
+      Categories: {{ product.collections|map:'title'|json }},
+      ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+      URL: "{{ shop.secure_url }}{{ product.url }}",
+      Brand: {{ product.vendor|json }},
+      Price: {{ product.price|money|json }},
+      CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+    };
+  
+    _learnq.push(['track', 'Viewed Product', item]);
+    _learnq.push(['trackViewedItem', {
+      Title: item.Name,
+      ItemId: item.ProductID,
+      Categories: item.Categories,
+      ImageUrl: item.ImageURL,
+      Url: item.URL,
+      Metadata: {
+        Brand: item.Brand,
+        Price: item.Price,
+        CompareAtPrice: item.CompareAtPrice
+      }
+    }]);
+  </script>
+</div>

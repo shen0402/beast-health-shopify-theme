@@ -1,0 +1,142 @@
+{% comment %} ATTENTION!!! This is compiled version of pre-order.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\pre-order.liquid file to code and save your changes. {% endcomment %}
+{% assign is_pre_order = false %}
+{% if product.metafields.pre_order.is_visible == 'true' and product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+  {% assign is_pre_order = true %}
+{% endif %}
+<div class="product-progress {% unless is_pre_order %}hide{% endunless %}" {{ product.metafields.pre_order.is_visible}} {{ product.selected_or_first_available_variant.inventory_quantity }}>
+    <div class="progress-text_content">
+      <span>{{product.metafields.progress.pretext}}</span>
+      <span>{{product.metafields.progress.rest_num}}</span>
+      <span>/</span>
+      <span>{{product.metafields.progress.total_num}}</span>
+      <span>{{product.metafields.progress.after_text}}</span>
+    </div>
+    <div class="progress-bar_content">
+      {% assign sell_num = product.metafields.progress.total_num | minus: product.metafields.progress.rest_num %}
+      {% assign percent = sell_num | times: 100 | divided_by: product.metafields.progress.total_num | floor | append: '%' %}
+      <div class="progress-bar" style="background: {{ settings.origin_color }}">
+        <div class="sell-bar" style="background: {{ settings.bar_color }}; width: {{percent}};"></div>
+        <div class="show_percent">{{percent}}</div>
+      </div>
+      <div>🔥</div>
+    </div>
+</div>
+
+{% if product.metafields.preorder.product != blank %}
+{% assign handles = '' %}
+
+  {%- comment -%}
+  {% for item in cart.items %}
+    {% assign c_product = item.product.handle %}
+    {% assign handles = handles | append: '/' | append: c_product %}
+  {% endfor %}
+  {%- endcomment -%}
+    {% assign u_products = product.metafields.preorder.product %}
+    {% assign rest_num = product.metafields.progress.rest_num | plus: 0 %}
+  {% unless rest_num == 0 %}
+  {% if u_products != blank %}
+    <div class="product-preorder {% unless is_pre_order %}hide{% endunless %}">
+      <div class="product-preorder-wrapper">
+        <div class="product-preorder-header hide--mobile">
+          {% if product.metafields.preorder.title != blank %}
+            <div class="product-preorder-title">{{product.metafields.preorder.title}}</div>
+          {% endif %}
+        </div>
+        <div class="product-preorder-items">
+          {% if product.metafields.preorder.title != blank %}
+          <div class="product-preorder-title hide--desktop">
+            {{ product.metafields.preorder.title }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="25.223" height="13.745" viewBox="0 0 25.223 13.745">
+              <path d="M29.048 32.7a.591.591 0 0 0-.406.166L17.1 44.4a.571.571 0 0 0 .807.807l11.14-11.134 11.135 11.139a.571.571 0 1 0 .807-.807l-11.535-11.54a.591.591 0 0 0-.406-.166z" transform="translate(-16.434 -32.199)" style="stroke:#020202"/>
+          </svg>
+          
+          </div>
+        {% endif %}
+          {% if product.metafields.preorder.subtitle != blank %}
+            <div class="product-preorder-subtitle hide--mobile">{{ product.metafields.preorder.subtitle }}</div>
+          {% endif %}
+          {% for u in u_products %}
+            {% assign idx = forloop.index0 %}
+            {% assign _product = all_products[u] %}
+
+            {% assign handle = '/' | append: _product.handle %}
+
+            <div class="product-preorder-item hide--mobile" data-product_id="{{ _product.id }}">
+              <div class="product-preorder-item-wrapper d-flex">
+                <div class="product-preorder-image">{% render 'rimage', image: _product.featured_image, size: '200x' %}</div>
+                <div class="product-preorder-meta d-flex">
+
+                  {% assign opt_idx = null %}
+                  {% for option in _product.options %}
+                    {% if option == 'Color' or option == 'Colour' %}
+                      {% if _product.options_by_name[option].values.size > 1 %}
+                        {% assign opt_idx = forloop.index %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                  <div class="product-preorder-info">
+                    <div class="product-preorder-item-title">{{ _product.title }}</div>
+                  </div>
+
+                  <div class="product-preorder-price d-flex">
+                    <div class="price-wrapper d-flex">
+                      <div class="prices">
+                        
+
+                        {% assign price = _product.price %}
+
+                        <span class="regular-price">
+                            {{ _product.price | money }}
+                        </span>
+                      </div>
+
+                    </div>
+                    <div class="hide--mobile">Free</div>
+                  </div>
+
+                  
+                  <div class="product_variants-wrapper">
+                    <div class="product_variants product_variants_color" data-product-preorder-variants>
+                      {% if opt_idx != null %}
+                        {% if _product.options contains 'Color' or _product.options contains 'Colour' %}
+                          {% assign list = '' %}
+                          {% assign index = idx %}
+                          {% for variant in _product.variants %} 
+                            {% assign handle = 'option' | append: opt_idx %}
+                            {% assign option = variant[handle] %}
+                            {% unless list contains option %}
+                              {% assign idx = idx | plus: 1 %}
+                              {% assign vImg = variant.image %}
+                              <div class="product_option" data-product-variant-option data-variant-img="{{ vImg | img_url: '800x' }}" data-in-stock="{% if variant.available  %}true{% else %}false{% endif %}" data-variant-url="{{ variant.url }}" data-variant-id="{{ variant.id }}">
+                                <input type="radio" id="product-preorder-option-color-{{ option | handle }}" name="product-preorder-option-color-{{ index }}" {% if list == '' %}checked{% endif %}>
+                                <label for="product-preorder-option-color-{{ option | handle }}" data-color-name="{{ option | handle }}"></label>
+                              </div>
+                              {% assign list = list | append: '&&' | append: option %}
+                            {% endunless %}
+                          {% endfor %}
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                    <div class="product-preorder-atc-form" data-tags="{{ _product.tags | join: ', ' }}" data-id="{{ _product.selected_or_first_available_variant.id }}">
+                      <button class="btn m-green" data-pre-toggle>
+                        <span class="label-add">add 
+                          <span class="hide--desktop"> - Free</span>
+                        </span>
+                        <span class="label-added">added</span>
+                      </button>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if product.metafields.pre_order.text != blank %}
+  <div class="preorder_text">{{ product.metafields.pre_order.text }}</div>
+  {% endif %}
+  {% endunless %}
+{% endif %}

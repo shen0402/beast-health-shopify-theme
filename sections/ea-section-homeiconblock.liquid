@@ -1,0 +1,391 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-homeiconblock.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-homeiconblock.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="hero-container">
+  <div id="section-{{ section.id }}" class="hero">
+      <div class="hero__container container section-banner_main">
+        <div class="section-homeiconblock_blocks">
+          {% assign icon_blocks = section.blocks | where: 'type', 'icon' %}
+          {% for block in icon_blocks %}
+            <div class="section-homeiconblock_block">
+    
+              {% if block.settings.icon != blank %}
+                <div class="section-homeiconblock_image">{{ block.settings.icon }}</div>
+              {% endif %}
+    
+              {% if block.settings.title != blank %}
+                <div class="section-homeiconblock_title">{{ block.settings.title }}</div>
+              {% endif %}
+    
+            </div>
+          {% endfor %}
+        </div>
+        {% if section.settings.image != blank and section.settings.title != blank %}
+        <div class="hero__info-wrap section-homeiconblock_main">
+            <div class="hero__info-{{ section.id }} hero__info {{ section.settings.content_position }} text-align-{{ section.settings.text_align }} mobile_{{ section.settings.content_position_mobile }} mob-text-align-{{ section.settings.mob_text_align }} banner-title_unset">
+                {% assign title = section.settings.title %}
+                {% assign subtitle = section.settings.desc %}
+                {% assign sp_title = section.settings.sp_title %}
+                {% assign sp_subtitle = section.settings.sp_desc %}
+
+                {% if title != blank %}   
+                    <h1 class="hero__title title m-heavy not-animated section-homeiconblock__banner_title hide--mobile" style="color: {{ section.settings.text_color }}">{{ title }}</h1>
+                {% endif %}
+
+                {% if sp_title != blank %}   
+                    <h1 class="hero__title title m-heavy not-animated section-homeiconblock__banner_title hide--desktop" style="color: {{ section.settings.text_color }}">{{ sp_title }}</h1>
+                {% endif %}
+
+                {% if subtitle != blank %}
+                    <div class="not-animated {% if set.subtitle_large %}h3{% endif %} section-homeiconblock__banner_description hide--mobile" style="color: {{ section.settings.text_color }}">{{ subtitle }}</div>
+                {% endif %}
+
+                {% if sp_subtitle != blank %}
+                    <div class="not-animated {% if set.subtitle_large %}h3{% endif %} section-homeiconblock__banner_description hide--desktop" style="color: {{ section.settings.text_color }}">{{ sp_subtitle }}</div>
+                {% endif %}
+
+                <div class="section-homeiconblock__banner_icon"><a href="{{ set.url }}">{{ set.button }} <svg xmlns="http://www.w3.org/2000/svg" width="22.603" height="13.369" viewBox="0 0 22.603 13.369"> <path fill="#f8f3ec" stroke="#f8f3ec" d="M18.912 20.305l-5.569-5.569a.6.6 0 1 0-.855.855l4.539 4.539H-1.888a.619.619 0 0 0-.611.611.619.619 0 0 0 .611.611h18.914l-4.539 4.539a.591.591 0 0 0 0 .855.633.633 0 0 0 .873 0l5.569-5.569a.579.579 0 0 0 .175-.436.664.664 0 0 0-.192-.436z" transform="translate(2.999 -14.053)"/> </svg></a></div>
+            </div>
+            <style>
+              .hero__info-{{ section.id }} .section-homeiconblock__banner_icon a {
+                background: {{ section.settings.btn_bg }};
+                color: {{ section.settings.btn_text }};
+              }
+              .hero__info-{{ section.id }} .section-homeiconblock__banner_icon a svg {
+                fill: {{ section.settings.btn_text }};
+              }
+              .hero__info-{{ section.id }} .section-homeiconblock__banner_icon a svg path {
+                stroke: {{ section.settings.btn_text }};
+                fill: {{ section.settings.btn_text }};
+              }
+              .hero__info-{{ section.id }} .section-homeiconblock__banner_icon a:hover {
+                background: {{ section.settings.btn_bg_hover }};
+                color: {{ section.settings.btn_text_hover }};
+              }
+              .hero__info-{{ section.id }} .section-homeiconblock__banner_icon a:hover svg {
+                fill: {{ section.settings.btn_text_hover }};
+              }
+              .hero__info-{{ section.id }} .section-homeiconblock__banner_icon a:hover svg path {
+                stroke: {{ section.settings.btn_text_hover }};
+                fill: {{ section.settings.btn_text_hover }};
+              }
+            </style>
+        </div>   
+        {% assign image = section.settings.image %}
+        {% assign sp_image = section.settings.sp_image %}
+        <div class="hero__img hide--mobile">
+          {% render 'rimage', image: image, size: '2000x' %}
+        </div>
+        {% if sp_image != blank %}
+          <div class="hero__img banner-img hide--desktop">
+            {% render 'rimage', image: sp_image, size: '800x' %}
+          </div>
+        {%endif%}
+        {% endif %}
+      </div> 
+  </div> 
+</div>
+
+{% schema %}
+  {
+  "name": "Section Homeiconblock",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "sp_title",
+      "label": "Mobile Title"
+    },
+    {
+      "type": "richtext",
+      "id": "sp_desc",
+      "label": "Mobile Text"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Button Url"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+          {
+            "value": "top-left",
+            "label": "Top Left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top Center"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "middle-left",
+            "label": "Middle Left"
+          },
+          {
+            "value": "middle-center",
+            "label": "Middle Center"
+          },
+          {
+            "value": "middle-right",
+            "label": "Middle Right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom Left"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom Center"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom Right"
+          }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "label": "Center",
+          "value": "center"
+        },
+        {
+          "label": "Right",
+          "value": "right"
+        }
+      ],
+      "id": "text_align",
+      "label": "Text Alignment",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "content_position_mobile",
+      "label": "Content Position on Mobile",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle Left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle Center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "label": "Center",
+          "value": "center"
+        },
+        {
+          "label": "Right",
+          "value": "right"
+        }
+      ],
+      "id": "mob_text_align",
+      "label": "Text Alignment on Mobile",
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFF"
+    },
+    {
+      "type": "paragraph",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#FFF"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "#000"
+    },
+    {
+      "type": "paragraph",
+      "content": "Button Hover"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_hover",
+      "label": "Button Background on Hover",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_hover",
+      "label": "Button Text on Hover",
+      "default": "#FFF"
+    }
+  ],
+  "blocks": [
+    { 
+      "type": "icon",
+      "name": "Icon Block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon", 
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title", 
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "icon_link", 
+          "label": "Url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon list with banner",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

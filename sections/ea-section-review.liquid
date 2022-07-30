@@ -1,0 +1,168 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-review.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-review.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="section-review">
+  <div class="section-review_title">{{ set.title }}</div>
+  <div asdf class="section-review_main">
+    <div class="section-review_slider" data-slider>
+      {% for block in section.blocks %}
+        {% case block.type %}
+        {% when 'image' %}
+          <div class="item_block">
+            <div class="section-review_left">
+              {% comment %}<img src="{{ block.settings.image | img_url: 'master' }}" class="section-review_image">{% endcomment %}
+              {% render 'rimage', image: block.settings.image, size: '400x', wrapper_class: 'section-review_image' %}
+              <div class="section-review_svg">{{ block.settings.icon}}</div>
+              <div class="section-review_bottom1">
+                {% comment %}<img src="{{ block.settings.face | img_url: 'master' }}" class="section-review_face">{% endcomment %}
+                {% render 'rimage', image: block.settings.face, size: '100x', wrapper_class: 'section-review_face' %}
+                <span class="section-review_email">{{block.settings.email}}</span>
+              </div>
+            </div>
+          </div>
+        {% when 'testimonial' %}
+          <div class="item_block">
+            <div class="section-review_right">
+              <div class="section-review_top">
+                <div class="section-review_star">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="103.137" height="18.138" viewBox="0 0 103.137 18.138">
+                      <path d="M-22.188 16.746a.6.6 0 0 1 .606 0l4.611 2.664a.634.634 0 0 0 .919-.7l-.993-5.418a.677.677 0 0 1 .187-.6l3.843-3.771a.666.666 0 0 0-.351-1.132l-5.225-.689a.63.63 0 0 1-.49-.373l-2.236-4.994a.616.616 0 0 0-1.136 0l-2.236 4.994a.63.63 0 0 1-.49.373l-5.225.685a.666.666 0 0 0-.351 1.132l3.843 3.771a.677.677 0 0 1 .187.6l-.993 5.418a.634.634 0 0 0 .919.7z" transform="translate(30.954 -1.355)"/>
+                      <path d="M-22.188 16.746a.6.6 0 0 1 .606 0l4.611 2.664a.634.634 0 0 0 .919-.7l-.993-5.418a.677.677 0 0 1 .187-.6l3.843-3.771a.666.666 0 0 0-.351-1.132l-5.225-.689a.63.63 0 0 1-.49-.373l-2.236-4.994a.616.616 0 0 0-1.136 0l-2.236 4.994a.63.63 0 0 1-.49.373l-5.225.685a.666.666 0 0 0-.351 1.132l3.843 3.771a.677.677 0 0 1 .187.6l-.993 5.418a.634.634 0 0 0 .919.7z" transform="translate(52.287 -1.355)"/>
+                      <path d="M-22.188 16.746a.6.6 0 0 1 .606 0l4.611 2.664a.634.634 0 0 0 .919-.7l-.993-5.418a.677.677 0 0 1 .187-.6l3.843-3.771a.666.666 0 0 0-.351-1.132l-5.225-.689a.63.63 0 0 1-.49-.373l-2.236-4.994a.616.616 0 0 0-1.136 0l-2.236 4.994a.63.63 0 0 1-.49.373l-5.225.685a.666.666 0 0 0-.351 1.132l3.843 3.771a.677.677 0 0 1 .187.6l-.993 5.418a.634.634 0 0 0 .919.7z" transform="translate(73.62 -1.355)"/>
+                      <path d="M-22.188 16.746a.6.6 0 0 1 .606 0l4.611 2.664a.634.634 0 0 0 .919-.7l-.993-5.418a.677.677 0 0 1 .187-.6l3.843-3.771a.666.666 0 0 0-.351-1.132l-5.225-.689a.63.63 0 0 1-.49-.373l-2.236-4.994a.616.616 0 0 0-1.136 0l-2.236 4.994a.63.63 0 0 1-.49.373l-5.225.685a.666.666 0 0 0-.351 1.132l3.843 3.771a.677.677 0 0 1 .187.6l-.993 5.418a.634.634 0 0 0 .919.7z" transform="translate(94.953 -1.355)"/>
+                      <path d="M-22.188 16.746a.6.6 0 0 1 .606 0l4.611 2.664a.634.634 0 0 0 .919-.7l-.993-5.418a.677.677 0 0 1 .187-.6l3.843-3.771a.666.666 0 0 0-.351-1.132l-5.225-.689a.63.63 0 0 1-.49-.373l-2.236-4.994a.616.616 0 0 0-1.136 0l-2.236 4.994a.63.63 0 0 1-.49.373l-5.225.685a.666.666 0 0 0-.351 1.132l3.843 3.771a.677.677 0 0 1 .187.6l-.993 5.418a.634.634 0 0 0 .919.7z" transform="translate(115.953 -1.355)"/>
+                  </svg>
+                </div>
+                <div class="section-review_description">{{block.settings.desc}}</div>
+              </div>
+              <div class="section-review_bottom">
+                <div class="section-review_name">{{block.settings.name}}</div>
+                <div class="section-review_address">{{block.settings.addr}}</div> 
+              </div>
+            </div>
+          </div>
+        {% endcase %}
+      {% endfor%}
+    </div>
+    <div class="about-tech-slider_content hide--desktop">Swipe <br> left or right.</div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Section Review",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image block",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "image", 
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "face", 
+          "label": "Face Image"
+        },
+        {
+          "type": "text",
+          "id": "email", 
+          "label": "Email"
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial block",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "desc", 
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "name", 
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "addr", 
+          "label": "Address"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Review",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

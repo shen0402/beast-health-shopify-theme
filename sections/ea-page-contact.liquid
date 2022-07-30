@@ -1,0 +1,229 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-page-contact.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-page-contact.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles', section: section %}
+
+<div class="section login has-image page-contact" data-login-forgot id="page-contact">
+  {% render 'ea-section-foreground-image', section: section %}
+
+  <div class="container">
+    <div class="login__wrap m-no-margin">
+      {% if set.image %}
+        <div class="login__image hide--mobile">
+          <img src="{{ set.image | img_url: '1000x' }}" alt="{{ set.image.alt }}">
+        </div> <!-- /.login__image -->
+      {% endif %}
+
+      <div class="contact__form">
+        <div class="login__content">
+        
+          {% if set.title != blank %}
+            <h2 class="title not-animated t-left">{{ set.title }}</h2>
+          {% endif %}
+          {% if set.subtitle != blank %}
+            <div class="contact-content">{{ set.subtitle }}</div>
+          {% endif %}
+          <div class="form">
+            {%- assign formId = 'ContactForm' -%}
+            {% form 'contact', id: formId %}
+              {% if form.errors %}
+                <div class="">
+                  {% for field in form.errors %}
+                    <p class="form__error">{{ field | capitalize }} - {{ form.errors.messages[field] }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {%- if form.posted_successfully? -%}
+                <script>
+                  Swal.fire({
+                    title: 'Success!',
+                    text: 'Thank you for contacting us.',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+                </script>
+              {%- endif -%}
+              
+              <div class="field-group">
+                <div class="form__field">
+                  <label for="{{ formId }}-name" class="label">Name *</label>
+                  <input type="text" id="{{ formId }}-name" class="form__input" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
+                </div>
+
+                <div class="form__field">
+                  <label for="{{ formId }}-last" class="label">Last *</label>
+                  <input type="text" id="{{ formId }}-last" class="form__input" name="contact[last]" value="{% if form[last] %}{{ form[last] }}{% elsif customer %}{{ customer.last }}{% endif %}" required>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <div class="form__field">
+                  <label for="{{ formId }}-order" class="label">Order number</label>
+                  <input type="text" id="{{ formId }}-order" class="form__input" name="contact[order]" value="{% if form[order] %}{{ form[order] }}{% elsif customer %}{{ customer.order }}{% endif %}">
+                </div>
+
+                <div class="form__field">
+                  <label for="{{ formId }}-serial" class="label">Serial number</label>
+                  <input type="text" id="{{ formId }}-serial" class="form__input" name="contact[serial]" value="{% if form[serial] %}{{ form[serial] }}{% elsif customer %}{{ customer.serial }}{% endif %}">
+                </div>
+              </div>
+      
+              <div class="field-group">
+                <div class="form__field">
+                  <label for="{{ formId }}-email" class="label">{{ 'contact.form.email' | t }} *</label>
+                  <input
+                    type="email"
+                    id="{{ formId }}-email"
+                    class="form__input"
+                    name="contact[email]"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    aria-required="true"
+                    {%- if form.errors contains 'email' -%}
+                      class="input--error"
+                      aria-invalid="true"
+                      aria-describedby="{{ formId }}-email-error"
+                    {%- endif -%}
+                    required
+                    >
+                </div>
+
+                <div class="form__field m-select">
+                  <label for="{{ formId }}-inquiry" class="label">Subject *</label>
+                  <select name="{{ formId }}-inquiry" id="" class="form__input select" name="contact[inquiry]" required>
+                    <option value="Where is my order?">Order related</option>
+                    <option value="Press & Media">Press & Media</option>
+                    <option value="Shipping & Return">Shipping & Return</option>
+                    <option value="Wholesale inquiry">Wholesale inquiry</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <i class="icon-caret-down"></i>
+                </div>  
+              </div>
+              
+              <div class="form__field">
+                <label for="{{ formId }}-message" class="label">{{ 'contact.form.message' | t }} *</label>
+                <textarea rows="10" id="{{ formId }}-message" class="textarea form__input" name="contact[body]" required>{% if form.body %}{{ form.body }}{% endif %}</textarea>
+              </div>
+              
+              {% comment %}<input type="hidden" name="contact[email]" value="help@thebeast.com" />{% endcomment %}
+
+              <div style="padding-top: 20px;"><button type="submit" class="m-contact">{{ set.btn }}</button></div>
+
+              <div class="contact-content">{{ set.content }}</div>
+              <div class="contact-phone">{{ set.phone }}</div>
+            {% endform %}
+          </div> <!-- /.form -->
+        
+        </div>
+      </div> <!-- /.login__form -->
+    </div> <!-- /.login__wrap -->
+  </div>
+</div> <!-- /.section -->
+
+
+
+{% schema %}
+  {
+  "name": "Contact page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title"
+    },
+    {
+      "id": "subtitle",
+      "type": "richtext",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }, 
+    {
+      "id": "content",
+      "type": "richtext",
+      "label": "Content"
+    },
+    {
+      "id": "phone",
+      "type": "text",
+      "label": "Phone number"
+    },
+
+    {
+      "type": "header",
+      "content": "button"
+    },
+    {
+      "id": "btn",
+      "type": "text",
+      "label": "Button text",
+      "default": "SEND"
+    }
+  ]
+}
+{% endschema %}

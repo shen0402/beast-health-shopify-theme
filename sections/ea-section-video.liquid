@@ -1,0 +1,174 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-section-video.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-section-video.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-sticky" id="section-video" data-video-section>
+    <div class="container"> 
+      <div class="section-video_main vertical-slide" data-video>
+        <div class="section-video_title">{{ set.title }}</div>
+        {% assign video_url = set.video_url %}
+        {% assign video_url2 = set.video_url2 %}
+        {% assign video_type = 'video' %}
+        {% assign video_type2 = 'video' %}
+        {% if video_url contains 'youtube' or video_url contains 'vimeo' %}
+          {% assign video_type = 'external_video' %}
+        {% endif %}
+        
+        {% if video_url2 contains 'youtube' or video_url2 contains 'vimeo' %}
+          {% assign video_type2 = 'external_video' %}
+        {% endif %}
+        {% assign video_url = video_url | replace: 'vimeo.com', 'player.vimeo.com/video' | replace: 'watch?v=', 'embed/' %}
+        {% assign video_url2 = video_url2 | replace: 'vimeo.com', 'player.vimeo.com/video' | replace: 'watch?v=', 'embed/' %}
+        <div class="video_block {% if video_url != blank and video_url2 != blank %}d-flex{% endif %}">
+          <div class="embed_container">
+            <div class="section-video_form {{ video_type }}"  data-video-wrapper data-type="{{ video_type }}" {% if section.settings.video_autoplay  %} data-scroll-play{% endif %}>
+              {% if video_type == 'video' %}
+                <video class="section-video_video" {% unless section.settings.video_autoplay %}data-autoplay="false"{% endunless %} id="videoId" {% if section.settings.video_loop %} loop {% endif %} muted playsinline  preload="none" {% unless set.video_controls == false %}controls{% endunless %}><source src="{{ video_url }}" type="video/mp4"></video>
+              {% elsif video_type == 'external_video' %}
+                <iframe src="{{ video_url }}" {% unless section.settings.video_autoplay %}data-autoplay="false"{% endunless %} frameborder="0" allow="autoplay" allowautoplay allowfullscreen></iframe>
+              {% endif %}
+            </div>
+            <button class="video_play hide--mobile">
+              <i class="video_pause_icon" style="display: none;">
+                <svg width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <g>
+                  <path d="m21.875 3.125c0-1.7266-1.3984-3.125-3.125-3.125s-3.125 1.3984-3.125 3.125v93.75c0 1.7266 1.3984 3.125 3.125 3.125s3.125-1.3984 3.125-3.125z"/>
+                  <path d="m84.375 3.125c0-1.7266-1.3984-3.125-3.125-3.125s-3.125 1.3984-3.125 3.125v93.75c0 1.7266 1.3984 3.125 3.125 3.125s3.125-1.3984 3.125-3.125z"/>
+                  </g>
+                </svg>
+              </i>
+              <i class="video_start_icon">
+                <svg width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m30.902 20.785c-1.4375-0.84766-3.332-0.83203-4.7695 0.023438-1.4492 0.87109-2.3477 2.4805-2.3477 4.1992v49.973c0 1.7227 0.89453 3.3281 2.3398 4.1914 0.73047 0.44141 1.5625 0.67578 2.418 0.67578 0.83203 0 1.6484-0.22266 2.3594-0.63672l42.918-24.98c1.4805-0.87109 2.3984-2.4883 2.3984-4.2305 0-1.7461-0.92188-3.3633-2.4023-4.2266zm41.602 31.199l-42.922 24.98c-0.62891 0.37109-1.4727 0.37109-2.1211-0.019532-0.66797-0.39844-1.082-1.1523-1.082-1.9648v-49.973c0-0.8125 0.41797-1.5703 1.0898-1.9727 0.32422-0.19531 0.69531-0.29688 1.0742-0.29688 0.37109 0 0.73438 0.097657 1.0508 0.28516l42.918 24.988c0.6875 0.39844 1.1133 1.1602 1.1133 1.9844-0.003906 0.82031-0.43359 1.582-1.1211 1.9883z"/>
+                </svg>
+              </i>
+            </button>
+          </div>
+          {% if section.settings.video_url2 != blank %}
+            <div class="embed_container">
+              <div class="section-video_form {{ video_type2 }}">
+                {% if video_type2 == 'video' %}
+                  <video class="section-video_video" id="videoId" {% unless section.settings.video_autoplay %}data-autoplay="false"{% endunless %} {% if section.settings.video_loop %}loop{% endif %} muted playsinline {% unless section.settings.video_controls == false %}controls{% endunless %}><source src="{{ video_url2 }}" type="video/mp4"></video>
+                {% elsif video_type == 'external_video' %}
+                  <iframe src="{{ video_url2 }}" {% unless section.settings.video_autoplay %}data-autoplay="false"{% endunless %} frameborder="0" allow="autoplay" allowautoplay allowfullscreen></iframe>
+                {% endif %}
+              </div>
+              {% if video_type2 == 'video' %}
+                <div data-video-replay data-selector="all">{% render 'icon' with 'icon-video-replay' %}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+  "name": "Section Video",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg_second",
+      "label": "Section background color (Half)",
+      "default": "#fffdfc"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "id": "video_url",
+      "type": "url",
+      "label": "Video URL 1"
+    },
+    {
+      "id": "video_url2",
+      "type": "url",
+      "label": "Video URL 2"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Descriptoin"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "Loop video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_controls",
+      "label": "Display player controls",
+      "default": false
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Featured Video",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

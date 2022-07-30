@@ -1,0 +1,130 @@
+{% comment %} ATTENTION!!! This is compiled version of card-grid.liquid and it is overriding automatically. You should use theme development tool and sources\sections\card-grid.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+
+  {% render 'ea-section-styles', section: section %}
+
+  <div class="section_container">
+    <div class="main_content container">
+
+      <div class="d-flex">
+        {% for block in section.blocks %}
+          <div class="card-item">
+            <div class="image_wrapper">{% render 'rimage', image: block.settings.image, size: '800x' %}</div>
+            <div class="card_title">{{ block.settings.title }}</div>
+            <div class="card_text">{{ block.settings.text }}</div>
+          </div>
+          {% if forloop.first %}
+            <div class="icon">
+              {% if section.settings.icon != blank %}
+                {{ section.settings.icon }}
+              {% else %}
+                {% render 'icon' with 'icon-plus' %}
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "Card Grid",
+  "class": "card-grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show block",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Background",
+      "default": "#fff"
+    },
+    {
+      "type": "html",
+      "id": "icon",
+      "label": "Icon"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

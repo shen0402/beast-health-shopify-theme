@@ -1,0 +1,53 @@
+{% comment %} ATTENTION!!! This is compiled version of afterpay.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\afterpay.liquid file to code and save your changes. {% endcomment %}<!-- BEGIN AFTERPAY-PRESENT -->
+<script type="application/javascript" src="https://static-us.afterpay.com/javascript/present-afterpay.js"></script>
+<script>
+ let amount = 0, priceSelector = "", locale = 'en_US';
+ let afterpayLogoColor = "black"; // ['black', 'white', or 'color']
+ let showUpperLimit = false;
+ let currentObserver = { activated: false, isDecimalPrice: true };
+ // above conditionals - also, add to config
+ let hideAfterpay = false;
+  
+ {%case template.name%} 
+    {%when "product"%}
+      // In product conditional
+      let type = {{product.type | json}};
+      if (type === "Gift Card") hideAfterpay = true;
+     // amount = {{product.selected_or_first_available_variant.price | json}};
+      amount = {{product.price | json}};    
+      priceSelector= ".product-add-to-cart[data-afterpay-pre-selector]";
+      
+      currentObserver = null;
+      const apConfig = {
+          afterpayLogoColor, priceSelector, locale, amount, showUpperLimit,
+         minMaxThreshold:{min: 7500, max: 200000}, giftCard: hideAfterpay, modalContent: "us-white",
+          mutationObserver: currentObserver
+      };
+  
+      new presentAfterpay(apConfig).init();
+  {%endcase%}
+</script>
+<style>
+  // .c-afterpay-info-modal-annotation__p{ margin-top: 3px; }
+  .afterpay-link{font-size: 12px; }
+  .afterpay-paragraph{ 
+    font-size: 14px;
+    margin-bottom: 20px !important;
+    margin-top: -5px;color:#000;
+  }
+  @media (max-width: 767px) {
+    .afterpay-paragraph{ 
+      margin-bottom: 35px !important;
+    }
+  }
+  .disclaimer-link { font-size: 12px; }
+  .aftterpay-paragraph, .afterpay-text1 {
+    background: initial !important;
+    color: black !important;
+  }
+  .afterpay-logo {
+    width: 90px;
+    height: auto;
+  }
+</style>
+<!-- END AFTERPAY PRESENT -->

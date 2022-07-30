@@ -1,0 +1,116 @@
+{% comment %} ATTENTION!!! This is compiled version of comparison.liquid and it is overriding automatically. You should use theme development tool and sources\sections\comparison.liquid file to code and save your changes. {% endcomment %}{% if section.settings.visible %}
+
+  {% if product.metafields.compare.product != blank and product.metafields.compare.product2 != blank %}
+
+    {% render 'ea-section-styles', section: section %}
+
+    <div class="section_container">
+      <div class="main_content container">
+        {% if section.settings.title != blank %}
+          <div class="title not-animated">{{ section.settings.title }}</div>
+        {% endif %}
+
+        <div class="product-compare-block d-flex">
+          <div class="compare-item product-cell-wrap">
+            {% assign _product = all_products[product.metafields.compare.product] %}
+            {% assign feature = product.metafields.global.feature %}
+            {% assign title = product.metafields.feature.title1 %}
+            {% render 'product-cell-compare', { product: _product, feature: feature, title: title , showInfo: true, showDescr: false, showPrice: true, showBtn: true, isDefault: true } %}
+          </div>
+          <div class="compare-item product-cell-wrap">
+            {% assign _product = all_products[product.metafields.compare.product2] %}
+            {% assign feature = product.metafields.global.feature1 %}
+            {% assign title = product.metafields.feature.title2 %}
+            {% render 'product-cell-compare', { product: _product, feature: feature, title: title, showInfo: true, showDescr: false, showPrice: true, showBtn: true, isDefault: false } %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  
+  {% endif %}
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product comparison",
+  "tag": "section",
+  "class": "product-comparision",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "header",
+      "content": "Compare product"
+    }
+  ]
+}
+{% endschema %}

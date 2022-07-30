@@ -1,0 +1,130 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-product-picture.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-product-picture.liquid file to code and save your changes. {% endcomment %}
+{% assign meta_showcase = product.metafields.showcase %}
+
+{% if meta_showcase.image != blank %}
+
+{% render 'ea-section-styles' %}
+
+<div id="shopify-section-ea-product-picture" class="shopify-section">
+
+
+  {% for imgpos in meta_showcase.img_pos %}
+      {% assign idx = forloop.index0 %}
+
+      <div class="section has-image" id="section-product-picture" style="background: {{ meta_showcase.bg_color[idx] }}" data-animate-section>
+          
+          {% assign img_direction = meta_showcase.img_pos[idx] %}
+          
+          {% if img_direction == 'Left' %}
+              {% assign css_direction = '' %}
+          {% else %}
+              {% assign css_direction = 'section-image_right' %}
+          {% endif%}
+          
+          <div class="container product-picture_main {{ css_direction }}">
+      
+              <div class="product-picture_left" style="text-align: left;margin-left: 25px;">
+                  <img src="{{ meta_showcase.image[idx] }}" class="Rectangle-1599">
+              </div>
+          
+              <div class="product-picture_right">
+                  <div class="section-image_main" style="margin-left: auto;margin-right: 25px;">
+                      <div class="section-image_title">{{ meta_showcase.title[idx] }}</div>
+                      <div class="section-image_description">{{ meta_showcase.content[idx] }}</div>
+                      {% assign list_content = meta_showcase.list_content[idx] %}
+                      {% unless list_content == '' %}
+                        <div class="list_wrapper">
+                          {% assign lists = list_content | split: '&' %}
+                          {% for list in lists %}
+                              <div class="product-picture_block" data-animate-block>
+                              <div class="product-picture_blockicon">{% render 'icon' with 'icon-check' %}</div>
+                              <div class="product-picture_blocktext">{{ list }}</div>
+                              </div>
+                          {% endfor %}
+                        </div>
+                      {% endunless %}
+                  </div>
+              </div>
+          </div>
+      </div>
+  {% endfor %}
+</div>
+
+{% endif %}
+
+{% schema %}
+  {
+  "name": "Product Picture",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Image direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    }
+  ],
+  "blocks": [
+    
+  ]
+}
+{% endschema %}

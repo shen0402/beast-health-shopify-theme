@@ -1,0 +1,256 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-page-about-banner.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-page-about-banner.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="hero-container">
+  <div id="section-{{ section.id }}" class="hero">
+      <div class="hero__container container section-banner_main">
+          <div class="hero__info-wrap">
+              <div class="hero__info {{ section.settings.content_position }} text-align-{{ section.settings.text_align }} mob-text-align-{{ section.settings.text_align_mob }} mobile_{{ section.settings.content_position_mobile }}">
+                  {% assign title = section.settings.title %}
+                  {% assign subtitle = section.settings.desc %}
+
+                  {% if title != blank %}   
+                      <h1 class="hero__title title m-heavy not-animated about-banner_title" style="color: {{ section.settings.text_color }}">{{ title }}</h1>
+                  {% endif %}
+
+                  {% if subtitle != blank %}
+                      <div class="subtitle not-animated {% if set.subtitle_large %}h3{% endif %}" style="color: {{ section.settings.text_color }}">{{ subtitle }}</div>
+                  {% endif %}
+              </div>
+          </div>   
+          {% assign image = section.settings.image %}
+          {% assign sp_image = section.settings.sp_image | default: image %}
+          <div class="hero__img hide--mobile">
+            {% render 'rimage', image: image, size: '2000x' %}
+          </div>
+          <div class="hero__img hide--desktop">
+            {% render 'rimage', image: sp_image, size: '800x' %}
+          </div>
+      </div> 
+  </div> 
+</div>
+
+{% schema %}
+  {
+  "name": "About Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "sp_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+          {
+            "value": "top-left",
+            "label": "Top Left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top Center"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "middle-left",
+            "label": "Middle Left"
+          },
+          {
+            "value": "middle-center",
+            "label": "Middle Center"
+          },
+          {
+            "value": "middle-right",
+            "label": "Middle Right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom Left"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom Center"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom Right"
+          }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_mobile",
+      "label": "Content Position on Mobile",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle Left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle Center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Text Alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_align_mob",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Text Alignment on Mobile"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#f8f3ec"
+    }
+  ],
+  "blocks": [
+  ]
+}
+{% endschema %}

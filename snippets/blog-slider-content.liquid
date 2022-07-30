@@ -1,0 +1,41 @@
+{% comment %} ATTENTION!!! This is compiled version of blog-slider-content.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\blog-slider-content.liquid file to code and save your changes. {% endcomment %}{% if section.blocks.size > 0 %}
+    <div class="feature-blog_contents">
+        <div class="feature-blog_slider m-custom-controls" data-hor-slider data-dots="false" data-autoplay="false" data-custom-controls="1">
+            {% for block in section.blocks %}
+                {% assign bs = block.settings %}
+                {% if bs.img != blank and bs.svg_logo != blank %}
+                    <div class="slider_item d-flex">
+                        <div class="text_wrapper">
+                            {% if section.settings.subtitle != blank %}<div class="subtitle">{{ section.settings.subtitle }}</div>{% endif %}
+                            <div class="item_logo">{{ bs.svg_logo }}</div>
+                            {% if section.settings.comma != blank %}<div class="comma">{{ section.settings.comma }}</div>{% endif %}
+                            <div class="item_text">{{ bs.text }}</div>
+                        </div>
+                        <div class="img_wrapper">
+                            {% render 'rimage', image: bs.img, size: '800x', no_padding: true %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="slider-controls">
+            <button class="slider-arrow slider-prev m-icon" data-hor-slider-prev>
+                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+                    <g data-name="Group 11242">
+                        <g data-name="Component 20 – 11" transform="rotate(180 22.97 19)">
+                            <circle data-name="Ellipse 418" cx="19" cy="19" r="19" transform="translate(7.939)" style="fill:#d8c0a0"/>
+                            <path d="m32.67 24.654 9.068-9.063a.595.595 0 0 0-.841-.841l-9.483 9.483a.593.593 0 0 0 0 .842l9.486 9.483a.595.595 0 1 0 .841-.841z" transform="rotate(180 31.758 21.827)" style="fill:#0c0404"/>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+            <button class="slider-arrow slider-next m-icon" data-hor-slider-next><svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+                <g data-name="Group 11241" transform="translate(-1224.999 -6264)">
+                    <circle data-name="Ellipse 418" cx="19" cy="19" r="19" transform="translate(1224.999 6264)"/>
+                    <path d="m40.482 24.654-9.068-9.063a.595.595 0 1 1 .841-.841l9.482 9.483a.593.593 0 0 1 0 .842l-9.482 9.483a.595.595 0 1 1-.841-.841z" transform="translate(1207.422 6258.346)" style="fill:#fffdfc"/>
+                </g>
+            </svg>
+            </button>
+          </div>
+    {% endif %}
+    </div>

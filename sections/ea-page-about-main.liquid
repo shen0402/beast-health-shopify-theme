@@ -1,0 +1,113 @@
+{% comment %} ATTENTION!!! This is compiled version of ea-page-about-main.liquid and it is overriding automatically. You should use theme development tool and sources\sections\ea-page-about-main.liquid file to code and save your changes. {% endcomment %}{% assign set = section.settings %}
+
+{% render 'ea-section-styles' %}
+
+<div class="section has-image" id="page-about-main">
+  <div class="container d-flex">
+    <div class="about-main_left">
+      <div class="about-main_content">
+        <div class="about-main_title">{{ set.title }}</div>
+        <div class="about-main_subtitle">{{ set.title1 }}</div>
+        <div class="about-main_description">{{ set.desc1 }}</div>
+        <div class="about-main_subtitle">{{ set.title2 }}</div>
+        <div class="about-main_description">{{ set.desc2 }}</div>
+      </div>
+    </div>
+    <div class="about-main_right hide--mobile">
+      {% comment %}<img src="{{ set.image | img_url: 'master' }}" class="about-main_image">{% endcomment %}
+      {% render 'rimage', image: set.image, size: '800x', wrapper_class: 'about-main_image' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+  "name": "About Main",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "color",
+      "id": "sectionbg",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "ptop",
+      "label": "Top spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom",
+      "label": "Bottom spacing desktop",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "ptop_mob",
+      "label": "Top spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "pbottom_mob",
+      "label": "Bottom spacing mobile",
+      "min": 0,
+      "unit": "px",
+      "max": 500,
+      "step": 5,
+      "default": 45
+    },
+
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title1",
+      "label": "Sub Title1"
+    },
+    {
+      "type": "textarea",
+      "id": "desc1",
+      "label": "Description1"
+    },
+    {
+      "type": "text",
+      "id": "title2",
+      "label": "Sub Title2"
+    },
+    {
+      "type": "textarea",
+      "id": "desc2",
+      "label": "Description2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+  ]
+}
+{% endschema %}

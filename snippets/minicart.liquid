@@ -1,0 +1,210 @@
+{% comment %} ATTENTION!!! This is compiled version of minicart.liquid and it is overriding automatically. You should use theme development tool and sources\snippets\minicart.liquid file to code and save your changes. {% endcomment %}<aside data-minicart class="minicart">
+  {% comment %}
+  {% if settings.show_notification_bar %}
+    <div class="minicart__noticiation">{{ settings.minicart_notification_text }}</div>
+  {% endif %}
+  {% endcomment %}
+
+  {% if settings.free_product != blank %}
+    <div class="minicart-free-item" style="display: none;">
+      {% assign free_product = all_products[settings.free_product] %}
+      {% assign main_product_1 = all_products[settings.main_product_1] %}
+      {% assign main_product_2 = all_products[settings.main_product_2] %}
+
+      <span class="handle">{{ free_product.handle }}</span>
+      <span class="main_product_1_handle">{{ main_product_1.handle }}</span>
+      <span class="main_product_2_handle">{{ main_product_2.handle }}</span>
+      
+      {% assign first_available_id = 0 %}
+      {% if free_product.variants.size > 1 %}
+        {% for variant in free_product.variants %}
+            {% if variant.option1 == 'Carbon Black' %}
+              <span class="carbon_black" data-available="{{ variant.available }}">{{ variant.id }}</span>
+              {% if variant.available and first_available_id == 0 %}
+                {% assign first_available_id = variant.id %}
+              {% endif %}
+            {% endif %}
+            {% if variant.option1 == 'Pebble Grey' %}
+              <span class="pebble_grey" data-available="{{ variant.available }}">{{ variant.id }}</span>
+              {% if variant.available and first_available_id == 0 %}
+                {% assign first_available_id = variant.id %}
+              {% endif %}
+            {% endif %}
+            {% if variant.option1 == 'Cloud White' %}
+              <span class="cloud_white" data-available="{{ variant.available }}">{{ variant.id }}</span>
+              {% if variant.available and first_available_id == 0 %}
+                {% assign first_available_id = variant.id %}
+              {% endif %}
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+
+      {%- comment -%}
+      {% assign first_available_id = 0 %}
+      {% if free_product.variants.size > 1 %}
+        {% for variant in free_product.variants %}
+            {% if variant.available and first_available_id == 0 %}
+              {% assign first_available_id = variant.id %}
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+      {%- endcomment -%}
+      
+      <span class="default_variant">{{ first_available_id }}</span> 
+
+    </div>
+  {% endif %}
+  
+  <div class="minicart_main">
+    <div class="minicart_right">
+
+      {% if settings.cart_afterpay %}
+        <div class="minicart__sticky minicart_afterpay">{{ settings.afterpay_title }}
+          <a href="javascript:;" data-afterpay-open="afterpay-popup">{{ settings.afterpay_logo}}</a>
+        </div>
+      {% endif %}
+
+      <div class="minicart__header">
+        <span class="cart-close-span hide--mobile" data-cart-close><svg xmlns="http://www.w3.org/2000/svg" width="76" height="41.869" viewBox="0 0 76 41.869"> <g> <path d="M87.75 49.309l-16-17a1.029 1.029 0 0 0-1.422-.047 1.052 1.052 0 0 0-.047 1.422L84.687 49H13a1 1 0 0 0 0 2h71.687L70.281 66.308a1.044 1.044 0 0 0 .047 1.422 1.018 1.018 0 0 0 1.422-.047l16-17a1.074 1.074 0 0 0 0-1.375z" transform="translate(0 -3.128) translate(-11.999 -23)"/> <path d="M6.688 15.192a5.755 5.755 0 0 0 4.624-2l-1.664-1.536a3.569 3.569 0 0 1-2.816 1.328A3.436 3.436 0 0 1 3.248 9.4a3.436 3.436 0 0 1 3.584-3.584 3.6 3.6 0 0 1 2.816 1.312l1.664-1.536A5.782 5.782 0 0 0 6.7 3.608 5.754 5.754 0 0 0 .624 9.4a5.75 5.75 0 0 0 6.064 5.792zM12.88 15h2.5V3.128h-2.5zm8.912.128a4.441 4.441 0 1 0 0-8.864 4.442 4.442 0 1 0 0 8.864zm0-2.048a2.184 2.184 0 0 1-2.208-2.38 2.207 2.207 0 1 1 4.4 0 2.172 2.172 0 0 1-2.192 2.38zm9.28 2.048c2.576 0 4.064-1.136 4.064-2.736 0-3.392-5.2-1.968-5.2-3.44 0-.448.48-.8 1.6-.8a4.943 4.943 0 0 1 2.48.64l.832-1.776a7.078 7.078 0 0 0-3.312-.752c-2.512 0-3.984 1.152-3.984 2.784 0 3.44 5.2 2 5.2 3.408 0 .48-.432.784-1.584.784a5.889 5.889 0 0 1-2.992-.832l-.832 1.792a7.39 7.39 0 0 0 3.728.928zm14.032-4.4a4.261 4.261 0 0 0-4.48-4.464 4.382 4.382 0 0 0-4.592 4.436c0 2.56 1.936 4.432 4.912 4.432a4.508 4.508 0 0 0 3.556-1.396L43.168 12.3a2.918 2.918 0 0 1-2.16.832 2.3 2.3 0 0 1-2.464-1.732h6.512c.016-.208.044-.48.044-.672zM40.64 8.152a2.045 2.045 0 0 1 2.112 1.792h-4.24a2.038 2.038 0 0 1 2.128-1.792z" transform="translate(0 -3.128)"/> </g> </svg></span>
+        <span class="cart-close-span hide--desktop" data-cart-close><svg xmlns="http://www.w3.org/2000/svg" width="20.927" height="20.921" viewBox="0 0 20.927 20.921"> <g> <path d="M26.41 27.157a.747.747 0 0 1-.53-.217L6.456 7.517a.75.75 0 0 1 1.061-1.061L26.941 25.88a.747.747 0 0 1-.53 1.278z" transform="translate(-6.23 -6.236) translate(-.004)"/> <path d="M6.982 27.157a.747.747 0 0 1-.53-1.278L25.875 6.456a.75.75 0 0 1 1.061 1.061L7.513 26.941a.746.746 0 0 1-.53.217z" transform="translate(-6.23 -6.236)"/> </g> </svg><span class="minicart_close">Close Cart</span></span>
+        <div class="minicart_bug">
+          <a href="/" style="padding-right: 10px;">
+            {% if settings.logosvg != blank %}
+              {{ settings.logosvg }}              
+            {% else %}
+              <img src="{{ settings.sp_logo | img_url: '54x15' }}" alt="{{ settings.sp_logo.alt }}" class="hide--desktop">
+            {% endif %}
+          </a>
+          <div class="cart-count-wrap {% if cart.item_count == 0 %}empty_cart{% endif %}">
+            <span data-cart-count>{{ cart.item_count }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22.299" height="28.199" viewBox="0 0 22.299 28.199">
+              <g id="Group_7376" data-name="Group 7376" transform="translate(-316 -13)" class="bag">
+                <g id="Group_7377" data-name="Group 7377">
+                  <path id="np_bag_3219622_000000" d="M36.11,10.164H30.4v-.31a4.791,4.791,0,1,0-9.582,0v.31H15.118a.655.655,0,0,0-.653.655V32.609a.653.653,0,0,0,.653.653H36.11a.653.653,0,0,0,.653-.653V10.819a.655.655,0,0,0-.653-.655Zm-13.981-.31a3.484,3.484,0,0,1,6.969,0v.31H22.129Zm13.326,22.1H15.772V11.472H35.456Z" transform="translate(301.536 7.937)" fill="#f50"/>
+                  <rect id="Rectangle_2101" data-name="Rectangle 2101" width="21" height="21" transform="translate(317 19)" fill="#f50"/>
+                </g>
+              </g>
+            </svg>          
+          </div>
+        </div>
+        <button class="minicart__close btn m-icon-only" aria-label="minicart toggle" data-minicart-toggle><i class="icon-close"></i></button>
+      </div>
+      <div class="minicart__items">
+        {%- if settings.show_offer -%}
+          <div class="offer-cart-slider" data-offer_min_limit="{{ settings.offer_min_limit | times: 100 }}" data-offer_amount="{{ settings.offer_amount | times: 100 }}">
+            <h3>{{ settings.offer_title }}</h3>
+            {% assign total_price = cart.total_price | minus: 1 %}
+            {% assign offer_min_limit = settings.offer_min_limit | times: 100 %}
+            {% assign leftOffer = offer_min_limit | minus: cart.total_price | divided_by: 100 %}
+            {% assign percentage = cart.total_price | times : 1.00 | divided_by: offer_min_limit | at_most: 1 | times: 100 %}
+            <div class="desc completed {% unless total_price > offer_min_limit %}hide {% endunless %}">{{ settings.offer_desc }}</div>
+            <div class="desc uncompleted {% if total_price > offer_min_limit %}hide {% endif %}"><p>You’re $<span id="offer_min_limit">{{ leftOffer }}</span> away from saving ${{ settings.offer_amount }}.</p></div>
+            <div class="offer-slider">
+              <div class="offer-slider-fill" style="width: {{ percentage }}%;">
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+        <div id="minicart-block" rv-data-minicart-count="cart.item_count">
+          <div class="minicart__item"  rv-data-id="item.id" rv-data-product-id="item.product_id" rv-each-item="cart.items">
+            <a rv-href="item.url | convert item.original_handle" class="minicart__item-main no-hover-link"><img class="minicart__item-image" rv-src="item.image" rv-alt="item.image.alt"></a>
+            <div class="minicart__item-info">
+              <h5 class="minicart__item-title"><a rv-href="item.url | convert item.original_handle">{ item.product_title }</a></h5>
+              
+              <div class="minicart__item-options" rv-if="item.variant_options.0 | isDefaultTitle">
+                { item.variant_options.0 } <span rv-if="item.variant_options.1">/ { item.variant_options.1 }</span>
+              </div>
+
+              <div class="minicart__item-preorder-label" rv-if="item | is_preorder">
+                {{ settings.pre_order_label }}
+              </div>
+              <div class="minicart__item-list" >
+                <div class="minicart__item-price" rv-data-line="item | is_free" >
+                  <span rv-if="item | is_regular">{ item.original_price | formatMoney }</span>
+                  <div rv-show="item | is_discount">
+                    <span rv-through="item | is_discount">{ item.original_price | formatMoney }</span>
+                    <span rv-if="item | is_discount" rv-data-hidden="item | get_discount">{ item | get_discount | formatMoney }</span>
+                  </div>
+                  <div rv-show="item | is_compare">
+                    <span rv-if="item | is_compare">{ item.original_price | formatMoney }</span>     
+                    <span rv-through="item | is_compare" rv-data-hidden="item | get_compare">{ item | get_compare | formatMoney }</span>    
+                  </div>
+
+                  
+                </div>
+                <div class="item__qty" >
+                  <div class="qty qty-minus" data-qty-minus>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="10px" viewBox="0 0 409.6 409.6" xml:space="preserve"> <g> <g> <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z"/> </g> </g> </svg>
+                  </div>
+                  <div class="qty qty__num" data-qty>
+                    { item.quantity }
+                  </div>
+                  <div class="qty qty-plus" data-qty-plus>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="10px" viewBox="0 0 512 512" xml:space="preserve"> <g> <g> <path d="M492,236H276V20c0-11.046-8.954-20-20-20c-11.046,0-20,8.954-20,20v216H20c-11.046,0-20,8.954-20,20s8.954,20,20,20h216 v216c0,11.046,8.954,20,20,20s20-8.954,20-20V276h216c11.046,0,20-8.954,20-20C512,244.954,503.046,236,492,236z"/> </g> </g> </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hide--mobile minicart__item-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" data-remove-from-cart rv-data-line="$index" width="42.957" height="42.957" viewBox="0 0 42.957 42.957" style="padding-top: 7px;padding-right: 6px;cursor: pointer;">
+                <path fill="#1c1c1c" d="M40.188 25a1.214 1.214 0 0 0-1.215 1.215v12.758H26.215a1.215 1.215 0 0 0 0 2.43h12.758V54.16a1.215 1.215 0 0 0 2.43 0V41.4H54.16a1.215 1.215 0 0 0 0-2.43H41.4V26.215A1.214 1.214 0 0 0 40.188 25z" transform="rotate(45 53.416 8.249)"/>
+              </svg>
+            </div>
+            <div class="hide--desktop">
+              <svg xmlns="http://www.w3.org/2000/svg" data-remove-from-cart rv-data-line="$index" width="35.957" height="35.957" viewBox="0 0 42.957 42.957">
+                <path fill="#1c1c1c" d="M40.188 25a1.214 1.214 0 0 0-1.215 1.215v12.758H26.215a1.215 1.215 0 0 0 0 2.43h12.758V54.16a1.215 1.215 0 0 0 2.43 0V41.4H54.16a1.215 1.215 0 0 0 0-2.43H41.4V26.215A1.214 1.214 0 0 0 40.188 25z" transform="rotate(45 53.416 8.249)"/>
+              </svg>
+            </div>
+          </div>
+
+          {% if settings.cart_message != blank %}
+          <div class="gift-wrapper" >
+            <h6 class="minicart-small-title">
+              <div class="titlewrap">
+                <span>{{ settings.cart_message }}</span>
+              </div>
+              <div class="right">
+                <span rv-hide="cart.note | empty_note" class="edit_text" data-edit-text>Edit</span>
+                {% render 'icon' with 'icon-arrow-down' %}                
+              </div>
+
+            </h6>
+            <div class="minicart__gift">
+              <textarea name="note" class="gift-note"> { cart.note } </textarea>
+              <button class="btn-save-cart-note btn m-secondary">Save</button>
+            </div>
+          </div>
+          {% endif %}
+        </div>          
+        <div class="minicart__footer" rv-if="cart.total_price">
+          <div class="minicart__subtotal">
+            Subtotal: &nbsp;
+            <div class="saving-offer-note hide">Total savings ${{ settings.offer_amount }}</div>
+            <div class="offer-price hide">$<span></span></div>
+            <div class="normal-price" rv-hide="cart | is_compare_in_cart">{ cart.total_price | formatMoney }</div>
+            <div rv-show="cart | is_compare_in_cart">
+              <span rv-through="cart | is_compare_in_cart" rv-data-hidden="cart | get_compare_subtotal"><s>{ cart | get_compare_subtotal | formatMoney }</s></span>    
+              <span rv-if="cart | is_compare_in_cart">{ cart.total_price | formatMoney }</span>     
+            </div>
+          </div>
+          <div class="minicart__buttons">
+            <a rv-on-click="setRedirect" href="/cart" class="add-to-checkout">Checkout&nbsp;&nbsp;&nbsp;
+              <svg xmlns="http://www.w3.org/2000/svg" width="29.994" height="16.918" viewBox="0 0 36.969 25.035"> <path fill="#fffdfc" stroke="#ff9500" d="M56 35a2 2 0 0 0-.562-1.406l-10-10a2 2 0 1 0-2.844 2.813L49.187 33H22.031a2 2 0 0 0 0 4h27.156l-6.594 6.594a2 2 0 1 0 2.844 2.813l10-10A2 2 0 0 0 56 35z" transform="translate(-19.531 -22.456)"/> </svg>
+            </a>
+          </div>
+          <div class="minicart__content">{{ settings.cart_content }}</div>
+        </div>
+
+        <div id="minicart-empty">
+          {% render 'ea-cart-empty', section: section %}
+        </div>
+      </div>
+    </div>
+    {% render 'ea-cart-else', section: section %}
+  </div>
+</aside>
+<div class="minicart-bg" data-minicart-toggle></div>
+<script>
+  var myshopify_domain='{{ shop.permanent_domain }}';
+</script>
+
