@@ -1,0 +1,230 @@
+{% assign set = section.settings %}
+{% render 'ea-section-styles' %}
+<section class="section">
+    {% if set.title != blank %}
+        <h2 class="product-compare_title">
+            {{ set.title }}
+        </h2>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+        <div class="product-compare-table">
+            {% for block in section.blocks %}
+                {% assign item = block.settings %}
+                {% assign type = block.type %}
+                <div class="product-compare-item product-compare-item__{{ type }}">
+                    <div class="product-compare-header">
+                        {% if item.title != blank %}
+                            <div class="product-compare_title">
+                                <h4>{{ item.title }}</h4>
+                                {% if type == 'info1' %}
+                                    {% if item.image != blank %}
+                                        <span class="info-wrapper">
+                                            <span class="info">i</span>
+                                            <a href="{{ item.link }}" class="tooltip">
+                                                <div class="tooltip-image">
+                                                    {{ item.image | img_url: '250x' | img_tag }}
+                                                </div>
+                                            </a>
+                                        </span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {% if item.description != blank %}
+                            <div class="product-compare_description">
+                                {{ item.description }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="product-compare-content">
+                        {% if type == 'product' %}
+                            {% assign product1 = item.product1 %}
+                            {% assign product2 = item.product2 %}
+                        {% endif %}
+                        {% for i in (1..2) %}
+                            <div class="product-compare-data">
+                                {% if type == 'product' %}
+                                    {% assign key = 'product' | append: i %}
+                                    {% render 'product-cell', product: item[key], showInfo: true, showDescr: true, showPrice: true %}
+                                {% elsif type == 'info1' %}
+                                    {% assign key = 'checkmark' | append: i %}
+                                    {% if item[key] == true %}
+                                        {% render 'icon-check-true' %}
+                                    {% else %}
+                                        {% render 'icon-check-false' %}
+                                    {% endif %}
+                                {% elsif type == 'info2' %}
+                                    {% assign key = 'data' | append: i %}
+                                    <p>{{ item[key] }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="product-compare-item product-add-btns">
+                <div class="product-compare-header"></div>
+                <div class="product-compare-content">
+                    <div class="product-compare-data">
+                        {% render 'product-cell', product: product1, showInfo: true, showDescr: true, showPrice: true %}
+                    </div>
+                    <div class="product-compare-data">
+                        {% render 'product-cell', product: product2, showInfo: true, showDescr: true, showPrice: true %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Product Compare",
+    "class": "product-compare",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+        },
+        {
+            "type": "color",
+            "id": "sectionbg",
+            "label": "Section background color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "range",
+            "id": "ptop",
+            "label": "Top spacing desktop",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "pbottom",
+            "label": "Bottom spacing desktop",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "ptop_mob",
+            "label": "Top spacing mobile",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "pbottom_mob",
+            "label": "Bottom spacing mobile",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product",
+            "name": "Product",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "product",
+                    "id": "product1",
+                    "label": "Product1"
+                },
+                {
+                    "type": "product",
+                    "id": "product2",
+                    "label": "Product2"
+                }
+            ]
+        },
+        {
+            "type": "info1",
+            "name": "Information - 1",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "checkmark1",
+                    "label": "Checkmark1",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "checkmark2",
+                    "label": "Checkmark2",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "info2",
+            "name": "Infomation - 2",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "id": "data1",
+                    "label": "Data1"
+                },
+                {
+                    "type": "text",
+                    "id": "data2",
+                    "label": "Data2"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
