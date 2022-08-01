@@ -89,17 +89,17 @@
                 .image-text-list_text  {
                     margin-top: 10px;
                     text-align: center;
-                }
 
-                .image-text-list_text p {
-                    font-size: 12px;
-                    font-weight: 900;
-                    font-stretch: normal;
-                    font-style: normal;
-                    line-height: 1.33;
-                    letter-spacing: normal;
-                    text-align: center;
-                    color: #232323;
+                    p {
+                        font-size: 12px;
+                        font-weight: 900;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.33;
+                        letter-spacing: normal;
+                        text-align: center;
+                        color: #232323;
+                    }
                 }
 
                 &:hover {
@@ -109,6 +109,130 @@
                         color: #f50;
                     }
                 }
+            }
+        }
+    }
+}
+
+.review-list {
+    .review-list-wrapper {
+        max-width: 1115px;
+        padding: 0 50px;
+        margin: auto;
+
+        .review-list-item {
+            margin-bottom: 30px;
+            .review-list-item-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-bottom: 1px  solid #f4e8dc;
+                padding-bottom: 30px;
+                
+                .review-list-_image {
+                    width: 268px;
+                    height: 268px;
+                    overflow: hidden;
+                    border-radius: 7px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .review-list_text {
+                    width: calc(100% - 268px);
+                    padding: 0 47px;
+
+                    .review-list_title {
+                        font-size: 19px;
+                        font-weight: 900;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.58;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: #0c0404;
+                        margin: 0;
+                        margin-top: 14px;
+                    }
+
+                    .review-list_description {
+                        margin-top: 8px;
+
+                        p {
+                            font-size: 19px;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1.37;
+                            letter-spacing: normal;
+                            text-align: left;
+                            color: #171516;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .review-list-slider_main {
+        .review-list-item {
+            .review-list_text {
+                .review-list_title {
+                    font-size: 19px;
+                    font-weight: 900;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.58;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #0c0404;
+                    margin: 0;
+                    margin-top: 13px;
+                }
+
+                .review-list_description {
+                    margin-top: 10px;
+
+                    p {
+                        font-size: 19px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.37;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: #171516;
+                        margin: 0;
+                    }
+                }
+            }
+
+            .review-list-_image {
+                margin-top: 30px;
+            }
+        }
+    }
+
+    .review-list_btn {
+        .btn {
+            width: auto;
+            height: auto;
+            font-size: 19px;
+            font-weight: 900;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.37;
+            letter-spacing: normal;
+            text-align: center;
+            color: #0c0404;
+            padding: 14px 39px 13px 40px;
+            border-radius: 7px;
+
+            @media (max-width: 767px) {
+                margin-top: 80px;
             }
         }
     }

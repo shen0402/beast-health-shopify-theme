@@ -1,0 +1,168 @@
+{% assign set = section.settings %}
+{% render 'ea-section-styles' %}
+<section class="section">
+    {% if section.blocks.size > 0 %}
+        <div class="review-list-wrapper hide--mobile">
+            {% for block in section.blocks %}
+                {% assign review = block.settings %}
+                <div class="review-list-item">
+                    <div class="review-list-item-content">
+                        <div class="review-list-_image">
+                            {{ review.image | img_url: '275x' | img_tag }}
+                        </div>
+                        <div class="review-list_text">
+                            {% if review.star != blank %}
+                                <div class="review-list_star">
+                                    {{ review.star | img_url: '100x' | img_tag }}
+                                </div>
+                            {% endif %}
+                            {% if review.title != blank %}
+                                <h2 class="review-list_title">
+                                    {{ review.title }}
+                                </h2>
+                            {% endif %}
+                            {% if review.description != blank %}
+                                <div class="review-list_description">
+                                    {{ review.description }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="review-list-slider_main hide--desktop" data-hor-slider data-arrows="false" data-slides-to-show-mob="1.2">
+            {% for block in section.blocks %}
+                {% assign review = block.settings %}
+                <div class="review-list-item">
+                    <div class="review-list_text">
+                        {% if review.star != blank %}
+                            <div class="review-list_star">
+                                {{ review.star | img_url: '100x' | img_tag }}
+                            </div>
+                        {% endif %}
+                        {% if review.title != blank %}
+                            <h2 class="review-list_title">
+                                {{ review.title }}
+                            </h2>
+                        {% endif %}
+                        {% if review.description != blank %}
+                            <div class="review-list_description">
+                                {{ review.description }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="review-list-_image">
+                        {{ review.image | img_url: '275x' | img_tag }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if set.btn_label and set.btn_link %}
+        <div class="j-center review-list_btn">
+            <a href="{{ set.btn_link }}" class="btn btn--primary add-to-checkout">
+                {{ set.btn_label }}
+            </a>
+        </div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Reviews List",
+    "class": "review-list",
+    "settings": [
+        {
+            "type": "text",
+            "id": "btn_label",
+            "label": "Button Label",
+            "default": "shop now"
+        },
+        {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button Link"
+        },
+        {
+            "type": "color",
+            "id": "sectionbg",
+            "label": "Section background color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "range",
+            "id": "ptop",
+            "label": "Top spacing desktop",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "pbottom",
+            "label": "Bottom spacing desktop",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "ptop_mob",
+            "label": "Top spacing mobile",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "pbottom_mob",
+            "label": "Bottom spacing mobile",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        }
+    ],
+    "blocks": [
+        {
+            "type": "review",
+            "name": "Review",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "star",
+                    "label": "Stars"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Reviews List"
+        }
+    ]
+}
+{% endschema %}
