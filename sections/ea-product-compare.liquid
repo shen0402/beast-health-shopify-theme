@@ -20,11 +20,11 @@
                                     {% if item.image != blank %}
                                         <span class="info-wrapper">
                                             <span class="info">i</span>
-                                            <a href="{{ item.link }}" class="tooltip">
+                                            <span class="tooltip">
                                                 <div class="tooltip-image">
                                                     {{ item.image | img_url: '250x' | img_tag }}
                                                 </div>
-                                            </a>
+                                            </span>
                                         </span>
                                     {% endif %}
                                 {% endif %}
@@ -179,11 +179,6 @@
                     "type": "image_picker",
                     "id": "image",
                     "label": "Image"
-                },
-                {
-                    "type": "url",
-                    "id": "link",
-                    "label": "Link"
                 },
                 {
                     "type": "checkbox",
