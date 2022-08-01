@@ -1,0 +1,122 @@
+{% assign set = section.settings %}
+{% render 'ea-section-styles' %}
+<section class="section">
+    {% if section.settings.title != blank %}
+        <div class="j-center">
+            <h1 class="image-text-list_title">
+                {{ section.settings.title }}
+            </h1>
+        </div>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+        <div class="image-text-list-wrapper">
+            {% for block in section.blocks %}
+                {% assign item = block.settings %}
+                <div class="image-text-list_item">
+                    <a href="{{ item.link }}" class="image-text-list_link">
+                        {% if item.image != blank %}
+                            <div class="image-text-list_image">
+                                {{ item.image | img_url: '250x' | img_tag }}
+                            </div>
+                        {% endif %}
+                        {% if item.text != blank %}
+                            <div class="image-text-list_text">
+                                {{ item.text }}
+                            </div>
+                        {% endif %}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div></div>
+</section>
+
+{% schema %}
+{
+    "name": "Image With Text List",
+    "class": "image-text-list",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Beast Lineup"
+        },
+        {
+            "type": "color",
+            "id": "sectionbg",
+            "label": "Section background color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "range",
+            "id": "ptop",
+            "label": "Top spacing desktop",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "pbottom",
+            "label": "Bottom spacing desktop",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "ptop_mob",
+            "label": "Top spacing mobile",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        },
+        {
+            "type": "range",
+            "id": "pbottom_mob",
+            "label": "Bottom spacing mobile",
+            "min": 0,
+            "unit": "px",
+            "max": 500,
+            "step": 5,
+            "default": 45
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image_with_text",
+            "name": "Image With Text",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "richtext",
+                    "id": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Image With Text List"
+        }
+    ]
+}
+{% endschema %}

@@ -26,3 +26,90 @@
         }
     }
 }
+
+.image-text-list {
+    .image-text-list_title {
+        font-size: 95px;
+        font-weight: 900;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.16;
+        letter-spacing: normal;
+        text-align: center;
+        color: #ede7df;
+
+        @media (max-width: 767px) {
+            font-size: 45px;
+            line-height: 2.44;
+        }
+    }
+
+    .image-text-list-wrapper {
+        margin-top: 46px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+
+        @media (max-width: 767px) {
+            margin-top: 0px;
+            padding: 0 46px;
+        }
+
+        .image-text-list_item {
+            margin-left: 45px;
+            max-width: 120px;
+            &:first-of-type {
+                margin-left: 0;
+            }
+
+            @media (max-width: 767px) {
+                &:nth-child(2n) {
+                    margin-left: auto;
+                    margin-right: 0;
+                }
+                &:nth-child(2n+1) {
+                    margin-left: 0;
+                }
+                margin-bottom: 30px;
+            }
+            .image-text-list_link {
+
+                .image-text-list_image {
+                    border-radius: 7px;
+                    overflow: hidden;
+                    border: solid 1px #d9d9d9;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+    
+                .image-text-list_text  {
+                    margin-top: 10px;
+                    text-align: center;
+                }
+
+                .image-text-list_text p {
+                    font-size: 12px;
+                    font-weight: 900;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.33;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #232323;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                    .image-text-list_text p {
+                        text-decoration: none;
+                        color: #f50;
+                    }
+                }
+            }
+        }
+    }
+}
