@@ -485,6 +485,8 @@
     &.compare-sticky {
         z-index: 999;
         .product-compare-item__product {
+
+            min-height: 500px;
             .product-compare-content {
                 position: fixed;
                 width: 100vw;
@@ -544,6 +546,11 @@
         left: -60px;
         box-shadow: 0 0 10px #ccc;
         cursor: default;
+        z-index: 1000;
+
+        @media (max-width: 767px) {
+            left: -100px;
+        }
 
         .tooltip-image {
             width: 146px;
@@ -573,6 +580,10 @@
                 left: 64px;
                 bottom: -5px;
                 position: absolute;
+
+                @media (max-width: 767px) {
+                    left: 104px;
+                }
             }
         }
     }

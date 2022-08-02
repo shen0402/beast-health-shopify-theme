@@ -9,7 +9,7 @@ $(document).ready(function(){
         $(this).toggleClass('active');
     });
 
-    $('body').click(function(){
+    $('body').on('mousedown', function(){
         $('.info-wrapper').removeClass('active');
     });
 });
@@ -23,7 +23,7 @@ $(window).on('scroll', function(){
     var height = $(this).height();
     var width = $(this).width();
     if (width < 768) {
-        if (st > compareProductsTop + height) {
+        if (st > compareProductsTop + height + 100) {
             $compareTable.addClass('compare-sticky');
         } else {
             $compareTable.removeClass('compare-sticky');
