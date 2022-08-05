@@ -24,7 +24,8 @@
         {% unless list contains option %}
           {% assign list = list | append: '||' | append: option %}
           <div data-image="block{{ forloop.index }}" {% unless forloop.first %}data--hidden{% endunless %}>
-            <img src="{{ variant.image | img_url: '800x' }}">
+            <!-- <img src="{{ variant.image | img_url: '800x' }}"> -->
+            {% render 'rimage', image: variant.image, size: '800x', wrapper_class: '' %}
           </div>
         {% endunless %}
       {% endfor %}

@@ -18,7 +18,8 @@
   <div class="container d-flex-image {{ css_direction }}">
 
     <div class="section-image_left section-image_top" {{img_style}}>
-        <img src="{{ set.image | img_url: 'master' }}" class="Rectangle-1599 hide--mobile">
+        <!-- <img src="{{ set.image | img_url: 'master' }}" class="Rectangle-1599 hide--mobile"> -->
+        {% render 'rimage', image: set.image, size: 'master', wrapper_class: 'Rectangle-1599 hide--mobile' %}
     </div>
 
     <div class="section-image_left">

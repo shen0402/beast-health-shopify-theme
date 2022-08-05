@@ -18,8 +18,10 @@
   <div class="container d-flex-image {{ css_direction }}">
 
     <div class="section-image_left feature-image_top" {{img_style}}>
-        <img src="{{ set.image | img_url: 'master' }}" class="Rectangle-1599 hide--mobile">
-        <img src="{{ set.sp_image | img_url: 'master' }}" class="hide--desktop">
+        <!-- <img src="{{ set.image | img_url: 'master' }}" class="Rectangle-1599 hide--mobile">
+        <img src="{{ set.sp_image | img_url: 'master' }}" class="hide--desktop"> -->
+        {% render 'rimage', image: set.image, size: 'master', wrapper_class: 'Rectangle-1599 hide--mobile' %}
+        {% render 'rimage', image: set.sp_image, size: 'master', wrapper_class: 'hide--desktop' %}
     </div>
 
     <div class="section-image_left">
